@@ -4,13 +4,21 @@ const jwt = require("jsonwebtoken");
 
 
 const userlogin = async function (req, res) {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> sub
     try {
         const { email, password } = req.body;
         const user = await userdata.findOne({ email });
         console.log(user)
         if (user && ( bcrypt.compare(password, user.password))) {
           const token = jwt.sign({ email:user.email }, process.env.JWT_SECRET,{
+<<<<<<< HEAD
             expiresIn:"24hr"
+=======
+            expiresIn:"1hr"
+>>>>>>> sub
           });
     
           res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
@@ -30,8 +38,11 @@ const userlogin = async function (req, res) {
       }
      
     };
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> sub
 const Addusers = async (req, res) => {
     try {
         const { username, email, password, confirmPassword, wishlist, cart } = req.body;
