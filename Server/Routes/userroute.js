@@ -6,7 +6,7 @@ const cookieParser= require("cookie-parser");
 
 
 userrouter.use(cookieParser());
-userrouter.get("/login",ProductControllers.userlogin)
+userrouter.get("/",ProductControllers.userlogin)
 // userrouter.get("/:id",ProductControllers.userdetails)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser)

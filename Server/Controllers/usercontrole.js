@@ -4,20 +4,34 @@ const jwt = require("jsonwebtoken");
 
 
 const userlogin = async function (req, res) {
-    const { email, password } = req.body;
-    const user = await userReg.findOne({ email });
-    console.log(user);
-    if (user && (bcrypt.compare(password, user.password))) {
-
-        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-            expiresIn: "24hr"
-        })
-
-        res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
-        res.setHeader("Authorization", token);
-        console.log("token :", token);
-    }
-}
+    try {
+        const { email, password } = req.body;
+        const user = await userdata.findOne({ email });
+        console.log(user)
+        if (user && ( bcrypt.compare(password, user.password))) {
+          const token = jwt.sign({ email:user.email }, process.env.JWT_SECRET,{
+            expiresIn:"24hr"
+          });
+    
+          res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
+          res.setHeader("Authorization", token);
+          console.log(token, "requested token");
+        
+          
+    
+          res.status(200).json({message :"welcome user", token});
+    
+        } else {
+          res.status(401).send("Invalid email or password");
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Login failed");
+      }
+     
+    };
+    
+    
 const Addusers = async (req, res) => {
     try {
         const { username, email, password, confirmPassword, wishlist, cart } = req.body;

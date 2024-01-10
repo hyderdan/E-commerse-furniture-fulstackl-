@@ -11,8 +11,8 @@ import axios from "axios";
 
 export default function Login1() {
   const { users, islogedin, setIslogedin, setlogin, login, token, settoken } = useContext(mydata);
-  const [credentials, setCredentials] = useState("");
-  const [credentials2, setCredentials2] = useState("");
+  const [Email, setemail] = useState("");
+  const [Passw, setpass] = useState("");
 
   const Nav = useNavigate();
   function logout() {
@@ -30,36 +30,33 @@ export default function Login1() {
   // useEffect(()=>{
   //   fectdata();
   // },[]);
+  
 
-
-  const handleSubmit = async (e) => {
+  const Login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/register/login",
-        {
-          email: credentials,
-          password: credentials2,
-        },
-        {
-
-          withCredentials: true,
-        }
-      );
-      const data = response.data;
-      console.log(response.data);
-      console.log("token in frontEnd", data.token);
-      console.log("Login successful", data.message);
-      settoken(data.token)
-      alert("Login Success!!!!");
-      Nav("/");
-      setlogin(false);
+        const response = await axios.post(
+            "http://localhost:5000/users",
+            {
+                email: Email,
+                password: Passw,
+            },
+            {
+                withCredentials: true,
+            }
+        );
+        const data = response.data;
+        console.log(response.data);
+        console.log("token in frontEnd", data.token);
+        console.log("Login successful", data.message);
+        settoken(data.token)
+        alert("Login Success!!!!");
+        Nav("/");
     } catch (error) {
-      console.log(error.response.data);
-      alert("Registration failed!!!");
+        console.log(error.response.data);
+        alert("Registration failed!!!");
     }
-  };
-
+};
   return (
 
     <form>
@@ -70,13 +67,13 @@ export default function Login1() {
             <div className="form1">
               <div className="form-group1">
                 <label htmlFor='email' />
-                <input className="formname1" value={credentials} onChange={(e) => { setCredentials(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
+                <input className="formname1" value={Email} onChange={(e) => { setemail(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
               </div>
               <div className="form-group1">
                 <label htmlFor='password' />
-                <input className="formname1" value={credentials2} onChange={(e) => { setCredentials2(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
+                <input className="formname1" value={Passw} onChange={(e) => { setpass(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
               </div>
-              <button onClick={handleSubmit} className='signup-button1'>Login</button>
+              <button onClick={Login} className='signup-button1'>Login</button>
               <p>
                 Don't have an account <Link to="/signup">Sign Up</Link>
               </p>
