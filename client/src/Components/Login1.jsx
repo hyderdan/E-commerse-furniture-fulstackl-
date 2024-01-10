@@ -12,7 +12,7 @@ import axios from "axios";
 export default function Login1() {
   const { users, islogedin, setIslogedin, setlogin, login, token, settoken } = useContext(mydata);
   const [Email, setemail] = useState("");
-  const [Passw, setpass] = useState("");
+  const [Passw, setpassw] = useState("");
 
   const Nav = useNavigate();
   function logout() {
@@ -71,7 +71,7 @@ export default function Login1() {
               </div>
               <div className="form-group1">
                 <label htmlFor='password' />
-                <input className="formname1" value={Passw} onChange={(e) => { setpass(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
+                <input className="formname1" value={Passw} onChange={(e) => { setpassw(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
               </div>
               <button onClick={Login} className='signup-button1'>Login</button>
               <p>
