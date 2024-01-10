@@ -1,42 +1,51 @@
-const {userdata}= require("../schema");
+const { userdata } = require("../schema");
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken");
 
 
-const getallusers= async function (req, res) {
-    const data = await userdata.find({});
-    res.status(200).send(data)
-}
-const userdetails=async (req,res)=>{
-    try{
-        console.log(req.params.id);
-        const userdetails=await userdata.findById(req.params.id);
-       if(userdetails){
-        return res
-        .status(200)
-        .json(userdetails);
-       }
-       return res.status(404).json({error:"product not found"});
-    }catch(err){
-        console.log(err);
-        res.status(500).json({message:"server error"})
-    }
-}
-const addusers=async function (req, res) {
-    try {
-        const {  username,email, password, cart} = req.body
-        const userid = new userdata({
-            username,email,password,cart
+const userlogin = async function (req, res) {
+    const { email, password } = req.body;
+    const user = await userReg.findOne({ email });
+    console.log(user);
+    if (user && (bcrypt.compare(password, user.password))) {
+
+        const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+            expiresIn: "24hr"
         })
-        await userid.save()
-        res.json({ message: "saved successfully" })
+
+        res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
+        res.setHeader("Authorization", token);
+        console.log("token :", token);
     }
-    catch (err) { console.log(err) }
+}
+const Addusers = async (req, res) => {
+    try {
+        const { username, email, password, confirmPassword, wishlist, cart } = req.body;
+        if (password !== confirmPassword) {
+            return res.status(400).json({ error: "Passwords do not match" });
+        }
+
+        const userExists = await userdata.findOne({ email });
+        if (userExists) {
+            return res.status(400).json({ error: "User already exists" });
+        }
+        // const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new userdata({ username, email, password: hashedPassword, cart, wishlist });
+        await user.save()
+        res.status(202).json({ message: "saved successfully" });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "server error" })
+    }
 }
 
-const updateuser=async function (req,res){
+
+const updateuser = async function (req, res) {
     try {
         const { id } = req.params
-        const { username,email, password, cart} = req.body
-        const user = await productdata.findByIdAndUpdate(id, {  username,email, password, cart }, { new: true })
+        const { username, email, password,wishlist,cart } = req.body
+        const user = await productdata.findByIdAndUpdate(id, { username, email, password,wishlist,cart }, { new: true })
         res.json(user)
         console.log(user)
     }
@@ -44,6 +53,6 @@ const updateuser=async function (req,res){
 }
 
 
-module.exports={
-    getallusers,userdetails,addusers,updateuser
+module.exports = {
+    userlogin, Addusers, updateuser
 }

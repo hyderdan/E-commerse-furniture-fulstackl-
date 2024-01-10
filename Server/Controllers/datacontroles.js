@@ -1,6 +1,7 @@
 const {productdata}= require("../schema");
 
 
+
 const getallproducts= async function (req, res) {
     const data = await productdata.find({});
     res.status(200).send(data)

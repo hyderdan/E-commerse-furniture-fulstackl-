@@ -25,6 +25,10 @@ const userschema=new mongoose.Schema({
     username:String,
     email:String,
     password:String,
+    confirmPassword:String,
+    wishlist:[{
+
+    }],
     cart:[{
         type:String
     }]

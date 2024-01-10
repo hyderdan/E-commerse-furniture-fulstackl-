@@ -27,76 +27,77 @@ import { useEffect } from "react";
 
 
 function App() {
-  
-  const [Sofadata,Setsofadata]=useState([])
-  const[Footersub4,SetFootersub4]=useState(footersub4)
-  const[Productdetail,Setproductdetail]=useState([])
-  
-  const[Addtokart,Setaddtokart]=useState([])
-  const[Count,Setcount]=useState(0)
-  const[Count1,Setcount1]=useState(0)
-  const [ users, setUsers  ] = useState([])
-  const[recently,setrecently]=useState([])
-  const[recentsub,setrecentsub]=useState([])
-  const [ islogedin,setIslogedin ] = useState(false);
-  const[price,setprice]=useState('');
-  const[homedata,sethomedata]=useState([])
+
+  const [Sofadata, Setsofadata] = useState([])
+  const [Footersub4, SetFootersub4] = useState(footersub4)
+  const [Productdetail, Setproductdetail] = useState([])
+  const [token, settoken] = useState("");
+  const [Addtokart, Setaddtokart] = useState([])
+  const [Count, Setcount] = useState(0)
+  const [Count1, Setcount1] = useState(0)
+  const [users, setUsers] = useState([])
+  const [recently, setrecently] = useState([])
+  const [recentsub, setrecentsub] = useState([])
+  const [islogedin, setIslogedin] = useState(false);
+  const [price, setprice] = useState('');
+  const [homedata, sethomedata] = useState([])
   const [admin, setadmin] = useState({
-    username: "admin",    
+    username: "admin",
     password: "admin123",
   });
-  const[login,setlogin]=useState(true)
+  const [login, setlogin] = useState(true)
 
 
-  useEffect(()=>{
+  useEffect(() => {
     fectdata();
-  },[]);
-  const fectdata = async ()=>{
+  }, []);
+  const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
   }
-  const fectuserdata = async ()=>{
+  const fectuserdata = async () => {
     const responce = await axios.get('http://localhost:5000/users');
     setUsers(responce.data);
-   
+
   }
-  
 
-  useEffect(()=>{
+
+  useEffect(() => {
     fectuserdata();
-  },[]);
+  }, []);
 
 
-   const values={
-    Footersub4,SetFootersub4,Sofadata,Setsofadata,Productdetail,Setproductdetail,
-   Addtokart,Setaddtokart,Count,Setcount,Count1,Setcount1,users,setUsers,islogedin,setIslogedin,
-    price,setprice,admin, setadmin,recently,setrecently,recentsub,setrecentsub,homedata,sethomedata,login,setlogin
-   }
+  const values = {
+    Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
+    Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
+    price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
+    , token, settoken
+  }
   return (
     <div className="App">
       <BrowserRouter>
-      <mydata.Provider value={values}>
+        <mydata.Provider value={values}>
           <Routes>
-          <Route path='/' element={<Home /> } />
-          <Route path='/footer' element={<Footer /> } />
-          <Route path='/sofas' element={<Sofas/>} />
-          <Route path='/bed' element={<Bed/>} />
-          <Route path='/wishlist' element={<Wishlist/>} />
-          <Route path='/productdetails/:id' element={<Chelsea/>} />
-          <Route path='/addtocart' element={<Cart/> } />
-          <Route path='/signup' element={<Loginpage/> } />
-          <Route path='/login' element={<Login1/> } />
-          <Route path='/adminlogin' element={<Adminpanellogin/> } />
-          <Route path='/admin' element={<Adminlogin/> } />
-          <Route path='/payment' element={<Payment/> } />
-          <Route path='/Aaddproducts' element={<Adminaddproducts/>} />
-          <Route path='/Aproductsdetail' element={<Admiinproductdet/>} />
-          <Route path='/dining' element={<Dining/>} />
-          <Route path='/dealzone' element={<Dealzone/>} />
-          <Route path='/recentlyviewed' element={<Rviewd/>} />
-        
-        
-        </Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/footer' element={<Footer />} />
+            <Route path='/sofas' element={<Sofas />} />
+            <Route path='/bed' element={<Bed />} />
+            <Route path='/wishlist' element={<Wishlist />} />
+            <Route path='/productdetails/:id' element={<Chelsea />} />
+            <Route path='/addtocart' element={<Cart />} />
+            <Route path='/signup' element={<Loginpage />} />
+            <Route path='/login' element={<Login1 />} />
+            <Route path='/adminlogin' element={<Adminpanellogin />} />
+            <Route path='/admin' element={<Adminlogin />} />
+            <Route path='/payment' element={<Payment />} />
+            <Route path='/Aaddproducts' element={<Adminaddproducts />} />
+            <Route path='/Aproductsdetail' element={<Admiinproductdet />} />
+            <Route path='/dining' element={<Dining />} />
+            <Route path='/dealzone' element={<Dealzone />} />
+            <Route path='/recentlyviewed' element={<Rviewd />} />
+
+
+          </Routes>
         </mydata.Provider>
       </BrowserRouter>
     </div>

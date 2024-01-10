@@ -43,22 +43,30 @@ export default function Loginpage(){
         }
         if(!confirmpassword){
           handleerror.confirmpassword='This Field is Required'
-        } else if(confirmpassword!==userpass){
-          handleerror.confirmpassword='Not Match'
-        }
+        } 
         setBug(handleerror)
         if(Object.keys(handleerror).length===0){    
         // If the user data is valid, add the user to the users array 
         try{
-          await axios.post('http://localhost:5000/users',{username:userid,email:useremail,password:userpass},
+         const responce= await axios.post('http://localhost:5000/users/register',{username:userid,email:useremail,password:userpass
+        ,confirmPassword:confirmpassword},
           (req, res) => console.log(req.body));
-          // fectdata();    
+          // fectdata();  
+          if (responce.status === 202) {
+            alert('Registration successful');
+            // nav('/');
+        } else {
+            alert('Registration failed');
         }
-        catch (error) {
-          console.error('error occured', error)
-      }
-       alert("Registered Successfully");
-       console.log(users)
+        setuserid("");
+        setuseremail("");
+        setuserpass("");
+        setconfirmpassword("");
+    } catch (error) {
+        console.log(error.response.data);
+        alert('Registration failed');
+    }
+       
       }
        }
        

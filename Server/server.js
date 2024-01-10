@@ -7,9 +7,15 @@ const{userrouter}=require("./Routes/userroute")
 const {Connect}=require("./config/config")
 const app= express();
 const PORT=5000
-
+require("dotenv").config();
 app.use(bodyparser.json())
-app.use(cors())
+app.use(cors(
+    {
+        origin:"http://localhost:3000",
+    methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials:true,
+    }
+))
 app.use("/product",router)
 app.use("/homeimage",router2)
 app.use("/users",userrouter)

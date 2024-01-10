@@ -1,10 +1,14 @@
 const express=require("express");
 const userrouter=express.Router();
 const ProductControllers=require("../Controllers/usercontrole");
+const cookieParser= require("cookie-parser");
 
-userrouter.get("/",ProductControllers.getallusers)
-userrouter.get("/:id",ProductControllers.userdetails)
-userrouter.post("/",ProductControllers.addusers)
+
+
+userrouter.use(cookieParser());
+userrouter.get("/login",ProductControllers.userlogin)
+// userrouter.get("/:id",ProductControllers.userdetails)
+userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser)
 
 module.exports={
