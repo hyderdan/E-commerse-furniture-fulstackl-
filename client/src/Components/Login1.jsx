@@ -11,8 +11,8 @@ import axios from "axios";
 
 export default function Login1() {
   const { users, islogedin, setIslogedin, setlogin, login, token, settoken } = useContext(mydata);
-  const [credentials, setCredentials] = useState("");
-  const [credentials2, setCredentials2] = useState("");
+  const [Email, setemail] = useState("");
+  const [passw, setCrededvkdm2] = useState("");
 
   const Nav = useNavigate();
   function logout() {
@@ -36,7 +36,7 @@ export default function Login1() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/register/login",
+        "http://localhost:5000/users/login",
         {
           email: credentials,
           password: credentials2,
@@ -70,11 +70,11 @@ export default function Login1() {
             <div className="form1">
               <div className="form-group1">
                 <label htmlFor='email' />
-                <input className="formname1" value={credentials} onChange={(e) => { setCredentials(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
+                <input className="formname1" value={credes} onChange={(e) => { setCreials(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
               </div>
               <div className="form-group1">
                 <label htmlFor='password' />
-                <input className="formname1" value={credentials2} onChange={(e) => { setCredentials2(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
+                <input className="formname1" value={creden2} onChange={(e) => { setCreals2(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
               </div>
               <button onClick={handleSubmit} className='signup-button1'>Login</button>
               <p>
