@@ -1,0 +1,25 @@
+.panelmain{
+    background: #f7f3f3;  /* fallback for old browsers */
+    height: 800px;
+   
+   
+}
+.panelsub1{
+    position: absolute;
+    background-color: #FFF;
+    height: 50px;
+    width: 1519px;
+   
+}
+.adname{
+    font-family: cursive;
+}
+.panelsub3{
+    position: absolute;
+    /* background-color: red; */
+    height: auto;
+    width: 1000px;
+    margin-left: 270px;
+    margin-top: 80px;
+    
+}

@@ -1,0 +1,122 @@
+
+.sfirstdiv{
+    margin-top: 45px;
+    border-bottom: 1px solid #e6e3e3;
+    height: 180px;
+}
+.sfirstdiv h1{
+    font-family: "Mrs Eaves XL Serif", serif;
+}
+.sfirstdiv p{
+    font-size: 14px;
+}
+.sseconddiv{
+    /* background-color: red; */
+    margin-left: 200px;
+    width: 1100px;
+    height: 100px;
+    border-bottom: 1px solid  #e6e3e3;
+}
+.sseconddiv p{
+    float: left;
+    margin-left: 20px;
+}
+.dropdown1{
+    float: left;
+    margin-top: 30px;
+    margin-left: -30px;
+    width: 60px;
+    height: 50px;
+    color: orangered;
+}
+.dropdown2{
+    float: left;
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 60px;
+    height: 50px;
+   
+}
+.stogle1{
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    background-color:  orangered;;
+}
+.stogle2{
+    width: 130px;
+    height: 30px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color:  orangered;;
+}
+.sthirddiv{
+  /* background-color: red; */
+  border-bottom: 1px solid #e6e3e3;
+  margin-left: 200px;
+  width: 1100px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.sthirdsub{
+    width: 350px;
+    height: 450px;
+    /* background-color: red; */
+   margin-top: 30px;
+}
+.sthirdsub:hover{
+    box-shadow: 2px 3px 10px   #e6e3e3;
+}
+.Sthirdimg{
+    margin-top: 30px;
+    width: 300px;
+    height: 200px;
+}
+.sthirdmini{
+   
+    width: 300px;
+    height: 100px;
+    margin-left: 20px;
+}
+.sthirdmini h6{
+    padding-top: 20px;
+    margin-top: 5px;
+}
+.sthirdsub:hover .sbutton1{
+   display: block;
+   margin-left: 65px;
+}
+.sbutton1{
+    position: absolute;
+    display: none;
+    font-style: normal;
+   border-radius: 3px;
+   border: none;
+   color: white;
+   background-color: rgb(247, 142, 104);
+  font-size: 13px;
+   height: 30px;
+   width: 170px;
+   transition: 0.8s;
+   
+}
+.sbutton1:hover{
+background-color: orangered;
+}
+.sbutton2{
+    margin-left: 260px;
+   margin-top: 10px;
+    font-size: 25px;
+}
+.sbutton2:active{
+    color: red;
+}
+.sbuttonsub{
+    color: red;
+}

@@ -1,0 +1,156 @@
+.chelseasub1{
+    /* background-color: red; */
+    border-bottom: 1px solid  #e6e3e3;
+    margin-left: 200px;
+    width: 1100px;
+    height: 200px;
+}
+.chelseasub1 h2{
+    position: absolute;
+    font-family: "Mrs Eaves XL Serif", serif;
+    margin-top: 100px;
+}
+.chelseasub1 h3{
+    position: absolute;
+    margin-top: 140px;
+    font-family: "Mrs Eaves XL Serif", serif;
+}
+.chelseasub1 h4{
+    position: absolute;
+    margin-top: 168px;
+    font-family: "Mrs Eaves XL Serif", serif;
+}
+.chelseabutton{
+    
+    margin-left: 900px;
+    margin-top: 150px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: rgb(247, 142, 104);
+    height: 40px;
+   width: 170px;
+   transition: 0.8s;
+}
+.chelseabutton:hover{
+    background-color: orangered;
+}
+.chelseasub2{
+
+    /* background-color: red; */
+      border-bottom: 1px solid  #e6e3e3;
+      margin-top: 30px;
+      width: 1100px;
+      height: 400px
+}
+.prductdet{
+    border-bottom: 1px solid  #e6e3e3;
+    /* margin-left: 200px; */
+    width: 1100px;
+    height: 400px;
+    /* background-color: red; */
+}
+.arinacarou{
+    margin-top: 60px;
+height: 400px;
+width: 1100px;
+/* background-color: rebeccapurple; */
+
+}
+.arinaimg{
+ height: 300px;
+width: auto;
+}
+.carousel-control-prev{
+    color: red;
+}
+.chelseasub3{
+    border-bottom: 1px solid  #d7d4d4;
+    margin-top: 860px;
+    margin-left: 200px;
+    width: 1100px;
+    height: 200px;
+   
+}
+.chelseasub3mini{
+    position: absolute;
+   
+    width: 200px;
+    margin-top: 40px;
+    margin-left: 80px;
+}
+
+.chelseasub3mini p{
+    font-size: 13px;
+    color: rgb(173, 173, 246);
+}
+.chelseasub3mini2{
+    position: absolute;
+   
+    width: 250px;
+    margin-top: 40px;
+    margin-left: 430px;
+}
+
+.chelseasub3mini2 p{
+    font-size: 13px;
+    color: rgb(173, 173, 246);
+}
+.chelseasub3mini3{
+    position: absolute;
+  
+    width: 200px;
+    margin-top: 40px;
+    margin-left: 800px;
+}
+
+.chelseasub3mini3 p{
+    font-size: 13px;
+    color: rgb(173, 173, 246);
+}
+.chelseasuvb4{
+    border-bottom: 1px solid  #e6e3e3;
+    margin-left: 200px;
+    width: 1100px;
+    height: 800px;
+    /* background-color: red; */
+}
+.chelseasuvb4 h2{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 400px;
+    font-family: "Mrs Eaves XL Serif", serif;   
+
+
+}
+.chelseasuvb4 h5{
+    position: absolute;
+    margin-top: 45px;
+    margin-left: 460px;
+    z-index: 1;
+    color:  #e85348;
+}
+.chelseasuvb4 p{
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 300px;
+    z-index: 1;
+    font-family: "Mrs Eaves XL Serif", serif;   
+
+}
+.chelseasuvb4 img{
+    position: absolute;
+    margin-top: 160px;
+    margin-left: -400px;
+}
+.imaged{
+   
+    height: 500px;
+    width: 650px;
+
+}
+.Ddiv{
+    position: absolute;
+    margin-left: 600px;
+    
+}

@@ -1,0 +1,190 @@
+.footersub1{
+    border-bottom: 1px solid #EEE;
+    height: 120px;
+}
+.footersub1 p{
+    margin-top: 40px;
+    font-family:  "Mr Eaves XL Modern", sans-serif;
+    font-size: 14pt;
+    color: #000000;
+    line-height: 20px;
+}
+.footersub1text{
+    width: 200px;
+    height: 40px;
+    margin-left: -150px;
+}
+.footersub1button{
+    position: absolute;
+    background-color: #ED7745;
+    color: white;
+    border: 1px solid #ED7745;
+    border-radius: 3px;
+    width: 130px;
+    height: 40px;
+    margin-left: 20px;
+    transition:  300ms ease-out;;
+}
+.footersub1button:hover{
+    background-color: #f76729;
+}
+.footersub2{
+    margin-left: 220px;
+    margin-top: 60px;
+    height: 200px;
+    /* background-color: red; */
+    border-bottom: 1px solid #dcd9d9;  
+}
+.footersub2 h6{
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    color: black;
+}
+.footersubp{
+    
+   padding-top: 0px;
+   margin-left: 10px;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   height: 170px;
+   list-style: none;
+   align-items: center;
+  
+}
+.footersubp li{
+    list-style: none;
+   text-align: left;
+   font-size: 14px;
+   padding-top: -5px;
+  
+  
+}
+.footersubp2{
+    /* background-color: red; */
+    margin-top: -172px;
+    margin-left: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 170px;
+    list-style: none;
+    align-items: center;
+   
+ }
+ .footersubp2 li{
+     list-style: none;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 5px;
+   
+ }
+ .footersubp3{
+    /* background-color: red; */
+    margin-top: -190px;
+    margin-left: 357px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 170px;
+    list-style: none;
+    align-items: center;
+   
+ }
+ .footersubp3 li{
+     list-style: none;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 5px;
+   
+ }
+ .footersubp4{
+    /* background-color: red; */
+    margin-top: -187px;
+    margin-left: 550px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 170px;
+    list-style: none;
+    align-items: center;
+   
+ }
+ .footersubp4 li{
+     list-style: none;
+    text-align: left;
+    font-size: 14px;
+    padding-top: 5px;
+   
+ }
+ .footersubp5{
+    /* background-color: red; */
+    margin-top: -187px;
+    margin-left: 800px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 170px;
+    list-style: none;
+    align-items: center;
+   
+ }
+ .footersubp5 h6{
+    position: absolute;
+    margin-top: -33px;
+    margin-left: 0px;
+ }
+ .footersubp5 p{
+    text-align: left;
+    font-size: 12px;
+    padding-top: 10px;
+    margin-top: 80px;
+ }
+ .footersub3{
+    /* background-color: red; */
+    height: 100px;
+ }
+ .footersub3 h5{
+    float: left;
+    margin-left: 250px;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+ }
+ .footersub3li{
+    margin-top: -60px;
+    margin-left: 200px;
+ }
+ .footersub3li ul{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+ }
+ .footersub3li li{
+    list-style: none;
+    padding-left: 20px;
+    font-size: 20px;
+   
+ }
+ .footersub4{
+    background-color: #2F4858;
+    height: 40px;
+ }
+ .footersub4 h5{
+    float: left;
+    margin-left: 250px;
+    color: white;
+    margin-top: 5px;
+ }
+ .footersubmap{
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap; 
+ }
+ 
+ .footersubmap img{
+   width: 20px;
+   height: 20px;
+   margin-left: 20px;
+   margin-top: 10px;
+  
+ }
+ 
+ 

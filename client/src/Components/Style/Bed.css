@@ -1,0 +1,120 @@
+
+.bfirstdiv{
+    margin-top: 45px;
+    border-bottom: 1px solid #e6e3e3;
+    height: 180px;
+}
+.bfirstdiv h1{
+    font-family: "Mrs Eaves XL Serif", serif;
+}
+.bfirstdiv p{
+    font-size: 14px;
+}
+.bseconddiv{
+    /* background-color: red; */
+    margin-left: 200px;
+    width: 1100px;
+    height: 100px;
+    border-bottom: 1px solid  #e6e3e3;
+}
+.bseconddiv p{
+    float: left;
+    margin-left: 20px;
+}
+.bdropdown1{
+    float: left;
+    margin-top: 30px;
+    margin-left: -30px;
+    width: 60px;
+    height: 50px;
+    color: orangered;
+}
+.bdropdown2{
+    float: left;
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 60px;
+    height: 50px;
+   
+}
+.btogle1{
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    background-color:  orangered;;
+}
+.btogle2{
+    width: 130px;
+    height: 30px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color:  orangered;;
+}
+.bthirddiv{
+  /* background-color: red; */
+  border-bottom: 1px solid #e6e3e3;
+  margin-left: 200px;
+  width: 1100px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.bthirdsub{
+    width: 350px;
+    height: 450px;
+    /* background-color: red; */
+   margin-top: 30px;
+}
+.bthirdsub:hover{
+    box-shadow: 2px 3px 10px   #e6e3e3;
+}
+.bthirdimg{
+    margin-top: 30px;
+    width: 300px;
+    height: 200px;
+}
+.bthirdmini{
+   
+    width: 300px;
+    height: 100px;
+    margin-left: 20px;
+}
+.bthirdmini h6{
+    padding-top: 20px;
+    margin-top: 5px;
+}
+.bthirdsub:hover .bbutton1{
+   display: block;
+   margin-left: 65px;
+   margin-top: 30px;
+}
+.bbutton1{
+    display: none;
+    font-style: normal;
+   
+   border-radius: 3px;
+   border: none;
+   color: white;
+   background-color: rgb(247, 142, 104);
+  font-size: 13px;
+   height: 30px;
+   width: 170px;
+   transition: 0.8s;
+   margin-top: -10px;
+}
+.bbutton1:hover{
+background-color: orangered;
+}
+.bbutton2{
+    margin-left: 260px;
+   margin-top: 10px;
+    font-size: 25px;
+}
+.bbuttonsub{
+    color: red;
+}

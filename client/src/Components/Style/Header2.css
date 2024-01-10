@@ -1,0 +1,165 @@
+.seconddiv{
+    height: 40px;
+    border-bottom: 1px solid #EEE;
+    background: #FFEFBA;  
+background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA); 
+background: linear-gradient(to right, #FFFFFF, #FFEFBA);   
+}
+.seconddivh3{
+    position: absolute;
+    margin-left: 300px;
+    margin-top: 3px;
+    font-size: 19px;
+}
+.seconddivp{
+    position: absolute;
+    margin-left: 330px;
+    font-size: 13px;
+    margin-top: 9px;   
+}
+.seconddivh32{
+    position: absolute;
+    margin-left: 380px;
+    margin-top: 3px;
+    font-size: 19px;
+}
+.seconddivp2{
+    position: absolute;
+    margin-left: 410px;
+    font-size: 13px;
+    margin-top: 9px;   
+}
+.seconddivp3{
+    position: absolute;
+    margin-left: 1000px;
+    font-size: 13px;
+    margin-top: 9px;   
+}
+.seconddivp4{
+    position: absolute;
+    margin-left: 1100px;
+    font-size: 13px;
+    margin-top: 9px;   
+}
+.seconddivp5{
+    position: absolute;
+    margin-left: 1200px;
+    font-size: 13px;
+    margin-top: 9px;   
+}
+.link2{
+    color: black;
+}
+.link2:hover{
+    color: #e85348;
+}
+.thirddiv{
+    height: 80px;
+    border-bottom: 1px solid #EEE;
+}
+.searchbar{
+    width: 600px;
+    height: 35px;
+    margin-top: 23px;
+    border: 1px solid #cdc9c9;
+    border-radius: 3px;
+}
+.searchbarbutton{
+ /* background-color: red; */
+ position: absolute;
+ margin-left: 1020px;
+ margin-top: -45px;
+ font-size: 20px;
+ width: 50px;
+ height: 38px;
+ border-radius: 3px;
+}
+.searchbarbutton h3{
+padding-top: 5px;
+}
+.thirddivh3{
+    position: absolute;
+    margin-left: 1200px;
+    margin-top: -38px;
+    font-size: 25px;    
+}
+.thirddivh4{
+    position: absolute;
+    margin-left: 1250px;
+    margin-top: -38px;
+    font-size: 25px;   
+}
+.thirddivh5{
+    position: absolute;
+    margin-left: 1300px;
+    margin-top: -38px;
+    font-size: 25px;   
+}
+.thirddivh6{
+    position: absolute;
+    margin-left: 1350px;
+    margin-top: -43px;
+    font-size: 30px;   
+
+}
+.logo{
+    position: absolute;
+    margin-left: 200px;
+    margin-top: 25px;
+    font-size: 25px;
+    font-family: Helvetica, Arial, sans-serif
+}
+.wishcount{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    background-color: lightgray;
+   margin-left: 1265px;
+   margin-top: -60px;
+   border-radius: 5px;
+   opacity: 0.8;
+}
+.wishcount1{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    font-size: 13px;
+    background-color: lightgray;
+   margin-left: 1315px;
+   margin-top: -60px;
+   border-radius: 5px;
+   opacity: 0.8;
+}
+.loginhover{
+    display: none;
+    z-index: 1;
+    width: 100px;
+    height: 75px;
+    position: absolute;
+    background-color: white;
+    margin-top: 22px;
+    margin-left: -37px; 
+    border-radius: 3px;
+    border: 1px solid gray;
+    background-color: gray;
+    font-family: Helvetica, Arial, sans-serif;
+    transition: 2s;
+}
+
+.loginhoverarrow{
+    display: none;
+    z-index: 1;
+    position: absolute;
+    color: gray;
+    transition: 2s;
+}
+.thirddivh3:hover .loginhoverarrow{
+    display: block;
+}
+.thirddivh3:hover .loginhover{
+    display: block;
+}
+.headerL{
+    color: black;
+}

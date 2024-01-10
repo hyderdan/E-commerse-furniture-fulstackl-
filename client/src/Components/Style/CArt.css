@@ -1,0 +1,184 @@
+.cartsubdiv1{
+    margin-top: 50px;
+    margin-left: 300px;
+    font-family: "Mrs Eaves XL Serif", serif;
+     border-bottom: 1px solid #d7d5d5;
+     width: 850px;
+}
+.cartsubdiv2{
+    margin-top: 50px;
+    margin-left: 300px;
+    width: 850px;
+    height: 70px;
+    background-color: #C7EFCf80;
+}
+.cartsubdiv2 h4{
+    float: left;
+    margin-left: 25px;
+    margin-top: 0px;
+}
+.cartsubdiv2 h6{
+    float: left;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    font-size: 15px;
+    margin-left: 8px;
+    margin-top: 10px;
+}
+.cartsubdiv2 p{
+    float: left;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    font-size: 14px;
+    margin-left: -130px;
+    margin-top: 40px;
+    color: rgb(152, 152, 225);
+}
+.cartsubdiv3{
+    margin-left: 300px;
+    width: 850px;
+    height: 33px;
+    border-bottom: 1px solid #d7d5d5;
+}
+.subdiv3p1{
+   width: 100px;
+   font-family: "Mr Eaves XL Modern", sans-serif;
+   font-size: 15px;
+}
+.subdiv3p2{
+    width: 100px;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    font-size: 15px;
+    margin-left: 350px;
+    margin-top: -40px;   
+}
+.subdiv3p3{
+    width: 100px;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    font-size: 15px;
+    margin-left: 550px;
+    margin-top: -40px;  
+}
+.subdiv3p4{
+    width: 100px;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+    font-size: 15px;
+    margin-left: 760px;
+    margin-top: -40px;  
+}
+.cartsubdiv4{
+    margin-left: 300px;
+    width: 850px;
+    height: 503px;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+}
+.subdiv4img{
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+    margin-left: 25px;
+    box-shadow: 2px 3px 10px   #e6e3e3;
+    
+   
+}
+.cartsubdivmini{
+    margin-top: 20px;
+    width: 350px;
+    height: 100px;
+    margin-left: -10px;
+    /* background-color: red; */
+    
+}
+.cartsubdivmini h5{
+    position: absolute;
+    float: left;
+    margin-top: 20px;
+    margin-left: 120px;
+    font-size: 15px;
+}
+.cartsubdivmini h6{
+    position: absolute;
+    float: left;
+    margin-top:  35px;
+    margin-left: 120px;
+}
+.cartsubdivmini p{
+    position: absolute;
+    float: left;
+    font-size: 10px;
+    margin-top: 55px;
+    margin-left: 120px;
+}
+
+.cartsubdivmini2{
+    margin-top: 20px;
+    width: 100px;
+    height: 50px;
+    margin-left: 760px;
+    /* background-color: red; */
+    
+}
+.cartsubdivmini3{
+    position: absolute;
+    /* background-color: red; */
+    width: 30px;
+    height: 28px;
+    margin-top: -15px;
+    margin-left: 15px;
+}
+.quant{
+    position: absolute;
+    background-color: red;
+    width: 30px;
+    margin-left: 480px;
+}
+.quant h5{
+  
+  margin-left: 130px;
+}
+.p1{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    font-size: 20px;
+    margin-top: 11px;
+    margin-left: 96px;  
+}
+.p2{
+
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    font-size: 27px;  
+    margin-left: 140px;
+    margin-top: 6px;
+}
+.totalpayment{
+    /* background-color: red; */
+    width: 300px;
+    margin-top: -100px;
+    margin-left: 900px;
+    height: 70px;
+    font-family: "Mr Eaves XL Modern", sans-serif;
+};
+.totalpayment h3{
+    font-family: "Mr Eaves XL Modern", sans-serif; 
+}
+.totalpayment button{
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    border-radius: 3px;
+    margin-top: -45px;
+    margin-left: -250px;
+    border: none;
+    background-color: rgb(247, 132, 91);
+    transition: 0.5s;
+}
+.totalpayment button:active{
+    background-color: orangered;
+}
+.incdcr{
+    color: black;
+}

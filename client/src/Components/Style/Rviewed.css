@@ -1,0 +1,76 @@
+.vfirstdiv {
+    margin-top: 65px;
+    height: 180px;
+    font-family: "Mrs Eaves XL Serif", serif;
+}
+.fifv{
+    margin-top: -150px;
+    color: #e85348;
+}
+.vthirddiv{
+  /* background-color: red; */
+  border-bottom: 1px solid #e6e3e3;
+  margin-left: 200px;
+  width: 1100px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+}
+.vthirdsub{
+    width: 350px;
+    height: 450px;
+    /* background-color: red; */
+   margin-top: 30px;
+}
+.vthirdsub:hover{
+    box-shadow: 2px 3px 10px   #e6e3e3;
+}
+.vthirdimg{
+    margin-top: 30px;
+    width: 300px;
+    height: 200px;
+}
+.vthirdmini{
+   
+    width: 300px;
+    height: 100px;
+    margin-left: 20px;
+}
+.vthirdmini h6{
+    padding-top: 20px;
+    margin-top: 5px;
+}
+.vthirdsub:hover .sbutton1{
+   display: block;
+   margin-left: 65px;
+}
+.vbutton1{
+    position: absolute;
+    display: none;
+    font-style: normal;
+   border-radius: 3px;
+   border: none;
+   color: white;
+   background-color: rgb(247, 142, 104);
+  font-size: 13px;
+   height: 30px;
+   width: 170px;
+   transition: 0.8s;
+   
+}
+.vbutton1:hover{
+background-color: orangered;
+}
+.vbutton2{
+    margin-left: 260px;
+   margin-top: 10px;
+    font-size: 25px;
+}
+.vbutton2:active{
+    color: red;
+}
+.vbuttonsub{
+    color: red;
+}
