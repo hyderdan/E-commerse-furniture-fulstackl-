@@ -69,8 +69,8 @@ const updateuser = async function (req, res) {
 };
 const addToCart = async (req, res) => {
     try {
-      const productId = req.params.id;
-      const product = await productdata.findById(productId);
+      const value_id = req.params.id;
+      const product = await productdata.findById(value_id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -81,7 +81,7 @@ const addToCart = async (req, res) => {
       
   
       // add the product to the cart
-      user.cart.push(productId);
+      user.cart.push(value_id);
       await user.save();
   
     //  const updatedUser = await schema.findOne({ email: decoded.email });
@@ -102,5 +102,5 @@ const addToCart = async (req, res) => {
 
 
 module.exports = {
-    userlogin, Addusers, updateuser
+    userlogin, Addusers, updateuser,addToCart
 }

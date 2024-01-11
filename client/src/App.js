@@ -71,7 +71,7 @@ function App() {
     Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
-    , token, settoken
+    , token, settoken,
   }
   return (
     <div className="App">

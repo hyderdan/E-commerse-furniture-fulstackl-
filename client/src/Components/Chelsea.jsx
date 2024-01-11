@@ -14,22 +14,11 @@ import { useState } from "react";
 
 export default function Chelsea(){
     
-    function Addtocart(value){
-        if(Addtokart.includes(value)){
-            Setaddtokart(Addtokart.filter((d)=>d!==value))
-            Setcount1(Count1-1);
-        }
-        else{
-          const cart=value;
-          Setaddtokart([...Addtokart,cart]);
-        console.log(Addtokart)
-        Setcount1(Count1+1)
-        } 
-    }
-   const{Addtokart,Setaddtokart,Count1,Setcount1,Sofadata}=useContext(mydata)
+   
+   const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token}=useContext(mydata)
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
-   console.log(Productdetail1)
+   console.log(token);
   //  const fetchproductsdetails= async()=>{
   //   try{
   //     const responce= await axios.get(`http://localhost:5000/product/${id}`,);
@@ -54,6 +43,30 @@ export default function Chelsea(){
   const products=Productdetail1.filter((data)=>
   data._id===id
   );
+    settoken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh5ZGVyLmRhbmlzaDM2OUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ5NjYxODMsImV4cCI6MTcwNDk")
+  const Addtocart=async(value_id)=>{
+    try {
+      if(!token){
+        console.log("user not authenticated");
+      }
+      const response = await axios.post(
+        `http://localhost:5000/users/cart/${value_id}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      settoken(response.data.user.token); // Update the user token
+      alert("product added to cart")
+     
+    } catch (error) {
+      alert("Error adding to cart")
+      console.error("Error adding to cart:", error);
+    }
+  };
 
  
     return(
@@ -65,7 +78,7 @@ export default function Chelsea(){
          <h2>{data.name}</h2>
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
-        <button onClick={()=>Addtocart(data)} className="chelseabutton">{Addtokart.includes(data)?"REMOVE FROM CART":"ADD TO CART"}</button>
+        <button onClick={()=>Addtocart(data._id)} className="chelseabutton">{Addtokart.includes(data)?"REMOVE FROM CART":"ADD TO CART"}</button>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">
       <Carousel.Item>     
