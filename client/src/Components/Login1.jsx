@@ -11,8 +11,8 @@ import axios from "axios";
 
 export default function Login1() {
   const { users, islogedin, setIslogedin, setlogin, login, token, settoken } = useContext(mydata);
-  const [Email, setemail] = useState("");
-  const [Passw, setpassw] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassw] = useState("");
 
   const Nav = useNavigate();
   function logout() {
@@ -31,20 +31,21 @@ export default function Login1() {
   //   fectdata();
   // },[]);
   
-
+  console.log(email,password)
   const Login = async (e) => {
     e.preventDefault();
     try {
         const response = await axios.post(
-            "http://localhost:5000/users",
+            'http://localhost:5000/users/login',
             {
-                email: Email,
-                password: Passw,
+                email,
+                password,
             },
             {
                 withCredentials: true,
             }
         );
+        
         const data = response.data;
         console.log(response.data);
         console.log("token in frontEnd", data.token);
@@ -67,11 +68,11 @@ export default function Login1() {
             <div className="form1">
               <div className="form-group1">
                 <label htmlFor='email' />
-                <input className="formname1" value={Email} onChange={(e) => { setemail(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
+                <input className="formname1" value={email} onChange={(e) => { setemail(e.target.value) }} type='text' name='email' placeholder='Enter your email'></input>
               </div>
               <div className="form-group1">
                 <label htmlFor='password' />
-                <input className="formname1" value={Passw} onChange={(e) => { setpassw(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
+                <input className="formname1" value={password} onChange={(e) => { setpassw(e.target.value) }} type='password' name='Password' placeholder='Enter your password'></input>
               </div>
               <button onClick={Login} className='signup-button1'>Login</button>
               <p>

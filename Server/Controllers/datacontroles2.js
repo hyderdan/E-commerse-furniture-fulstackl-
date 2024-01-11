@@ -14,7 +14,7 @@ const addproducts2=async function (req, res) {
         res.json({ message: "saved successfully" })
     }
     catch (err) { console.log(err) }
-}
+};
 
 module.exports={
     getallproducts2,addproducts2

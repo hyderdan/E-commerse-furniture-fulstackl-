@@ -1,24 +1,18 @@
-const { userdata } = require("../schema");
+const { userdata,productdata } = require("../schema");
+
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 
 
 const userlogin = async function (req, res) {
-<<<<<<< HEAD
-=======
-    
->>>>>>> sub
     try {
         const { email, password } = req.body;
+        console.log(`value ${req.body}`);
         const user = await userdata.findOne({ email });
         console.log(user)
         if (user && ( bcrypt.compare(password, user.password))) {
           const token = jwt.sign({ email:user.email }, process.env.JWT_SECRET,{
-<<<<<<< HEAD
-            expiresIn:"24hr"
-=======
             expiresIn:"1hr"
->>>>>>> sub
           });
     
           res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
@@ -38,11 +32,8 @@ const userlogin = async function (req, res) {
       }
      
     };
-<<<<<<< HEAD
     
     
-=======
->>>>>>> sub
 const Addusers = async (req, res) => {
     try {
         const { username, email, password, confirmPassword, wishlist, cart } = req.body;
@@ -75,7 +66,39 @@ const updateuser = async function (req, res) {
         console.log(user)
     }
     catch (err) { console.log(err) }
-}
+};
+const addToCart = async (req, res) => {
+    try {
+      const productId = req.params.id;
+      const product = await productdata.findById(productId);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      const token = req.cookies.token;
+      console.log("recevied token",token);
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userdata.findOne({ email: decoded.email });
+      
+  
+      // add the product to the cart
+      user.cart.push(productId);
+      await user.save();
+  
+    //  const updatedUser = await schema.findOne({ email: decoded.email });
+    const updatedUser = await user.findById(user._id).populate('cart');
+  res
+    .status(200)
+    .json({ message: "Product added to cart successfully", user: updatedUser });
+  
+      // res
+      //   .status(200)
+      //   .json({ message: "Product added to cart successfully", product });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "server error", error: err.message });
+    }
+  };
+
 
 
 module.exports = {
