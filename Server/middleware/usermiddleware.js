@@ -4,6 +4,7 @@ const cookieParser=require('cookie-parser')
 const userMiddleware = (req, res, next) => {
   // const token = req.cookies.token;
   const token = req.headers.authorization || req.cookies.token;
+  const secretKey = 'f1u2rr'; 
 
   
 
@@ -13,8 +14,9 @@ const userMiddleware = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized - No token provided' });
   }
-
+  else{
   try {
+    console.log("heee",token)
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET, {
       ignoreExpiration: true,
@@ -30,6 +32,7 @@ const userMiddleware = (req, res, next) => {
     console.error('Error in userMiddleware:', error);
     res.status(401).json({ message: 'Unauthorized - Invalid token' });
   }
+}
 };
 
-module.exports = {userMiddleware};
+module.exports = userMiddleware;

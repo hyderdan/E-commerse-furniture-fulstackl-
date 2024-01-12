@@ -3,7 +3,7 @@ const userrouter=express.Router();
 const ProductControllers=require("../Controllers/usercontrole");
 const cookieParser= require("cookie-parser");
 const bodyParser= require("body-parser");
-const {userMiddleware}=require("../middleware/usermiddleware")
+const userMiddleware=require("../middleware/usermiddleware")
 
 
 

@@ -43,12 +43,13 @@ export default function Chelsea(){
   const products=Productdetail1.filter((data)=>
   data._id===id
   );
-    settoken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh5ZGVyLmRhbmlzaDM2OUBnbWFpbC5jb20iLCJpYXQiOjE3MDQ5NjYxODMsImV4cCI6MTcwNDk")
+  
   const Addtocart=async(value_id)=>{
     try {
       if(!token){
         console.log("user not authenticated");
       }
+      else{
       const response = await axios.post(
         `http://localhost:5000/users/cart/${value_id}`,
         {},
@@ -61,11 +62,12 @@ export default function Chelsea(){
       );
       settoken(response.data.user.token); // Update the user token
       alert("product added to cart")
-     
+    }
     } catch (error) {
       alert("Error adding to cart")
       console.error("Error adding to cart:", error);
     }
+    
   };
 
  
