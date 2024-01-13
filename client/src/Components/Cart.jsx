@@ -33,7 +33,7 @@ export default function Cart(){
         fetchCartItems();
       }, [token]);
     
-  console.log(Cartitem);
+  
     const cartless=(id)=>{
         
         
