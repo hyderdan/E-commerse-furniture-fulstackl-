@@ -26,6 +26,7 @@ import { useEffect } from "react";
 
 
 
+
 function App() {
 
   const [Sofadata, Setsofadata] = useState([])

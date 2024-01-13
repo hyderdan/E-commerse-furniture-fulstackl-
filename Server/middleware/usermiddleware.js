@@ -4,7 +4,7 @@ const cookieParser=require('cookie-parser')
 const userMiddleware = (req, res, next) => {
   // const token = req.cookies.token;
   const token = req.headers.authorization || req.cookies.token;
-  const secretKey = 'f1u2rr'; 
+  // const secretKey = 'f1u2rr'; 
 
   
 

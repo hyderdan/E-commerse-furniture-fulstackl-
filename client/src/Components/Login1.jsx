@@ -53,6 +53,7 @@ export default function Login1() {
         settoken(data.token)
         alert("Login Success!!!!");
         Nav("/");
+        setlogin(false);
     } catch (error) {
         console.log(error.response.data);
         alert("Registration failed!!!");

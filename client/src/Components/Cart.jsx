@@ -2,41 +2,64 @@ import Header from "./Header";
 import "./Style/CArt.css"
 import {BiSolidOffer} from "react-icons/bi"
 import { useContext } from "react";
+import { useEffect } from "react";
 import mydata from "./Context";
 import{AiOutlineClose}from "react-icons/ai"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 export default function Cart(){
-    const nav=useNavigate()
-  
+    const nav=useNavigate();
+    const [Cartitem,setCartItems]=useState([]);
+    const{Addtokart,Setaddtokart,Setcount1,Count1,settoken,token}=useContext(mydata);
+
+    useEffect(() => {
+        const fetchCartItems = async () => {
+          try {
+            const response = await axios.get("http://localhost:5000/users/cart", {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            setCartItems(response.data.cart);
+          } catch (error) {
+            console.error("Error fetching cart items:", error);
+          }
+        };
+    
+        fetchCartItems();
+      }, [token]);
+    
+  console.log(Cartitem);
     const cartless=(id)=>{
         
         
-          const remove = Addtokart.filter((data)=>data.id!==id
+          const remove = Cartitem.filter((data)=>data.id!==id
           ); 
-        Setaddtokart(remove)
+        setCartItems(remove)
         Setcount1(Count1-1)
        }
-   const{Addtokart,Setaddtokart,Setcount1,Count1}=useContext(mydata)
+   
 //    function priceinc(d){
 //     const price=d.price
 //    }
    const Increment=(id)=>{
-    const newinc=Addtokart.map((data)=>
+    const newinc=Cartitem.map((data)=>
     data.id===id?{...data,quandity:data.quandity+1}:data );
     Setaddtokart(newinc);
    
    }
    const decrement=(id)=>{
-    const newdec=Addtokart.map((data)=>
+    const newdec=Cartitem.map((data)=>
     data.id===id&&data.quandity>1?{...data,quandity:data.quandity-1}:data);
      Setaddtokart(newdec)   
    }
 
    const totalamount=()=>{
-    return Addtokart.reduce((a,b)=>a+b.price*b.quandity,0);
+    return Cartitem.reduce((a,b)=>a+b.price*b.quandity,0);
    };
    const buttonclick=()=>{
     nav("/payment")
@@ -60,7 +83,7 @@ export default function Cart(){
         <p className="subdiv3p4">Total</p>
             </div>
             <div className="cartsubdiv4">
-        {Addtokart.map((data,index)=>( 
+        {Cartitem.map((data,index)=>( 
           
             <div key={index} className="cartsubdivmini">
                 <div  onClick={()=>cartless(data.id)} className="cartsubdivmini3"><AiOutlineClose/></div> 

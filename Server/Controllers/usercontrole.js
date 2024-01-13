@@ -1,7 +1,8 @@
 const { userdata,productdata } = require("../schema");
-
+const cookieParser= require("cookie-parser");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
+
 
 
 const userlogin = async function (req, res) {
@@ -85,7 +86,7 @@ const addToCart = async (req, res) => {
       await user.save();
   
     //  const updatedUser = await schema.findOne({ email: decoded.email });
-    const updatedUser = await user.findById(user._id).populate('cart');
+    const updatedUser = await userdata.findById(user._id).populate('cart');
   res
     .status(200)
     .json({ message: "Product added to cart successfully", user: updatedUser });

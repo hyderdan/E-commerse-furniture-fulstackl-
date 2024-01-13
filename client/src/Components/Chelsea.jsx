@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Chelsea(){
     
@@ -18,7 +19,7 @@ export default function Chelsea(){
    const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token}=useContext(mydata)
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
-   console.log(token);
+  //  console.log(token);
   //  const fetchproductsdetails= async()=>{
   //   try{
   //     const responce= await axios.get(`http://localhost:5000/product/${id}`,);
@@ -50,17 +51,20 @@ export default function Chelsea(){
         console.log("user not authenticated");
       }
       else{
+       
       const response = await axios.post(
         `http://localhost:5000/users/cart/${value_id}`,
         {},
         {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `${token}`,
           },
         }
       );
-      settoken(response.data.user.token); // Update the user token
+      settoken(response.data.user.token); 
+      console.log("settoken",token);
+      // Update the user token
       alert("product added to cart")
     }
     } catch (error) {
@@ -99,7 +103,7 @@ export default function Chelsea(){
     </Carousel>
         </div>
         <div className="prductdet">
-                    hello
+                    <Link to={"/copy"}>click</Link>
         </div>
             </div>
             
