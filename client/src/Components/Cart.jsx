@@ -12,58 +12,59 @@ import axios from "axios";
 
 export default function Cart(){
     const nav=useNavigate();
-    const [Cartitem,setCartItems]=useState([]);
-    const{Addtokart,Setaddtokart,Setcount1,Count1,settoken,token}=useContext(mydata);
+    
+    const [Cartproducts,setCartproducts]=useState([]);
+    const{Addtokart,Setaddtokart,Setcount1,Count1,settoken,token,Userlogin,Sofadata,
+    }=useContext(mydata);
 
     useEffect(() => {
-        const fetchCartItems = async () => {
-          try {
-            const response = await axios.get("http://localhost:5000/users/cart", {
-              withCredentials: true,
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-            setCartItems(response.data.cart);
-          } catch (error) {
-            console.error("Error fetching cart items:", error);
-          }
-        };
-    
-        fetchCartItems();
-      }, [token]);
+      
+        // fectdata();
+      }, );
+      
+       
+      //   const productfilter= Sofadata.filter((data)=>{
+      //   for(let i=0;i<=Cartitem.length;i++){
+      //     if(data._id === Cartitem[1]){
+      //       return data;
+      //     }
+      //   }
+      // })
+      // setCartproducts(productfilter);
+      // console.log(productfilter);
+      // }
     
   
-    const cartless=(id)=>{
+//     const cartless=(id)=>{
         
         
-          const remove = Cartitem.filter((data)=>data.id!==id
-          ); 
-        setCartItems(remove)
-        Setcount1(Count1-1)
-       }
+//           const remove = Cartitem.filter((data)=>data.id!==id
+//           ); 
+//         setCartItems(remove)
+//         Setcount1(Count1-1)
+//        }
    
-//    function priceinc(d){
-//     const price=d.price
+// //    function priceinc(d){
+// //     const price=d.price
+// //    }
+//    const Increment=(id)=>{
+//     const newinc=Cartitem.map((data)=>
+//     data.id===id?{...data,quandity:data.quandity+1}:data );
+//     Setaddtokart(newinc);
+   
 //    }
-   const Increment=(id)=>{
-    const newinc=Cartitem.map((data)=>
-    data.id===id?{...data,quandity:data.quandity+1}:data );
-    Setaddtokart(newinc);
-   
-   }
-   const decrement=(id)=>{
-    const newdec=Cartitem.map((data)=>
-    data.id===id&&data.quandity>1?{...data,quandity:data.quandity-1}:data);
-     Setaddtokart(newdec)   
-   }
+//    const decrement=(id)=>{
+//     const newdec=Cartitem.map((data)=>
+//     data.id===id&&data.quandity>1?{...data,quandity:data.quandity-1}:data);
+//      Setaddtokart(newdec)   
+//    }
 
-   const totalamount=()=>{
-    return Cartitem.reduce((a,b)=>a+b.price*b.quandity,0);
-   };
-   const buttonclick=()=>{
-    nav("/payment")
-   }
+//    const totalamount=()=>{
+//     return Cartitem.reduce((a,b)=>a+b.price*b.quandity,0);
+//    };
+//    const buttonclick=()=>{
+//     nav("/payment")
+//    }
    
     return(
         
@@ -82,10 +83,10 @@ export default function Cart(){
         <p className="subdiv3p3">Quantity</p>
         <p className="subdiv3p4">Total</p>
             </div>
-            <div className="cartsubdiv4">
-        {Cartitem.map((data,index)=>( 
+            {/* <div className="cartsubdiv4">
+        {Cartproducts.map((data)=>( 
           
-            <div key={index} className="cartsubdivmini">
+            <div  className="cartsubdivmini">
                 <div  onClick={()=>cartless(data.id)} className="cartsubdivmini3"><AiOutlineClose/></div> 
                           
              <img className="subdiv4img" src={data.image} alt="" />
@@ -105,12 +106,12 @@ export default function Cart(){
             )
         )
         }
-            </div>
-        <div className="totalpayment">
+            </div> */}
+        {/* <div className="totalpayment">
           <h4>₹{totalamount()}</h4> 
           <h3>Total Amount</h3> 
           <button onClick={()=>buttonclick()}>Buy NOW</button>
-        </div>
+        </div> */}
         </div>
     )
     

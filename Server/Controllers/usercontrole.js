@@ -3,6 +3,10 @@ const cookieParser= require("cookie-parser");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 
+const getuser= async function (req, res) {
+  const data = await userdata.find({});
+  res.status(200).send(data)
+}
 
 const userlogin = async function (req, res) {
     try {
@@ -102,5 +106,5 @@ const addToCart = async (req, res) => {
 
 
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart
+    userlogin, Addusers, updateuser,addToCart,getuser
 }

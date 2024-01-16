@@ -46,21 +46,24 @@ function App() {
     username: "admin",
     password: "admin123",
   });
+  const[Userlogin,setuselogin]=useState([]);
+  const [Cartid,setCartid]=useState([]);
   const [login, setlogin] = useState(true)
 
 
   useEffect(() => {
     fectdata();
+    fectuserdata();
   }, []);
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
   }
-  // const fectuserdata = async () => {
-  //   const responce = await axios.get('http://localhost:5000/users');
-  //   setUsers(responce.data);
+  const fectuserdata = async () => {
+    const responce = await axios.get('http://localhost:5000/users');
+    setUsers(responce.data);
 
-  // }
+  }
 
 
   // useEffect(() => {
@@ -72,7 +75,7 @@ function App() {
     Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
-    , token, settoken,
+    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,
   }
   return (
     <div className="App">

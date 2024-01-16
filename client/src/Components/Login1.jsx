@@ -10,9 +10,10 @@ import axios from "axios";
 
 
 export default function Login1() {
-  const { users, islogedin, setIslogedin, setlogin, login, token, settoken } = useContext(mydata);
+  const { users, islogedin, setIslogedin, setlogin, login, token, settoken,Userlogin,setuselogin,Cartid,setCartid } = useContext(mydata);
   const [email, setemail] = useState("");
   const [password, setpassw] = useState("");
+ 
 
   const Nav = useNavigate();
   function logout() {
@@ -52,8 +53,19 @@ export default function Login1() {
         console.log("Login successful", data.message);
         settoken(data.token)
         alert("Login Success!!!!");
-        Nav("/");
+        // Nav("/");
         setlogin(false);
+        const fechuser=users.filter((d)=>
+        d.email===email
+        );
+        setuselogin(fechuser);
+        
+       console.log("hey",Userlogin)
+        // setCartid(fechuser.cart);
+        
+        console.log("ll",fechuser);
+        // console.log("fech",Cartid)
+
     } catch (error) {
         console.log(error.response.data);
         alert("Registration failed!!!");
