@@ -67,7 +67,7 @@
 .cartsubdiv4{
     margin-left: 300px;
     width: 850px;
-    height: 503px;
+    height: auto;
     /* background-color: red; */
     display: flex;
     flex-direction: column;
@@ -157,9 +157,9 @@
 .totalpayment{
     /* background-color: red; */
     width: 300px;
-    margin-top: -100px;
+    margin-top: auto;
     margin-left: 900px;
-    height: 70px;
+    height: auto;
     font-family: "Mr Eaves XL Modern", sans-serif;
 };
 .totalpayment h3{

@@ -18,8 +18,8 @@ export default function Login1() {
   const Nav = useNavigate();
   function logout() {
     setlogin(true);
-    Nav('/')
-
+    Nav('/');
+    setuselogin([]);
   }
   // const fectdata = async ()=>{
   //   const responce = await axios.get('http://localhost:5000/users');
@@ -35,6 +35,8 @@ export default function Login1() {
   console.log(email,password)
   const Login = async (e) => {
     e.preventDefault();
+   
+               
     try {
         const response = await axios.post(
             'http://localhost:5000/users/login',
@@ -46,31 +48,42 @@ export default function Login1() {
                 withCredentials: true,
             }
         );
-        
+        const fechuser=users.filter((d)=>
+        d.email===email
+        );
+        setuselogin(fechuser);
+        setCartid(Userlogin[0].cart);
+       
         const data = response.data;
         console.log(response.data);
         console.log("token in frontEnd", data.token);
         console.log("Login successful", data.message);
         settoken(data.token)
         alert("Login Success!!!!");
-        // Nav("/");
+        Nav("/");
+       
         setlogin(false);
-        const fechuser=users.filter((d)=>
-        d.email===email
-        );
-        setuselogin(fechuser);
+        console.log("hey",Userlogin,"fetch",fechuser)
+        console.log("id",Cartid);
+       
+       
+       
         
-       console.log("hey",Userlogin)
+       
         // setCartid(fechuser.cart);
-        
-        console.log("ll",fechuser);
+        // setCartid(email);
+        // console.log("ll",fechuser);
         // console.log("fech",Cartid)
 
     } catch (error) {
         console.log(error.response.data);
         alert("Registration failed!!!");
     }
+   
 };
+
+ 
+
   return (
 
     <form>
