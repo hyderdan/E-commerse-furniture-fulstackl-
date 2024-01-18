@@ -14,12 +14,12 @@ const userlogin = async function (req, res) {
         console.log(`value ${req.body}`);
         const user = await userdata.findOne({ email });
         console.log(user)
-        if (user && ( bcrypt.compare(password, user.password))) {
+        if (user && (await bcrypt.compare(password, user.password))) {
           const token = jwt.sign({ email:user.email }, process.env.JWT_SECRET,{
             expiresIn:"1hr"
           });
     
-          res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1000 * 60 * 60, });
+          res.cookie("token", token, { httpOnly: true,secure: true, maxAge: 1000 * 60 * 60, });
           res.setHeader("Authorization", token);
           console.log(token, "requested token");
         

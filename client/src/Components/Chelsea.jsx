@@ -62,7 +62,7 @@ export default function Chelsea(){
           },
         }
       );
-      settoken(response.data.user.token); 
+      // settoken(response.data.user.token); 
       console.log("settoken",token);
       // Update the user token
       alert("product added to cart")

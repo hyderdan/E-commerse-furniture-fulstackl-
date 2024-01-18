@@ -51,18 +51,20 @@ export default function Login1() {
         const fechuser=users.filter((d)=>
         d.email===email
         );
-        setuselogin(fechuser);
-        setCartid(Userlogin[0].cart);
-       
+        // setuselogin(fechuser); 
+        setCartid(fechuser[0].cart);     
         const data = response.data;
         console.log(response.data);
         console.log("token in frontEnd", data.token);
         console.log("Login successful", data.message);
-        settoken(data.token)
+        settoken(data.token);
+       
+
         alert("Login Success!!!!");
         Nav("/");
        
         setlogin(false);
+       
         console.log("hey",Userlogin,"fetch",fechuser)
         console.log("id",Cartid);
        

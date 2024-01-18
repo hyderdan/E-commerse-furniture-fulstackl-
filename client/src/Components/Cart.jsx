@@ -18,8 +18,8 @@ export default function Cart() {
     const { Addtokart, Setaddtokart, Setcount1, Count1, settoken, token, Userlogin, Sofadata, Cartid
     } = useContext(mydata);
 
+    
     useEffect(() => {
-
         const productfilter = Sofadata.filter((data) => {
             for (let i = 0; i <= Cartid.length; i++) {
                 if (data._id === Cartid[i]) {
@@ -28,9 +28,9 @@ export default function Cart() {
             }
         })
         setCartproducts(productfilter);
-      },[] );
-
-
+      }, []);
+       
+        
    
    
     //   console.log(productfilter);
@@ -51,13 +51,13 @@ export default function Cart() {
     const Increment = (_id) => {
         const newinc = Cartproducts.map((data) =>
             data._id ===_id ? { ...data, quandity: data.quandity + 1 } : data);
-        Setaddtokart(newinc);
+        setCartproducts(newinc);
 
     }
     const decrement = (id) => {
         const newdec = Cartproducts.map((data) =>
-            data.id === id && data.quandity > 1 ? { ...data, quandity: data.quandity - 1 } : data);
-        Setaddtokart(newdec)
+            data._id === id && data.quandity > 1 ? { ...data, quandity: data.quandity - 1 } : data);
+        setCartproducts(newdec)
     }
 
     const totalamount = () => {
