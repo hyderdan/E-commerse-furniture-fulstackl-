@@ -14,7 +14,7 @@ userrouter.post("/login",ProductControllers.userlogin)
 // userrouter.get("/:id",ProductControllers.userdetails)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser);
-userrouter.post("/cart/:id",userMiddleware, ProductControllers.addToCart);
+userrouter.post("/cart",userMiddleware, ProductControllers.addToCart);
 userrouter.get("/",ProductControllers.getuser);
 
 module.exports={

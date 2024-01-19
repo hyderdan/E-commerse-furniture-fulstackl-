@@ -12,13 +12,15 @@ import axios from 'axios'
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Getid from "./session";
 
 export default function Chelsea(){
     
    
-   const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token}=useContext(mydata)
+   const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token,Cartid,setCartid}=useContext(mydata)
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
+   const sessionid=Getid();
   //  console.log(token);
   //  const fetchproductsdetails= async()=>{
   //   try{
@@ -53,7 +55,7 @@ export default function Chelsea(){
       else{
        
       const response = await axios.post(
-        `http://localhost:5000/users/cart/${value_id}`,
+        "http://localhost:5000/users/cart",{data:{value_id,sessionid}},
         {},
         {
           withCredentials: true,
@@ -64,6 +66,7 @@ export default function Chelsea(){
       );
       // settoken(response.data.user.token); 
       console.log("settoken",token);
+        console.log(response.data)
       // Update the user token
       alert("product added to cart")
     }

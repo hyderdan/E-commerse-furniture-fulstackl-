@@ -58,6 +58,7 @@ export default function Login1() {
         console.log("token in frontEnd", data.token);
         console.log("Login successful", data.message);
         settoken(data.token);
+        sessionStorage.setItem('userid',data.UserID);
        
 
         alert("Login Success!!!!");

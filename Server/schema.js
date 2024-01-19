@@ -30,7 +30,9 @@ const userschema=new mongoose.Schema({
 
     }],
     cart:[{
-        type:mongoose.Schema.Types.ObjectId, ref:"Data"
+        type:mongoose.Types.ObjectId, 
+        ref:"Data",
+        required:false,
     }]
 })
 const productdata=mongoose.model('Data',productsschema);

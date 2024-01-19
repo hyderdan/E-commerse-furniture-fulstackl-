@@ -20,6 +20,8 @@ export default function Cart() {
 
     
     useEffect(() => {
+        const storedtoken=sessionStorage.getItem('userid');
+        if(storedtoken){
         const productfilter = Sofadata.filter((data) => {
             for (let i = 0; i <= Cartid.length; i++) {
                 if (data._id === Cartid[i]) {
@@ -28,6 +30,7 @@ export default function Cart() {
             }
         })
         setCartproducts(productfilter);
+    }
       }, []);
        
         

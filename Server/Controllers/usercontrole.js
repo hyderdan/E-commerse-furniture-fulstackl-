@@ -25,7 +25,7 @@ const userlogin = async function (req, res) {
         
           
     
-          res.status(200).json({message :"welcome user", token});
+          res.status(200).json({message :"welcome user",UserID:user._id, token});
     
         } else {
           res.status(401).send("Invalid email or password");
@@ -73,26 +73,26 @@ const updateuser = async function (req, res) {
 };
 const addToCart = async (req, res) => {
     try {
-      const value_id = req.params.id;
+      const {value_id,sessionid} = req.body
       const product = await productdata.findById(value_id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
       const token = req.cookies.token;
       console.log("recevied token",token);
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await userdata.findOne({ email: decoded.email });
+      // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userdata.findById(sessionid);
       
   
       // add the product to the cart
-      user.cart.push(value_id);
+      user.cart.push(product);
       await user.save();
   
     //  const updatedUser = await schema.findOne({ email: decoded.email });
-    const updatedUser = await userdata.findById(user._id).populate('cart');
+    // const updatedUser = await userdata.findById(user._id).populate('cart');
   res
     .status(200)
-    .json({ message: "Product added to cart successfully", user: updatedUser });
+    .json({ message: "Product added to cart successfully" }, user.cart);
   
       // res
       //   .status(200)
@@ -102,6 +102,13 @@ const addToCart = async (req, res) => {
       res.status(500).json({ error: "server error", error: err.message });
     }
   };
+  const getcart= async(res,req)=>{
+    try{
+      const 
+    }catch{
+
+    }
+  }
 
 
 
