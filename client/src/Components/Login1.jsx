@@ -29,7 +29,7 @@ export default function Login1() {
 
 
   // useEffect(()=>{
-  //   fectdata();
+    
   // },[]);
   
   console.log(email,password)
