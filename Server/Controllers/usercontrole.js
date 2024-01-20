@@ -73,15 +73,15 @@ const updateuser = async function (req, res) {
 };
 const addToCart = async (req, res) => {
     try {
-      const {value_id,sessionid} = req.body
-      const product = await productdata.findById(value_id);
+      // const {value_id,sessionid} = req.body
+      const product = await productdata.findById(req.body.value_id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
       const token = req.cookies.token;
       console.log("recevied token",token);
       // const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await userdata.findById(sessionid);
+      const user = await userdata.findById(req.body.sessionid);
       
   
       // add the product to the cart
@@ -92,7 +92,7 @@ const addToCart = async (req, res) => {
     // const updatedUser = await userdata.findById(user._id).populate('cart');
   res
     .status(200)
-    .json({ message: "Product added to cart successfully" }, user.cart);
+    .json({ message: "Product added to cart successfully",   Cart:user.cart});
   
       // res
       //   .status(200)
@@ -104,7 +104,21 @@ const addToCart = async (req, res) => {
   };
   const getcart= async(res,req)=>{
     try{
-      const 
+      const user= await userdata.findById(req.params.sessionid)
+      res.json({ cart: user?.cart})
+    }catch(err){
+      console.log(err);
+
+    }
+  }
+  const getcartproducts= async(res,req)=>{
+    try{
+      const user= await userdata.findById(req.body.userId);
+      const products=await productdata.find({
+        _id:{$in:user.products}
+      });
+
+      res.json({ products})
     }catch{
 
     }
@@ -113,5 +127,5 @@ const addToCart = async (req, res) => {
 
 
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart,getuser
+    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts
 }

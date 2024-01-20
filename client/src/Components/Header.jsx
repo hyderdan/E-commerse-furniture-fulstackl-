@@ -13,12 +13,16 @@ import{BiSolidUpArrow}from "react-icons/bi"
 import { IoMdLogOut } from "react-icons/io";
 import { useState } from 'react'
 import{MdOutlineAdminPanelSettings} from "react-icons/md"
+import Gettoken from "./sessiontoken";
 
 
 
 
 export default function Header(){
-    const{Count,Count1,islogedin, Setproductdetail, Setaddtokart,setIslogedin,Setcount,Setcount1,login}=useContext(mydata);
+    const{Count,Count1,islogedin, Setproductdetail, Setaddtokart,setIslogedin,Setcount,Setcount1,login,
+        token, settoken
+    }=useContext(mydata);
+    const sessiontoken=Gettoken();
     const Nav = useNavigate();
     const[searchinput,setsearch]=useState('')
     function clearAll(){
@@ -60,7 +64,9 @@ export default function Header(){
         <div className="thirddiv">
         <Link className='headerL'to={'/'}><div className="logo"> <img src="" alt="" /> DEFINED DESIGN</div></Link>
      <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/><div onClick={()=>handlesearch()} className="searchbarbutton"> <h3><FiSearch/></h3></div>
-    <div className="thirddivh3" onClick={()=>clearAll()}>{login===false?<IoMdLogOut/>:<FaRegUser/>}</div>
+    <div className="thirddivh3" onClick={()=>clearAll()}>
+        {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
+        </div>
      <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>
      <Link to={'/addtocart'} className="link2" ><div className="thirddivh5"><FiShoppingCart/></div></Link>
      <Link to={'/adminlogin'} className="link2" ><div className="thirddivh6" ><MdOutlineAdminPanelSettings/></div></Link>

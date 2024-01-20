@@ -8,11 +8,13 @@ import { AiOutlineClose } from "react-icons/ai"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Getid from "./session";
 
 
 
 export default function Cart() {
     const nav = useNavigate();
+    const sessionid=Getid();
 
     const [Cartproducts, setCartproducts] = useState([]);
     const { Addtokart, Setaddtokart, Setcount1, Count1, settoken, token, Userlogin, Sofadata, Cartid
@@ -20,20 +22,20 @@ export default function Cart() {
 
     
     useEffect(() => {
-        const storedtoken=sessionStorage.getItem('userid');
-        if(storedtoken){
-        const productfilter = Sofadata.filter((data) => {
-            for (let i = 0; i <= Cartid.length; i++) {
-                if (data._id === Cartid[i]) {
-                    return data;
-                }
-            }
-        })
-        setCartproducts(productfilter);
-    }
-      }, []);
+        cartproduct();
+        }, []);
        
-        
+        const cartproduct= async()=>{
+            try{
+        const responce= await axios.get(`http://localhost:5000/users/${sessionid}`)
+        setCartproducts(responce.data.cart);
+        console.log(responce.data.cart);
+        }
+    
+    catch(err){
+        console.log(err);
+    }
+    }  
    
    
     //   console.log(productfilter);

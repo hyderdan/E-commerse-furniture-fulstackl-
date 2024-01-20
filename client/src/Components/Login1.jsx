@@ -5,19 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "./Style/LOgin.css"
 import axios from "axios";
+import Gettoken from "./sessiontoken";
 // import { useEffect } from "react";
-// import axios from "axios";
+
 
 
 export default function Login1() {
-  const { users, islogedin, setIslogedin, setlogin, login, token, settoken,Userlogin,setuselogin,Cartid,setCartid } = useContext(mydata);
+  const {  islogedin, setIslogedin, setlogin, login, token, settoken,setuselogin, } = useContext(mydata);
   const [email, setemail] = useState("");
   const [password, setpassw] = useState("");
  
-
+  // const[_, setCookies]=useCookies(["access_token"])
   const Nav = useNavigate();
+  const sessiontoken=Gettoken();
   function logout() {
-    setlogin(true);
+    sessionStorage.clear("usertoken")
+    sessionStorage.clear("userid")
     Nav('/');
     setuselogin([]);
   }
@@ -48,27 +51,26 @@ export default function Login1() {
                 withCredentials: true,
             }
         );
-        const fechuser=users.filter((d)=>
-        d.email===email
-        );
-        // setuselogin(fechuser); 
-        setCartid(fechuser[0].cart);     
+        // const fechuser=users.filter((d)=>
+        // d.email===email
+        // );
+        // // setuselogin(fechuser); 
+        // setCartid(fechuser[0].cart);     
         const data = response.data;
         console.log(response.data);
         console.log("token in frontEnd", data.token);
         console.log("Login successful", data.message);
         settoken(data.token);
+        sessionStorage.setItem('usertoken',data.token);
         sessionStorage.setItem('userid',data.UserID);
        
-
+          
         alert("Login Success!!!!");
         Nav("/");
        
         setlogin(false);
        
-        console.log("hey",Userlogin,"fetch",fechuser)
-        console.log("id",Cartid);
-       
+        
        
        
         
@@ -90,7 +92,7 @@ export default function Login1() {
   return (
 
     <form>
-      {login === true ?
+      {!sessiontoken ?
         <div className='main01'>
           <div className='sub1'>
             <h1 className="subh2" > User Login</h1>

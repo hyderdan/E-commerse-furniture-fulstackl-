@@ -11,11 +11,11 @@ userrouter.use(bodyParser.json());
 userrouter.use(bodyParser.urlencoded({extended:true}));
 userrouter.use(cookieParser());
 userrouter.post("/login",ProductControllers.userlogin)
-// userrouter.get("/:id",ProductControllers.userdetails)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser);
-userrouter.post("/cart",userMiddleware, ProductControllers.addToCart);
-userrouter.get("/",ProductControllers.getuser);
+userrouter.put("/",userMiddleware, ProductControllers.addToCart);
+userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcart);
+userrouter.get("/svedcart",ProductControllers.getcartproducts);
 
 module.exports={
     userrouter

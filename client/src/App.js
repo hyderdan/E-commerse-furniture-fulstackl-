@@ -53,17 +53,17 @@ function App() {
 
   useEffect(() => {
     fectdata();
-    fectuserdata();
+    // fectuserdata();
   }, []);
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
   }
-  const fectuserdata = async () => {
-    const responce = await axios.get('http://localhost:5000/users');
-    setUsers(responce.data);
+  // const fectuserdata = async () => {
+  //   const responce = await axios.get('http://localhost:5000/users');
+  //   setUsers(responce.data);
 
-  }
+  // }
 
 
   // useEffect(() => {

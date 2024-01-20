@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Getid from "./session";
+import Gettoken from "./sessiontoken";
 
 export default function Chelsea(){
     
@@ -21,23 +22,12 @@ export default function Chelsea(){
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
    const sessionid=Getid();
-  //  console.log(token);
-  //  const fetchproductsdetails= async()=>{
-  //   try{
-  //     const responce= await axios.get(`http://localhost:5000/product/${id}`,);
-  //     Setproductdetail1(responce.data)
-      
-  //   }catch(err){
-  //     console.error(err);
-  //   }
-  //  }
-  //  useEffect(()=>{
-  //   fetchproductsdetails();
-  // },[]);
+  const sessiontoken=Gettoken();
  
  
   useEffect(()=>{
     fectdata();
+    fechAddtocart();
   },[]);
   const fectdata = async ()=>{
     const responce = await axios.get('http://localhost:5000/product');
@@ -46,17 +36,30 @@ export default function Chelsea(){
   const products=Productdetail1.filter((data)=>
   data._id===id
   );
-  
+  const fechAddtocart=async()=>{
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users/savedcart/ids/${sessionid}`,
+             
+      );
+     setCartid(response.data.cart);
+    
+    //  console.log("fechcart",response.data) 
+    } catch (error) {
+      console.error("Error occurs:", error);
+    }
+  };
+
   const Addtocart=async(value_id)=>{
     try {
-      if(!token){
+      if(!sessiontoken){
         console.log("user not authenticated");
       }
       else{
        
-      const response = await axios.post(
-        "http://localhost:5000/users/cart",{data:{value_id,sessionid}},
-        {},
+      const response = await axios.put(
+        "http://localhost:5000/users",{value_id,sessionid},
+        
         {
           withCredentials: true,
           headers: {
@@ -66,7 +69,7 @@ export default function Chelsea(){
       );
       // settoken(response.data.user.token); 
       console.log("settoken",token);
-        console.log(response.data)
+        console.log(response.data);
       // Update the user token
       alert("product added to cart")
     }
@@ -76,7 +79,8 @@ export default function Chelsea(){
     }
     
   };
-
+  console.log(Cartid,"cartid");
+ 
  
     return(
         <div className="chelsea-adjust">
@@ -87,7 +91,7 @@ export default function Chelsea(){
          <h2>{data.name}</h2>
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
-        <button onClick={()=>Addtocart(data._id)} className="chelseabutton">{Addtokart.includes(data)?"REMOVE FROM CART":"ADD TO CART"}</button>
+        <button onClick={()=>Addtocart(data._id)} className="chelseabutton">{Cartid.includes(data)?"REMOVE FROM CART":"ADD TO CART"}</button>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">
       <Carousel.Item>     
