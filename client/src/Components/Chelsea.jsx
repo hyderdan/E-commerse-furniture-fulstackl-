@@ -18,9 +18,10 @@ import Gettoken from "./sessiontoken";
 export default function Chelsea(){
     
    
-   const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token,Cartid,setCartid}=useContext(mydata)
+   const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token,Cartproducts,setCartproducts}=useContext(mydata)
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
+   const[savedcart,setSavedcart]=useState([])
    const sessionid=Getid();
   const sessiontoken=Gettoken();
  
@@ -42,7 +43,8 @@ export default function Chelsea(){
         `http://localhost:5000/users/savedcart/ids/${sessionid}`,
              
       );
-     setCartid(response.data.cart);
+     
+     console.log("cartproducts",response.data.cartproducts)
     
     //  console.log("fechcart",response.data) 
     } catch (error) {
@@ -57,29 +59,29 @@ export default function Chelsea(){
       }
       else{
        
-      const response = await axios.put(
-        "http://localhost:5000/users",{value_id,sessionid},
+      const response = await axios.post(
+        "http://localhost:5000/users/usercart",{value_id,sessionid},
         
         {
           withCredentials: true,
           headers: {
-            Authorization: `${token}`,
+            Authorization: `${sessiontoken}`,
           },
         }
       );
-      // settoken(response.data.user.token); 
-      console.log("settoken",token);
-        console.log(response.data);
-      // Update the user token
-      alert("product added to cart")
+          console.log(response.data.cart);
+       
+      alert("product added to cart")  
     }
     } catch (error) {
       alert("Error adding to cart")
+    
       console.error("Error adding to cart:", error);
     }
     
   };
-  console.log(Cartid,"cartid");
+  const iSsavedcart=(id)=>savedcart.includes(id)
+  console.log(savedcart);
  
  
     return(
@@ -91,7 +93,9 @@ export default function Chelsea(){
          <h2>{data.name}</h2>
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
-        <button onClick={()=>Addtocart(data._id)} className="chelseabutton">{Cartid.includes(data)?"REMOVE FROM CART":"ADD TO CART"}</button>
+        <button onClick={()=>Addtocart(data._id)}
+        disabled={iSsavedcart(data._id)}
+        className="chelseabutton">{iSsavedcart(data._id)?"REMOVE FROM CART":"ADD TO CART"}</button>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">
       <Carousel.Item>     

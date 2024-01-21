@@ -92,7 +92,7 @@ const addToCart = async (req, res) => {
     // const updatedUser = await userdata.findById(user._id).populate('cart');
   res
     .status(200)
-    .json({ message: "Product added to cart successfully",   Cart:user.cart});
+    .json({ message: "Product added to cart successfully",   cart:user.cart});
   
       // res
       //   .status(200)
@@ -104,8 +104,8 @@ const addToCart = async (req, res) => {
   };
   const getcart= async(res,req)=>{
     try{
-      const user= await userdata.findById(req.params.sessionid)
-      res.json({ cart: user?.cart})
+      const user= await productdata.find({})
+      res.json(user)
     }catch(err){
       console.log(err);
 
@@ -113,19 +113,30 @@ const addToCart = async (req, res) => {
   }
   const getcartproducts= async(res,req)=>{
     try{
-      const user= await userdata.findById(req.body.userId);
-      const products=await productdata.find({
-        _id:{$in:user.products}
-      });
-
-      res.json({ products})
+      const user= await userdata.findById(req.params.sessionid);
+      res.json({ cartproducts:user?.cart})
     }catch{
 
     }
   }
+  const fetchcart=async (req,res)=>{
+    try{
+      const User = await userdata.findById(req.params.sessionid)
+   const products = await productdata.find({
+    _id: {$in: User.cart}
+   })
+      res.json({products});
+      console.log(products);
+    }
+    catch(error)
+    {
+       res.json(error)
+    }
+   }
+ 
 
 
 
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts
+    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart
 }

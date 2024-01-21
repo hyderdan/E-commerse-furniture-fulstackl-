@@ -48,7 +48,8 @@ function App() {
   });
   const[Userlogin,setuselogin]=useState({});
   const [Cartid,setCartid]=useState([]);
-  const [login, setlogin] = useState(true)
+  const [login, setlogin] = useState(true);
+  const [Cartproducts, setCartproducts] = useState([]);
 
 
   useEffect(() => {
@@ -75,7 +76,7 @@ function App() {
     Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
-    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,
+    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts
   }
   return (
     <div className="App">

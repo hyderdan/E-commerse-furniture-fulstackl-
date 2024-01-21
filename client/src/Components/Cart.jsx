@@ -16,22 +16,23 @@ export default function Cart() {
     const nav = useNavigate();
     const sessionid=Getid();
 
-    const [Cartproducts, setCartproducts] = useState([]);
-    const { Addtokart, Setaddtokart, Setcount1, Count1, settoken, token, Userlogin, Sofadata, Cartid
+    
+    const { Addtokart, Setaddtokart, Setcount1, Count1, Userlogin, Cartproducts, setCartproducts
     } = useContext(mydata);
 
     
     useEffect(() => {
-        cartproduct();
+        fetchcart();
         }, []);
        
-        const cartproduct= async()=>{
+        const fetchcart = async()=>{
             try{
-        const responce= await axios.get(`http://localhost:5000/users/${sessionid}`)
-        setCartproducts(responce.data.cart);
-        console.log(responce.data.cart);
-        }
-    
+
+            
+            const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`)
+            setCartproducts(response.data.products)
+            console.log("onlyidincart",response.data.products)
+          }
     catch(err){
         console.log(err);
     }
@@ -39,7 +40,7 @@ export default function Cart() {
    
    
     //   console.log(productfilter);
-    console.log("cartid", Cartid)
+   
 
     const cartless = (id) => {
 

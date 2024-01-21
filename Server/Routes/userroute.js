@@ -13,9 +13,10 @@ userrouter.use(cookieParser());
 userrouter.post("/login",ProductControllers.userlogin)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser);
-userrouter.put("/",userMiddleware, ProductControllers.addToCart);
-userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcart);
-userrouter.get("/svedcart",ProductControllers.getcartproducts);
+userrouter.post("/usercart",userMiddleware, ProductControllers.addToCart);
+userrouter.get("/savedcart",ProductControllers.getcart);
+userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcartproducts);
+userrouter.get("/savedcart/:sessionid",ProductControllers.fetchcart);
 
 module.exports={
     userrouter
