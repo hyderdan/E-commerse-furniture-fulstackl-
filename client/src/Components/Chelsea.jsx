@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Getid from "./session";
 import Gettoken from "./sessiontoken";
+import { useNavigate } from "react-router-dom";
 
 export default function Chelsea(){
     
@@ -24,6 +25,7 @@ export default function Chelsea(){
    const[savedcart,setSavedcart]=useState([]);
    const sessionid=Getid();
   const sessiontoken=Gettoken();
+  const nav=useNavigate();
  
  
   useEffect(()=>{
@@ -56,6 +58,7 @@ export default function Chelsea(){
     try {
       if(!sessiontoken){
         console.log("user not authenticated");
+        // nav("/login")
       }
       else{
        
@@ -71,7 +74,7 @@ export default function Chelsea(){
       );
           console.log(response.data.cart);
           setSavedcart(response.data.cart);
-      alert("product added to cart") 
+      alert(response.data.message); 
       
     }
     } catch (error) {

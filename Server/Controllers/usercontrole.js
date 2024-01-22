@@ -84,23 +84,20 @@ const addToCart = async (req, res) => {
       const user = await userdata.findById(req.body.sessionid);
       
       if(user.cart.includes(value_id)){
-        user.cart.splice(product,1);
+        user.cart.splice(value_id,1);
+        await user.save();
+        res
+        .status(200)
+        .json({ message: "Product removed from cart successfully",   cart:user.cart});
       }
       else{
         user.cart.push(product);
-      }
-      // add the product to the cart
-      await user.save();
-  
-    //  const updatedUser = await schema.findOne({ email: decoded.email });
-    // const updatedUser = await userdata.findById(user._id).populate('cart');
-  res
+        await user.save();
+        res
     .status(200)
     .json({ message: "Product added to cart successfully",   cart:user.cart});
-  
-      // res
-      //   .status(200)
-      //   .json({ message: "Product added to cart successfully", product });
+      }
+      
     } catch (err) {
       console.log(err);
       res.status(500).json({ error: "server error", error: err.message });
@@ -194,12 +191,12 @@ const addToCart = async (req, res) => {
   }
   const fetchwishlist=async (req,res)=>{
     try{
-      const User = await userdata.findById(req.params.sessionid)
-   const products = await productdata.find({
-    _id: {$in: User.wishlist}
+      const user = await userdata.findById(req.params.sessionid)
+   const wishedproducts = await productdata.find({
+    _id: {$in: user.wishlist}
    })
-      res.json({products});
-      console.log(products);
+      res.json({wishedproducts})
+      console.log(wishedproducts);
     }
     catch(error)
     {
