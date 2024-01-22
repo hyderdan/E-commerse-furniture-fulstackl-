@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import mydata from "./Context"
 import Header from "./Header"
@@ -9,36 +10,67 @@ import{AiFillHeart}from "react-icons/ai"
 import Footer from "./Footer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Gettoken from "./sessiontoken";
+import Getid from "./session";
+import axios from "axios";
 
 
 
 export default function Sofas(){
   const navigate=useNavigate();
+  const sessionid=Getid();
+  const sessiontoken=Gettoken();
   const[index,setindex,]=useState(-1)
 
-  function viewproducts(value){
-    if(islogedin===true){
-    if(Productdetail.includes(value)){
-      Setproductdetail(Productdetail.filter((d)=>d!==value))
-    
-      Setcount(Count-1)
-  
-   
+   useEffect(()=>{
+    fechwishlist();
+  },[]);
+  const fechwishlist=async()=>{
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users/wishedproduct/ids/${sessionid}`,
+             
+      );
      
-  }
-  else{
-    const products=value;
-    Setproductdetail([...Productdetail,products]);
-    console.log(Productdetail)
-    Setcount(Count+1)
+     console.log("cartproducts",response.data.wishlistproducts)
     
-  } 
-}
-  else{
-    navigate("/login")
-  }
+    //  console.log("fechcart",response.data) 
+    } catch (error) {
+      console.error("Error occurs:", error);
+    }
+  };
+  
+  const wishlisted=async(value_id)=>{
+        
+        try {
+          if(!sessiontoken){
+            console.log("user not authenticated");
+            navigate("/login")
+          }
+          else{
+           
+          const response = await axios.post(
+            "http://localhost:5000/users/wishlist",{value_id,sessionid},
+            
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `${sessiontoken}`,
+              },
+            }
+          );
+              console.log(response.data.wishlist);
+          alert("product added to wishlist")  
+        }
+        } catch (error) {
+          alert("Error adding to wishlist")
+          console.error("Error adding to wish:", error);
+        }
+      };
+
+
     
-  }
+  
   function productsdetails(value){
     const products=value;
     
@@ -91,7 +123,7 @@ export default function Sofas(){
         {sofas.map((data)=>(
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
             <div onClick={()=>productsdetails(data)} className="sthirdsub">
-              <div onClick={(e)=>{viewproducts(data);e.preventDefault()}} className="sbutton2">
+              <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
                 {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>   
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">

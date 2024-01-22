@@ -27,7 +27,9 @@ const userschema=new mongoose.Schema({
     password:String,
     confirmPassword:String,
     wishlist:[{
-
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:"Data",
+        required:false,
     }],
     cart:[{
         type:mongoose.Schema.Types.ObjectId, 

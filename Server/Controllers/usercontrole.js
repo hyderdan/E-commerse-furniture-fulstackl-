@@ -73,8 +73,8 @@ const updateuser = async function (req, res) {
 };
 const addToCart = async (req, res) => {
     try {
-      // const {value_id,sessionid} = req.body
-      const product = await productdata.findById(req.body.value_id);
+      const {value_id,sessionid} = req.body
+      const product = await productdata.findById(value_id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -83,9 +83,13 @@ const addToCart = async (req, res) => {
       // const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await userdata.findById(req.body.sessionid);
       
-  
+      if(user.cart.includes(value_id)){
+        user.cart.splice(product,1);
+      }
+      else{
+        user.cart.push(product);
+      }
       // add the product to the cart
-      user.cart.push(product);
       await user.save();
   
     //  const updatedUser = await schema.findOne({ email: decoded.email });
@@ -102,6 +106,7 @@ const addToCart = async (req, res) => {
       res.status(500).json({ error: "server error", error: err.message });
     }
   };
+  
   const getcart= async(res,req)=>{
     try{
       const user= await productdata.find({})
@@ -133,10 +138,79 @@ const addToCart = async (req, res) => {
        res.json(error)
     }
    }
+
+   const addTowishlist = async (req, res) => {
+    try {
+      const {value_id,sessionid} = req.body
+      const product = await productdata.findById(value_id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      const token = req.cookies.token;
+      console.log("recevied token",token);
+      // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userdata.findById(req.body.sessionid);
+      
+      if(user.wishlist.includes(value_id)){
+        user.wishlist.splice(product,1);
+      }
+      else{
+        user.wishlist.push(product);
+      }
+      // add the product to the cart
+      await user.save();
+  
+    //  const updatedUser = await schema.findOne({ email: decoded.email });
+    // const updatedUser = await userdata.findById(user._id).populate('cart');
+  res
+    .status(200)
+    .json({ message: "Product added to cart successfully",   wishlist:user.wishlist});
+  
+      // res
+      //   .status(200)
+      //   .json({ message: "Product added to cart successfully", product });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "server error", error: err.message });
+    }
+  };
+  
+  const getwishlist= async(res,req)=>{
+    try{
+      const user= await productdata.find({})
+      res.json(user)
+    }catch(err){
+      console.log(err);
+
+    }
+  }
+  const getwishproducts= async(res,req)=>{
+    try{
+      const user= await userdata.findById(req.params.sessionid);
+      res.json({ wishproducts:user?.wishlist})
+    }catch{
+
+    }
+  }
+  const fetchwishlist=async (req,res)=>{
+    try{
+      const User = await userdata.findById(req.params.sessionid)
+   const products = await productdata.find({
+    _id: {$in: User.wishlist}
+   })
+      res.json({products});
+      console.log(products);
+    }
+    catch(error)
+    {
+       res.json(error)
+    }
+   }
  
 
 
 
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart
+    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart, addTowishlist,
+    getwishlist,getwishproducts,fetchwishlist
 }

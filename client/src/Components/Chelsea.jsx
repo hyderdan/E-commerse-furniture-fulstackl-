@@ -21,7 +21,7 @@ export default function Chelsea(){
    const{Addtokart,Setaddtokart,Count1,Setcount1,settoken,token,Cartproducts,setCartproducts}=useContext(mydata)
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
-   const[savedcart,setSavedcart]=useState([])
+   const[savedcart,setSavedcart]=useState([]);
    const sessionid=Getid();
   const sessiontoken=Gettoken();
  
@@ -70,8 +70,9 @@ export default function Chelsea(){
         }
       );
           console.log(response.data.cart);
-       
-      alert("product added to cart")  
+          setSavedcart(response.data.cart);
+      alert("product added to cart") 
+      
     }
     } catch (error) {
       alert("Error adding to cart")
@@ -80,8 +81,8 @@ export default function Chelsea(){
     }
     
   };
-  const iSsavedcart=(id)=>savedcart.includes(id)
-  console.log(savedcart);
+  
+
  
  
     return(
@@ -94,8 +95,7 @@ export default function Chelsea(){
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
         <button onClick={()=>Addtocart(data._id)}
-        disabled={iSsavedcart(data._id)}
-        className="chelseabutton">{iSsavedcart(data._id)?"REMOVE FROM CART":"ADD TO CART"}</button>
+        className="chelseabutton">{savedcart.includes(data._id)?"REMOVE FROM CART":"ADD TO CART"}</button>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">
       <Carousel.Item>     
