@@ -73,37 +73,48 @@ const updateuser = async function (req, res) {
 };
 const addToCart = async (req, res) => {
     try {
-      const {value_id,sessionid} = req.body
+      const {value_id,sessionid,index} = req.body
       const product = await productdata.findById(value_id);
-      if (!product) {
-        return res.status(404).json({ message: "Product not found" });
-      }
-      const token = req.cookies.token;
+     
+        const token = req.cookies.token;
       console.log("recevied token",token);
       // const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const user = await userdata.findById(req.body.sessionid);
-      
-      if(user.cart.includes(value_id)){
-        user.cart.splice(value_id,1);
-        await user.save();
-        res
-        .status(200)
-        .json({ message: "Product removed from cart successfully",   cart:user.cart});
-      }
-      else{
         user.cart.push(product);
         await user.save();
         res
     .status(200)
     .json({ message: "Product added to cart successfully",   cart:user.cart});
-      }
-      
     } catch (err) {
       console.log(err);
       res.status(500).json({ error: "server error", error: err.message });
     }
   };
-  
+  const deletefromcart=  async (req, res) => {
+    try {
+      const {value_id,sessionid,index} = req.body
+      const product = await productdata.findById(value_id);
+      const token = req.cookies.token;
+      console.log("recevied token",token);;
+      const user = await userdata.findById(sessionid);
+      if (user) {
+        if (index >= 0 && index < user.cart.length) {
+      
+        user.cart.splice(index,1);
+        await user.save();
+        res
+        .status(200)
+        .json({ message: "Product removed from cart successfully",   cart:user.cart});
+      }
+    }else{
+      console.log("error occured");
+    }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "server error", error: err.message });
+    }
+  };
+
   const getcart= async(res,req)=>{
     try{
       const user= await productdata.find({})
@@ -209,5 +220,5 @@ const addToCart = async (req, res) => {
 
 module.exports = {
     userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart, addTowishlist,
-    getwishlist,getwishproducts,fetchwishlist
+    getwishlist,getwishproducts,fetchwishlist,deletefromcart
 }

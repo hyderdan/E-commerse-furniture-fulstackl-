@@ -9,17 +9,18 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Getid from "./session";
+import Gettoken from "./sessiontoken";
 
 
 
 export default function Cart() {
     const nav = useNavigate();
     const sessionid=Getid();
-
+    const sessiontoken=Gettoken();
     
     const { Addtokart, Setaddtokart, Setcount1, Count1, Userlogin, Cartproducts, setCartproducts
     } = useContext(mydata);
-
+    const [cart,setcart]=useState([])
     
     useEffect(() => {
         fetchcart();
@@ -37,6 +38,38 @@ export default function Cart() {
         console.log(err);
     }
     }  
+    const deletefromcart=async(delete_id,index)=>{
+        try {
+          if(!sessiontoken){
+            console.log("user not authenticated");
+            // nav("/login")
+          }
+          else{
+          const response = await axios.post(
+            "http://localhost:5000/users/usercart/delete",{delete_id,index,sessionid}, 
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `${sessiontoken}`,
+              },
+            }
+          );
+              console.log(response.data.cart);
+              fetchcart();
+            //   setSavedcart(response.data.cart);
+            //   setcartindex(false);
+        //   alert(response.data.message); 
+          
+        }
+        } catch (error) {
+          alert("Error adding to cart")
+        
+          console.error("Error adding to cart:", error);
+        }
+        
+      };
+      
+    
    
    
     //   console.log(productfilter);
@@ -91,10 +124,10 @@ export default function Cart() {
                 <p className="subdiv3p4">Total</p>
             </div>
             <div className="cartsubdiv4">
-                {Cartproducts.map((data) => (
+                {Cartproducts.map((data,index) => (
 
                     <div className="cartsubdivmini">
-                        <div onClick={() => cartless(data.id)} className="cartsubdivmini3"><AiOutlineClose /></div>
+                        <div onClick={() => deletefromcart(data._id,index)} className="cartsubdivmini3"><AiOutlineClose /></div>
 
                         <img className="subdiv4img" src={data.image} alt="" />
                         <h5>{data.name}</h5>

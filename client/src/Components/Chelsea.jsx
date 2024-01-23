@@ -23,6 +23,7 @@ export default function Chelsea(){
    const{id}=useParams();
    const[Productdetail1,Setproductdetail1]=useState([]);
    const[savedcart,setSavedcart]=useState([]);
+   const[cartindex,setcartindex]=useState(true);
    const sessionid=Getid();
   const sessiontoken=Gettoken();
   const nav=useNavigate();
@@ -54,7 +55,7 @@ export default function Chelsea(){
     }
   };
 
-  const Addtocart=async(value_id)=>{
+  const Addtocart=async(value_id,index)=>{
     try {
       if(!sessiontoken){
         console.log("user not authenticated");
@@ -74,6 +75,36 @@ export default function Chelsea(){
       );
           console.log(response.data.cart);
           setSavedcart(response.data.cart);
+          setcartindex(false);
+      alert(response.data.message); 
+      
+    }
+    } catch (error) {
+      alert("Error adding to cart")
+    
+      console.error("Error adding to cart:", error);
+    }
+    
+  };
+  const deletefromcart=async(delete_id,index)=>{
+    try {
+      if(!sessiontoken){
+        console.log("user not authenticated");
+        // nav("/login")
+      }
+      else{
+      const response = await axios.post(
+        "http://localhost:5000/users/usercart/delete",{delete_id,index,sessionid}, 
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `${sessiontoken}`,
+          },
+        }
+      );
+          console.log(response.data.cart);
+          setSavedcart(response.data.cart);
+          setcartindex(false);
       alert(response.data.message); 
       
     }
@@ -92,13 +123,15 @@ export default function Chelsea(){
         <div className="chelsea-adjust">
             <div><Header/></div>
             {
-                products.map((data)=>(
+                products.map((data,index)=>(
                     <div className="chelseasub1">
          <h2>{data.name}</h2>
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
-        <button onClick={()=>Addtocart(data._id)}
-        className="chelseabutton">{savedcart.includes(data._id)?"REMOVE FROM CART":"ADD TO CART"}</button>
+        <div>{cartindex===true?<button onClick={()=>Addtocart(data._id,index)}
+        className="chelseabutton">ADD TO CART</button>:<button onClick={()=>deletefromcart(data._id,index)}
+        className="chelseabutton">Remove FROM CART</button>}
+        </div>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">
       <Carousel.Item>     
