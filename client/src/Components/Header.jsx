@@ -14,6 +14,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { useState } from 'react'
 import{MdOutlineAdminPanelSettings} from "react-icons/md"
 import Gettoken from "./sessiontoken";
+import Container from 'react-bootstrap/Container';
 
 
 
@@ -62,8 +63,13 @@ export default function Header(){
         <Link className="link2" ><p className="seconddivp5">UL service</p></Link>
         </div>
         <div className="thirddiv">
-        <Link className='headerL'to={'/'}><div className="logo"> <img src="" alt="" /> DEFINED DESIGN</div></Link>
-     <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/><div onClick={()=>handlesearch()} className="searchbarbutton"> <h3><FiSearch/></h3></div>
+     <Link className='headerL'to={'/'}><div className="logo"> <h1>DEFINED DESIGN</h1></div></Link>
+     <Container fluid>
+ <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/>
+ <span onClick={()=>handlesearch()} className="searchbarbutton"> <h3><FiSearch/></h3></span>
+    </Container>
+  
+         
     <div className="thirddivh3" onClick={()=>clearAll()}>
         {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
         </div>
