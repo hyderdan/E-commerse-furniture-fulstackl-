@@ -9,42 +9,23 @@ import{AiFillHeart}from "react-icons/ai"
 import Footer from "./Footer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Getid from "./session";
+import Gettoken from "./sessiontoken";
+import axios from "axios";
+import { useEffect } from "react";
+
+
 
 
 
 export default function Dining(){
   const navigate=useNavigate();
   const[index,setindex]=useState(-1)
+  const sessiontoken=Gettoken();
+  const userid=Getid();
 
-  function viewproducts(value){
-    if(islogedin===true){
-    if(Productdetail.includes(value)){
-      Setproductdetail(Productdetail.filter((d)=>d!==value))
-    
-      Setcount(Count-1)
+ 
   
-   
-     
-  }
-  else{
-    const products=value;
-    Setproductdetail([...Productdetail,products]);
-    console.log(Productdetail)
-    Setcount(Count+1)
-    
-  } 
-}
-  else{
-    navigate("/login")
-  }
-    
-  }
-  function productsdetails(value){
-    const products=value;
-    recentsub.splice(3,3)   
-    setrecently([...recently,products]);
-    setrecentsub([...recentsub,products])
-  }
   
   const{Sofadata,Productdetail,Setproductdetail,Productdetail1,Setproductdetail1,Count,Setcount,islogedin,recently,setrecently,
     setrecentsub,recentsub,}=useContext(mydata);
@@ -52,7 +33,54 @@ export default function Dining(){
   const dining=Sofadata.filter((data)=>
   data.item==="dining"
   );
-  
+
+  useEffect(()=>{
+    // fechwishlist();
+    fechrecentlyviewed();
+  },[]);
+ 
+
+  const fechrecentlyviewed=async()=>{
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users/recent/idr/${userid}`
+             
+      );
+     
+     console.log("recentlyvirewd",response.data.recentvieweddata)
+    
+    //  console.log("fechcart",response.data) 
+    } catch (error) {
+      console.error("Error occurs:", error);
+    }
+  };
+  const recntlyviewed=async(value_id)=>{
+        
+    try {
+      if(!sessiontoken){
+        console.log("user not authenticated");
+        navigate("/login")
+      }
+      else{
+       
+      const response = await axios.post(
+        "http://localhost:5000/users/recentlyviewed",{value_id,userid},
+        
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `${sessiontoken}`,
+          },
+        }
+      );
+          console.log(response.data.recentview); 
+    }
+    } catch (error) {
+      alert("Error adding to wishlist")
+      console.error("Error adding to wish:", error);
+    }
+  };
+
 
     return(
         <div>
@@ -86,16 +114,16 @@ export default function Dining(){
          
         {dining.map((data)=>(
            <Link className="Hlink" to={`/productdetails/${data._id}`}>
-            <div  className="sthirdsub">
-              <div onClick={(e)=>{viewproducts(data);e.preventDefault()}} className="sbutton2">
+            <div onClick={()=>recntlyviewed(data._id)} className="sthirdsub">
+              {/* <div onClick={(e)=>{viewproducts(data);e.preventDefault()}} className="sbutton2">
                 {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>
-               
+                */}
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">
            <h6>{data.name}</h6>
            <p>{data.description}</p>
            <p>₹{data.price}</p>
-           <button onClick={()=>productsdetails(data)} className="sbutton1">View Product</button>
+           <button  className="sbutton1">View Product</button>
            
            </div>
           

@@ -22,19 +22,35 @@ import { useContext } from "react";
 import mydata from "./Context";
 import axios from 'axios'
 import { useEffect } from "react";
- function Home(){
-  const{recentsub,homedata,sethomedata}=useContext(mydata);
-  console.log(homedata)
+import Getid from "./session";
 
+ function Home(){
+  const{recentsub,homedata,sethomedata,setrecentsub,}=useContext(mydata);
+  console.log(homedata)
+  const userid=Getid();
   useEffect(()=>{
     fectdata();
+    fetchrecent();
   },[]);
   
   const fectdata = async ()=>{
     const responce = await axios.get('http://localhost:5000/homeimage');
     sethomedata(responce.data);
    
+  };
+  const fetchrecent = async()=>{
+    try{
+    const response = await axios.get(`http://localhost:5000/users/recent/${userid}`);
+    const datas =response.data;
+   
+    setrecentsub(datas.recentview);
+   
+    console.log("onlyidincart",recentsub);
   }
+catch(err){
+console.log(err);
+}
+}  
     return(
         <div className="maindiv">
             <div className="firstdiv">
@@ -67,7 +83,8 @@ import { useEffect } from "react";
                 <h3 className="rh3">Recently Viewed</h3>
                 <p className="rifp">_______________</p>                
                
-        <div className="vhomediv">         
+        <div className="vhomediv">   
+              
         {recentsub.map((data)=>(
             <div  className="vhomesub">               
            <img className="vhomeimg" src={data.image} alt="img" /> 

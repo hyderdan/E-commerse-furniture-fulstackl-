@@ -76,11 +76,9 @@ export default function Header(){
      <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>
      <Link to={'/addtocart'} className="link2" ><div className="thirddivh5"><FiShoppingCart/></div></Link>
      <Link to={'/adminlogin'} className="link2" ><div className="thirddivh6" ><MdOutlineAdminPanelSettings/></div></Link>
-   
-        </div>
-        <div className='wishcount'>{Count}</div>
+     <div className='wishcount'>{Count}</div>
         <div className='wishcount1'>{Count1}</div>
-       
+        </div>
         </div>
         
     )

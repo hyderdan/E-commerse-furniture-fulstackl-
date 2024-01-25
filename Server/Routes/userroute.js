@@ -15,13 +15,19 @@ userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser);
 userrouter.post("/usercart",userMiddleware, ProductControllers.addToCart);
 userrouter.post("/usercart/delete",userMiddleware, ProductControllers.deletefromcart);
-userrouter.post("/wishlist",userMiddleware, ProductControllers.addTowishlist);
+// userrouter.post("/wishlist",userMiddleware, ProductControllers.addTowishlist);
 userrouter.get("/savedcart",ProductControllers.getcart);
-userrouter.get("/wish",ProductControllers.getwishlist);
+// userrouter.get("/wish",ProductControllers.getwishlist);
 userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcartproducts);
-userrouter.get("/wish/ids/:sessionid",ProductControllers.getwishproducts);
+// userrouter.get("/wish/ids/:sessionid",ProductControllers.getwishproducts);
 userrouter.get("/savedcart/:sessionid",ProductControllers.fetchcart);
-userrouter.get("/wish/:sessionid",ProductControllers.fetchwishlist);
+// userrouter.get("/wish/:sessionid",ProductControllers.fetchwishlist);
+userrouter.post("/recentlyviewed",userMiddleware, ProductControllers.recentlyviewd);
+userrouter.get("/recent", ProductControllers.getviewedproducts);
+userrouter.get("/recent/idr/:userid", ProductControllers.fechrecentlyviewed);
+userrouter.get("/recent/:userid", ProductControllers.fetchview);
+userrouter.get("/recent/2/:userid", ProductControllers.fetchview2);
+userrouter.post("/recentviewed/delete",userMiddleware, ProductControllers.deletefromrecentlyviewed);
 
 module.exports={
     userrouter

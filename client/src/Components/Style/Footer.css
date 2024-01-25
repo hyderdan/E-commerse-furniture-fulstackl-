@@ -42,13 +42,14 @@
 .footersubp{
     
    padding-top: 0px;
-   margin-left: 10px;
+   margin-left: -160px;
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
    height: 170px;
    list-style: none;
    align-items: center;
+   transition: 0.3s;
   
 }
 .footersubp li{
@@ -62,13 +63,14 @@
 .footersubp2{
     /* background-color: red; */
     margin-top: -172px;
-    margin-left: 200px;
+    margin-left: 50px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 170px;
     list-style: none;
     align-items: center;
+    transition: 0.3s;
    
  }
  .footersubp2 li{
@@ -81,13 +83,14 @@
  .footersubp3{
     /* background-color: red; */
     margin-top: -190px;
-    margin-left: 357px;
+    margin-left: 200px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 170px;
     list-style: none;
     align-items: center;
+    transition: 0.3s;
    
  }
  .footersubp3 li{
@@ -100,13 +103,14 @@
  .footersubp4{
     /* background-color: red; */
     margin-top: -187px;
-    margin-left: 550px;
+    margin-left: 320px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 170px;
     list-style: none;
     align-items: center;
+    transition: 0.3s;
    
  }
  .footersubp4 li{
@@ -119,13 +123,14 @@
  .footersubp5{
     /* background-color: red; */
     margin-top: -187px;
-    margin-left: 800px;
+    margin-left: 500px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 170px;
     list-style: none;
     align-items: center;
+    transition: 0.3s;
    
  }
  .footersubp5 h6{
@@ -185,6 +190,23 @@
    margin-left: 20px;
    margin-top: 10px;
   
+ }
+ @media screen and (min-width:1100px) {
+   .footersubp{
+      margin-left: 10px;
+   }
+   .footersubp2{
+      margin-left: 200px;
+   }
+   .footersubp3{
+      margin-left: 357px;
+   }
+   .footersubp4{
+      margin-left: 550px;
+   }
+   .footersubp5{
+      margin-left: 800px;
+   }
  }
  
  

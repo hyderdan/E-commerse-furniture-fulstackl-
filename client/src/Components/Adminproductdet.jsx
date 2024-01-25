@@ -3,6 +3,7 @@ import mydata from "./Context"
 import "./Style/Admimnproductdet.css"
 import { useState } from "react";
 import axios from 'axios'
+import { useEffect } from "react";
 
 
 export default function Admiinproductdet(){
@@ -21,9 +22,11 @@ export default function Admiinproductdet(){
   });
 
 
-
+  useEffect(() => {
+    fechdata();
+    }, []);
 console.log(Sofadata);
-const fectdata = async ()=>{
+const fechdata = async ()=>{
   const responce = await axios.get('http://localhost:5000/product');
   Setsofadata(responce.data);
 
@@ -38,7 +41,7 @@ const handleChange = (data) => {
   const handleSaveEdit = async(id,e) => {
     try {
       await axios.put(`http://localhost:5000/product/${id}`,{ price:e });
-      fectdata()
+      fechdata();
       canceledit();
   } catch (error) {
       console.error('error occured while updating')
@@ -63,7 +66,7 @@ const handleChange = (data) => {
   const deleteProduct=async(id)=>{
     try {
       await axios.delete(`http://localhost:5000/product/${id}`);
-      fectdata();
+      fechdata();
     } catch (error) {
       console.error('Error deleting product:', error);
     }

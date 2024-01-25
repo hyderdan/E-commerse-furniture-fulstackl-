@@ -90,11 +90,13 @@ export default function Adminaddproducts() {
         price: pricE, quandity: quanditY, item: iteM
       },
         (req, res) => console.log(req.body));
-      // fectdata();    
+      // fectdata();
+        
     }
     catch (error) {
       console.error('error occured', error)
     }
+    alert("product added successfully");  
     addimage("")
     addimage2("")
     addimage3("")

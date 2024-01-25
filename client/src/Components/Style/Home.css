@@ -46,8 +46,9 @@ width: 100%
     /* background-color: red; */
     width: 900px;
     height: 350px;
-    margin-left: 300px;
-margin-top: 30px;
+    margin-left: 70px;
+    margin-top: 30px;
+    transition: 0.3s;
 }
 .main1{
     margin-left: 80px;
@@ -285,10 +286,10 @@ margin-top: 30px;
     width: 80px;
     font-size: 40px;
     border-radius: 50px;
-    margin-left: 250px;
+    margin-left: -200px;
     margin-top: 200px;
     border: 1px solid #dcd9d9;  
-    transition: 0.7s;
+    transition: 0.3s;
 }
 .vround:hover{
     color: rgb(244, 179, 57);
@@ -296,16 +297,18 @@ margin-top: 30px;
 }
 .rh3{
     position: absolute;
-    margin-left: 650px;
+    margin-left: 430px;
     margin-top: 40px;
     font-family: "Mrs Eaves XL Serif", serif;
+    transition: 0.3s;
 }
 .rifp{
     position: absolute;
     margin-top: 60px;
-    margin-left: 700px;
+    margin-left: 470px;
     z-index: 1;
     color: #e85348;
+    transition: 0.3s;
   
     
 }
@@ -367,4 +370,18 @@ margin-top: 30px;
   }
   .Rbuttonsub{
       color: red;
+  }
+  @media screen and (min-width:1100px) {
+    .rh3{
+        margin-left: 650px;
+    }
+    .rifp{
+        margin-left: 700px;
+    }
+    .vround{
+        margin-left: 250px;   
+    }
+    .fifthmain{
+        margin-left: 300px;   
+    }
   }

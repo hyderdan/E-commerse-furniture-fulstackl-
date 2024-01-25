@@ -17,30 +17,77 @@ import axios from "axios";
 
 
 export default function Sofas(){
-  const navigate=useNavigate();
-  const sessionid=Getid();
-  const sessiontoken=Gettoken();
+  
   const[index,setindex,]=useState(-1)
+  const{Sofadata,Productdetail,Setproductdetail,Count,Setcount,islogedin,recently,setrecently,
+  }=useContext(mydata);
+  const navigate=useNavigate();
+  const userid=Getid();
 
    useEffect(()=>{
-    fechwishlist();
+    // fechwishlist();
+    fechrecentlyviewed();
   },[]);
-  const fechwishlist=async()=>{
+ 
+  const sessiontoken=Gettoken();
+  const fechrecentlyviewed=async()=>{
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/wishedproduct/ids/${sessionid}`,
+        `http://localhost:5000/users/recent/idr/${userid}`
              
       );
      
-     console.log("cartproducts",response.data.wishlistproducts)
+     console.log("recentlyvirewd",response.data.recentvieweddata)
     
     //  console.log("fechcart",response.data) 
     } catch (error) {
       console.error("Error occurs:", error);
     }
   };
+  // const fechwishlist=async()=>{
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/users/wishedproduct/ids/${userid}`,
+             
+  //     );
+     
+  //    console.log("cartproducts",response.data.wishlistproducts)
+    
+  //   //  console.log("fechcart",response.data) 
+  //   } catch (error) {
+  //     console.error("Error occurs:", error);
+  //   }
+  // };
   
-  const wishlisted=async(value_id)=>{
+  // const wishlisted=async(value_id)=>{
+        
+  //       try {
+  //         if(!sessiontoken){
+  //           console.log("user not authenticated");
+  //           navigate("/login")
+  //         }
+  //         else{
+           
+  //         const response = await axios.post(
+  //           "http://localhost:5000/users/wishlist",{value_id,userid},
+            
+  //           {
+  //             withCredentials: true,
+  //             headers: {
+  //               Authorization: `${sessiontoken}`,
+  //             },
+  //           }
+  //         );
+  //             console.log(response.data.wishlist);
+  //         alert("product added to wishlist")  
+  //       }
+  //       } catch (error) {
+  //         alert("Error adding to wishlist")
+  //         console.error("Error adding to wish:", error);
+  //       }
+  //     };
+     
+      const recntlyviewed=async(value_id)=>{
         
         try {
           if(!sessiontoken){
@@ -50,7 +97,7 @@ export default function Sofas(){
           else{
            
           const response = await axios.post(
-            "http://localhost:5000/users/wishlist",{value_id,sessionid},
+            "http://localhost:5000/users/recentlyviewed",{value_id,userid},
             
             {
               withCredentials: true,
@@ -59,29 +106,25 @@ export default function Sofas(){
               },
             }
           );
-              console.log(response.data.wishlist);
-          alert("product added to wishlist")  
+              console.log(response.data.recentview); 
         }
         } catch (error) {
           alert("Error adding to wishlist")
           console.error("Error adding to wish:", error);
         }
       };
-
-
-    
-  
+     
+      
   function productsdetails(value){
     const products=value;
     
-    recentsub.splice(3,3)
-    setrecently([...recently,products]);
-    setrecentsub([...recentsub,products])
+    
+    // setrecently([...recently,products]);
+    // setrecentsub([...recentsub,products])
      
   }
   
-  const{Sofadata,Productdetail,Setproductdetail,Count,Setcount,islogedin,recently,setrecently,
-    setrecentsub,recentsub}=useContext(mydata);
+  
 
   const sofas=Sofadata.filter((data)=>
   data.item==="sofa"
@@ -118,13 +161,13 @@ export default function Sofas(){
     </div>
 
 
-        <div className="sthirddiv">
+        <div  className="sthirddiv">
          
-        {sofas.map((data)=>(
+        {sofas.map((data,index)=>(
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
-            <div onClick={()=>productsdetails(data)} className="sthirdsub">
-              <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
-                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>   
+            <div onClick={()=>recntlyviewed(data._id,index)} className="sthirdsub">
+              {/* <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
+                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    */}
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">
            <h6>{data.name}</h6>
