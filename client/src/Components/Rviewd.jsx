@@ -7,7 +7,7 @@ import Getid from "./session"
 import axios from "axios"
 
 export default function Rviewd(){
-   const {recently,setrecently,setrecentsub,recentsub}=useContext(mydata);
+   const {recently,setrecently}=useContext(mydata);
    const userid=Getid();
    useEffect(()=>{
     fetchrecent();

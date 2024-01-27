@@ -19,21 +19,21 @@ export default function Wishlist(){
       const [wishproducts, setwishproducts] = useState([]);
 
       useEffect(() => {
-        // fetchwishlist();
+        fetchwishlist();
         }, []);
 
 
 
-//       const fetchwishlist = async()=>{
-//         try{
-//         const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`)
-//         setwishproducts(response.data.products)
-//         console.log("onlyidincart",response.data.products)
-//       }
-// catch(err){
-//     console.log(err);
-// }
-// }  
+      const fetchwishlist = async()=>{
+        try{
+        const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`)
+        setwishproducts(response.data.products)
+        console.log("onlyidincart",response.data.products)
+      }
+catch(err){
+    console.log(err);
+}
+}  
 
      return(
      <div className="wishmain">

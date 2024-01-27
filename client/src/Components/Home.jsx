@@ -43,7 +43,7 @@ import Getid from "./session";
     const response = await axios.get(`http://localhost:5000/users/recent/${userid}`);
     const datas =response.data;
    
-    setrecentsub(datas.recentview);
+    setrecentsub(datas.recentlyv);
    
     console.log("onlyidincart",recentsub);
   }

@@ -75,14 +75,14 @@ export default function Cart() {
     //   console.log(productfilter);
    
 
-    const cartless = (id) => {
+    // const cartless = (id) => {
 
 
-        const remove = Cartproducts.filter((data) => data.id !== id
-        );
-        setCartproducts(remove)
-        Setcount1(Count1 - 1)
-    }
+    //     const remove = Cartproducts.filter((data) => data.id !== id
+    //     );
+    //     setCartproducts(remove)
+    //     Setcount1(Count1 - 1)
+    // }
 
     //    function priceinc(d){
     //     const price=d.price

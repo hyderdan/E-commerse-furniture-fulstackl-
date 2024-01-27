@@ -21,110 +21,84 @@ export default function Sofas(){
   const[index,setindex,]=useState(-1)
   const{Sofadata,Productdetail,Setproductdetail,Count,Setcount,islogedin,recently,setrecently,
   }=useContext(mydata);
+  const [rec,setrec]=useState([])
   const navigate=useNavigate();
   const userid=Getid();
 
    useEffect(()=>{
-    // fechwishlist();
+    fechwishlist();
     fechrecentlyviewed();
   },[]);
  
   const sessiontoken=Gettoken();
-  const fechrecentlyviewed=async()=>{
+ 
+  const fechwishlist=async()=>{
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/recent/idr/${userid}`
+        `http://localhost:5000/users/wishedproduct/idw/${userid}`,
              
       );
-     
-     console.log("recentlyvirewd",response.data.recentvieweddata)
-    
+     console.log("cartproducts",response.data.wishlistproducts)
+
     //  console.log("fechcart",response.data) 
     } catch (error) {
       console.error("Error occurs:", error);
     }
   };
-  // const fechwishlist=async()=>{
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:5000/users/wishedproduct/ids/${userid}`,
-             
-  //     );
-     
-  //    console.log("cartproducts",response.data.wishlistproducts)
-    
-  //   //  console.log("fechcart",response.data) 
-  //   } catch (error) {
-  //     console.error("Error occurs:", error);
-  //   }
-  // };
   
-  // const wishlisted=async(value_id)=>{
+  const wishlisted=async(value_id)=>{
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/users/wishlist",{value_id,userid},
         
-  //       try {
-  //         if(!sessiontoken){
-  //           console.log("user not authenticated");
-  //           navigate("/login")
-  //         }
-  //         else{
-           
-  //         const response = await axios.post(
-  //           "http://localhost:5000/users/wishlist",{value_id,userid},
-            
-  //           {
-  //             withCredentials: true,
-  //             headers: {
-  //               Authorization: `${sessiontoken}`,
-  //             },
-  //           }
-  //         );
-  //             console.log(response.data.wishlist);
-  //         alert("product added to wishlist")  
-  //       }
-  //       } catch (error) {
-  //         alert("Error adding to wishlist")
-  //         console.error("Error adding to wish:", error);
-  //       }
-  //     };
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `${sessiontoken}`,
+          },
+        }
+      );
+          console.log("rec",response.data.wishlist);
+          
+   } catch (error) {
+    alert("Error adding to wishlist")
+    console.error("Error adding to wish:", error);
+  }
+};
      
       const recntlyviewed=async(value_id)=>{
-        
-        try {
-          if(!sessiontoken){
-            console.log("user not authenticated");
-            navigate("/login")
-          }
-          else{
-           
-          const response = await axios.post(
-            "http://localhost:5000/users/recentlyviewed",{value_id,userid},
-            
-            {
-              withCredentials: true,
-              headers: {
-                Authorization: `${sessiontoken}`,
-              },
-            }
-          );
-              console.log(response.data.recentview); 
-        }
-        } catch (error) {
+          try {
+            const response = await axios.post(
+              "http://localhost:5000/users/recentlyviewed",{value_id,userid},
+              
+              {
+                withCredentials: true,
+                headers: {
+                  Authorization: `${sessiontoken}`,
+                },
+              }
+            );
+                console.log("rec",response.data.recentview);
+                
+         } catch (error) {
           alert("Error adding to wishlist")
           console.error("Error adding to wish:", error);
         }
       };
-     
+       const fechrecentlyviewed=async()=>{
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/users/recent/idr/${userid}`
+               
+        );
+       console.log("recentlyvirewd",);
+       setrec(response.data.recentvieweddata);
       
-  function productsdetails(value){
-    const products=value;
-    
-    
-    // setrecently([...recently,products]);
-    // setrecentsub([...recentsub,products])
-     
-  }
-  
-  
+      //  console.log("fechcart",response.data) 
+      } catch (error) {
+        console.error("Error occurs:", error);
+      }
+    };
 
   const sofas=Sofadata.filter((data)=>
   data.item==="sofa"
@@ -166,8 +140,8 @@ export default function Sofas(){
         {sofas.map((data,index)=>(
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
             <div onClick={()=>recntlyviewed(data._id,index)} className="sthirdsub">
-              {/* <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
-                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    */}
+              <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
+                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">
            <h6>{data.name}</h6>
