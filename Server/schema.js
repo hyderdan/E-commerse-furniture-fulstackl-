@@ -21,11 +21,7 @@ const productsschema=new mongoose.Schema({
         
         
 });
-const cartItemSchema = new mongoose.Schema({
-    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Data' },
-    quantity: { type: Number, default: 1 } // Default quantity is 1
-  });
-  
+
 const userschema=new mongoose.Schema({
     username:String,
     email:String,
@@ -38,7 +34,17 @@ const userschema=new mongoose.Schema({
     qunadity:{type:Number,default:1}
     }
     ],
-    cart:[cartItemSchema],
+    cart:[{
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product', // Reference to the Product model
+          required: true
+        },
+        quantity: {
+          type: Number,
+          default: 1
+        }
+      }],
     recentview:[{
         type:mongoose.Schema.Types.ObjectId, 
         ref:"Data",

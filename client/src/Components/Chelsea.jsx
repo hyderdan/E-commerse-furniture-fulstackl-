@@ -75,6 +75,7 @@ export default function Chelsea(){
       );
           console.log(response.data.cart);
           setSavedcart(response.data.cart);
+          sessionStorage.setItem("valueId",value_id);
           setcartindex(false);
       alert(response.data.message); 
       
@@ -128,9 +129,10 @@ export default function Chelsea(){
          <h2>{data.name}</h2>
         <h3>{data.description}</h3>
         <h4>MRP:- Rs{data.price} </h4>
-        <div>{cartindex===true?<button onClick={()=>Addtocart(data._id,index)}
-        className="chelseabutton">ADD TO CART</button>:<button onClick={()=>deletefromcart(data._id,index)}
-        className="chelseabutton">Remove FROM CART</button>}
+        <div><button onClick={()=>Addtocart(data._id,index)}
+        className="chelseabutton">ADD TO CART</button>
+        {/* <button onClick={()=>deletefromcart(data._id,index)}
+        className="chelseabutton">Remove FROM CART</button>} */}
         </div>
         <div className="chelseasub2">
         <Carousel className="arinacarou"  data-bs-theme="dark">

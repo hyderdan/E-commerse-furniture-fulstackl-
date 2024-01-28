@@ -20,24 +20,39 @@ export default function Cart() {
     
     const { Addtokart, Setaddtokart, Setcount1, Count1, Userlogin, Cartproducts, setCartproducts
     } = useContext(mydata);
-    const [cart,setcart]=useState([])
+    const [quandity,setquandity]=useState([])
     
     useEffect(() => {
         fetchcart();
+        fetchCartQuantities();
         }, []);
        
         const fetchcart = async()=>{
             try{
 
             
-            const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`)
-            setCartproducts(response.data.products)
-            console.log("onlyidincart",response.data.products)
+            const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`,{})
+            setCartproducts(response.data.product)
+            console.log("onlyidincart",response.data.product)
           }
     catch(err){
         console.log(err);
     }
     }  
+    const fetchCartQuantities = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/users/savedcart/quantity/${sessionid}`);
+          setquandity(response.data.quantiy);
+          console.log("quandity",response.data.quantiy);
+        //   setLoading(false);
+        //   setError(null);
+        } catch (error) {
+          console.error('Error fetching cart quantities:', error.response.data.error);
+        //   setCartQuantities([]);
+        //   setLoading(false);
+        //   setError(error.response.data.error);
+        }
+      };
     const deletefromcart=async(delete_id,index)=>{
         try {
           if(!sessiontoken){
@@ -87,7 +102,7 @@ export default function Cart() {
     //    function priceinc(d){
     //     const price=d.price
     //    }
-    const Increment = (_id) => {
+    const Increment = (_id,) => {
         const newinc = Cartproducts.map((data) =>
             data._id ===_id ? { ...data, quandity: data.quandity + 1 } : data);
         setCartproducts(newinc);
@@ -135,9 +150,16 @@ export default function Cart() {
                         <p>You can cancel your order before shipped,<br />
                             and a full refund will be initiated.</p>
                         <div className="quant">
-                            <Link className="incdcr"><div onClick={() => Increment(data._id)} className="p1" >+</div></Link>
+                            {quandity.map((quan,index)=>(
+                                <>
+                                 <Link className="incdcr"><div onClick={() => Increment(quan._id,)} className="p1" >+</div></Link>
+                            <h5 >{quan.index}</h5>
+                            <Link className="incdcr"><div onClick={() => decrement()} className="p2">-</div></Link>
+                                </>
+                            ))}
+                            {/* <Link className="incdcr"><div onClick={() => Increment(data._id,)} className="p1" >+</div></Link>
                             <h5 >{data.quandity}</h5>
-                            <Link className="incdcr"><div onClick={() => decrement(data._id)} className="p2">-</div></Link>
+                            <Link className="incdcr"><div onClick={() => decrement(data._id)} className="p2">-</div></Link> */}
                         </div>
 
 

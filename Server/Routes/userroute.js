@@ -18,10 +18,11 @@ userrouter.post("/usercart/delete",userMiddleware, ProductControllers.deletefrom
 userrouter.get("/savedcart",ProductControllers.getcart);
 userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcartproducts);
 userrouter.get("/savedcart/:sessionid",ProductControllers.fetchcart);
-userrouter.post("/wishlist",userMiddleware,ProductControllers.addTowishlist);
-userrouter.get("/wish",ProductControllers.getwishlist);
-userrouter.get("/wish/idw/:sessionid",ProductControllers.getwishproducts);
-userrouter.get("/wish/:sessionid",ProductControllers.fetchwishlist);
+userrouter.get("/savedcart/quantity/:sessionid",ProductControllers.fetchcartquand);
+// userrouter.post("/wishlist",userMiddleware,ProductControllers.addTowishlist);
+// userrouter.get("/wish",ProductControllers.getwishlist);
+// userrouter.get("/wish/idw/:sessionid",ProductControllers.getwishproducts);
+// userrouter.get("/wish/:sessionid",ProductControllers.fetchwishlist);
 userrouter.post("/recentlyviewed",userMiddleware, ProductControllers.recentlyviewd);
 userrouter.get("/recent", ProductControllers.getviewedproducts);
 userrouter.get("/recent/idr/:userid", ProductControllers.fechrecentlyviewed);

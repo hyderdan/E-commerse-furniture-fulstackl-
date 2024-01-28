@@ -74,23 +74,25 @@ const updateuser = async function (req, res) {
 const addToCart = async (req, res) => {
     try {
       const {value_id,sessionid,index} = req.body
-      const product = await productdata.findById(value_id)
+      const product_id = await productdata.findById(value_id)
       const user = await userdata.findById(req.body.sessionid);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
-
-      if (user.cart.includes(value_id)) {
-        
-        return res.status(200).json({ message: "Product already in cart" });
-      }else{
-        user.cart.push(product);
-        await user.save();
+      const existingItemIndex = user.cart.find((item) => item.product.toString() === value_id);
       
-
-        res.status(200)
-    .json({ message: "Product added to cart successfully",   cart:user.cart});
-  }
+      if (existingItemIndex) {
+        // If the product already exists in the cart, increment its quantity
+       existingItemIndex.quantity += 1;
+       await user.save();
+       res.status(200).json({ message: "Product added again",   cart:user.cart});
+      }else{
+        user.cart.push({product:product_id,quantity:1});
+        await user.save();
+        return res.status(200)
+        .json({ message: "Product added to cart successfully",   cart:user.cart});
+     }
+    
     } catch (err) {
       console.log(err);
       res.status(500).json({ error: "server error", error: err.message });
@@ -148,76 +150,91 @@ const addToCart = async (req, res) => {
   const fetchcart=async (req,res)=>{
     try{
       const User = await userdata.findById(req.params.sessionid)
-   const products = await productdata.find({
-    _id: {$in: User.cart}
-   })
-      res.json({products});
-      console.log(products);
+  const productids=User.cart.map((items)=>items.product);
+      const product=await productdata.find({
+        _id:{$in:productids}
+      });
+      res.json({product});
+       console.log(product);
     }
     catch(error)
     {
        res.json(error)
     }
    }
-   
-   const addTowishlist = async (req, res) => {
-    try {
-      const {value_id,sessionid,index} = req.body
-      const product = await productdata.findById(value_id);
-     
-      const user = await userdata.findById(sessionid);
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-
-      if (user.wishlist.includes(value_id)) {
-        
-        return res.status(200).json({ message: "Product already in cart" });
-      }else{
-        user.wishlist.push(product);
-        await user.save();
-        res
-    .status(200)
-    .json({ message: "Product added to cart successfully",   wishlist:user.wishlist});
-  }
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ error: "server error", error: err.message });
-    }
-  };
-  
-  
-  const getwishlist= async(req,res)=>{
-    try{
-      const user= await productdata.find({})
-      res.json(user)
-    }catch(err){
-      console.log(err);
-
-    }
-  }
-  const getwishproducts= async(req,res)=>{
-    try{
-      const user= await userdata.findById(req.params.sessionid);
-      res.json({ wishproducts:user?.wishlist})
-    }catch{
-
-    }
-  }
-  const fetchwishlist=async (req,res)=>{
+   const fetchcartquand=async (req,res)=>{
     try{
       const user = await userdata.findById(req.params.sessionid)
-   const wishedproducts = await productdata.find({
-    _id: {$in: user.wishlist}
-   })
-      res.json({wishedproducts})
-      console.log(wishedproducts);
+      const quantiy = user.cart.map(item => item.quantity);
+      
+      res.status(200).json({ quantiy });
+      console.log(quantiy);
     }
     catch(error)
     {
        res.json(error)
     }
-   };
+   }
+  
+   
+  //  const addTowishlist = async (req, res) => {
+  //   try {
+  //     const {value_id,sessionid,index} = req.body
+  //     const product = await productdata.findById(value_id);
+     
+  //     const user = await userdata.findById(sessionid);
+  //     if (!user) {
+  //       return res.status(404).json({ error: "User not found" });
+  //     }
+
+  //     if (user.wishlist.includes(value_id)) {
+        
+  //       return res.status(200).json({ message: "Product already in cart" });
+  //     }else{
+  //       user.wishlist.push(product);
+  //       await user.save();
+  //       res
+  //   .status(200)
+  //   .json({ message: "Product added to cart successfully",   wishlist:user.wishlist});
+  // }
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).json({ error: "server error", error: err.message });
+  //   }
+  // };
+  
+  
+  // const getwishlist= async(req,res)=>{
+  //   try{
+  //     const user= await productdata.find({})
+  //     res.json(user)
+  //   }catch(err){
+  //     console.log(err);
+
+  //   }
+  // }
+  // const getwishproducts= async(req,res)=>{
+  //   try{
+  //     const user= await userdata.findById(req.params.sessionid);
+  //     res.json({ wishproducts:user?.wishlist})
+  //   }catch{
+
+  //   }
+  // }
+  // const fetchwishlist=async (req,res)=>{
+  //   try{
+  //     const user = await userdata.findById(req.params.sessionid)
+  //  const wishedproducts = await productdata.find({
+  //   _id: {$in: user.wishlist}
+  //  })
+  //     res.json({wishedproducts})
+  //     console.log(wishedproducts);
+  //   }
+  //   catch(error)
+  //   {
+  //      res.json(error)
+  //   }
+  //  };
    const recentlyviewd = async (req, res) => {
     try {
       const rec=[];
@@ -318,8 +335,8 @@ const addToCart = async (req, res) => {
 
   
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart,
-    addTowishlist,getwishlist,getwishproducts,fetchwishlist,
+    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart,fetchcartquand,
+    // addTowishlist,getwishlist,getwishproducts,fetchwishlist,
      deletefromcart,recentlyviewd,deletefromrecentlyviewed,
     getviewedproducts,fechrecentlyviewed,fetchview,fetchview2
 }
