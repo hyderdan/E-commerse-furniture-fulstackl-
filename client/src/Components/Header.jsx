@@ -15,6 +15,10 @@ import { useState } from 'react'
 import{MdOutlineAdminPanelSettings} from "react-icons/md"
 import Gettoken from "./sessiontoken";
 import Container from 'react-bootstrap/Container';
+import axios from 'axios';
+import Getid from "./session";
+import { useEffect } from 'react'
+
 
 
 
@@ -24,31 +28,9 @@ export default function Header(){
         token, settoken
     }=useContext(mydata);
     const sessiontoken=Gettoken();
+    const sessionid = Getid();
     const Nav = useNavigate();
     const[searchinput,setsearch]=useState('')
-    function clearAll(){
-        if(islogedin===true){
-            Setproductdetail([]);
-            Setaddtokart([]);
-            Setcount(0);
-            Setcount1(0);
-            setIslogedin(false)
-            Nav('')
-
-        }
-        else{
-            Nav("/login")
-        }      
-      
-    }
-    function handlesearch(){
-        if(searchinput.toUpperCase().includes("SOFA")){
-            return "/sofas"
-        }
-        else if(searchinput.toUpperCase().includes("BED")){
-            return "/bed"
-        }
-       }
 
     const Admin=()=>{
         Nav("/adminlogin")
@@ -66,11 +48,11 @@ export default function Header(){
      <Link className='headerL'to={'/'}><div className="logo"> <h1>DEFINED DESIGN</h1></div></Link>
      <Container fluid>
  <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/>
- <span onClick={()=>handlesearch()} className="searchbarbutton"> <h3><FiSearch/></h3></span>
+ <span  className="searchbarbutton"> <h3><FiSearch/></h3></span>
     </Container>
   
          
-    <div className="thirddivh3" onClick={()=>clearAll()}>
+    <div className="thirddivh3">
         {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
         </div>
      <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>

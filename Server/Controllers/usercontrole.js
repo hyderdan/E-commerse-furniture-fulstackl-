@@ -172,9 +172,12 @@ const addToCart = async (req, res) => {
               quantity: item.quantity
             };
           });
+          const totalquantity=user.cart.reduce((total,item)=>{
+            return total+item.quantity
+          },0)
       
           // Send response with cart items and quantities
-          res.status(200).json({ products });
+          res.status(200).json({ products,totalquantity });
         } catch (error) {
           console.error("Error fetching cart quantity:", error);
           res.status(500).json({ error: "Server error", error: error.message });
@@ -191,12 +194,19 @@ const addToCart = async (req, res) => {
           }
           const existingItemIndex = user.cart.find((item) => item.product.toString() === value_id);
           
-          if (!existingItemIndex) {
+          if (existingItemIndex) {
             // If the product already exists in the cart, increment its quantity
+            if(existingItemIndex.quantity<=1){
+              
+            }
+            else{
+              existingItemIndex.quantity -=1;
+              await user.save();
+              res.status(200).json({ message: "Product decreaced again",   cart:user.cart});
+            }
+           
           }
-           existingItemIndex.quantity =quantity;
-           await user.save();
-           res.status(200).json({ message: "Product decreaced again",   cart:user.cart});
+          
          
         
         } catch (err) {
@@ -204,6 +214,7 @@ const addToCart = async (req, res) => {
           res.status(500).json({ error: "server error", error: err.message });
         }
       };
+      
       
   
    

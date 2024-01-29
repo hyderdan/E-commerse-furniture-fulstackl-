@@ -32,6 +32,7 @@ export default function Chelsea(){
   useEffect(()=>{
     fectdata();
     fechAddtocart();
+   
   },[]);
   const fectdata = async ()=>{
     const responce = await axios.get('http://localhost:5000/product');
@@ -54,6 +55,16 @@ export default function Chelsea(){
       console.error("Error occurs:", error);
     }
   };
+  const totalquand = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+      Setcount1(response.data.totalquantity);
+      console.log("total", response.data.totalquantity)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   const Addtocart=async(value_id,index)=>{
     try {
@@ -77,6 +88,7 @@ export default function Chelsea(){
           setSavedcart(response.data.cart);
           sessionStorage.setItem("valueId",value_id);
           setcartindex(false);
+          totalquand();
       alert(response.data.message); 
       
     }

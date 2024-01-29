@@ -18,7 +18,7 @@ userrouter.post("/usercart/delete",userMiddleware, ProductControllers.deletefrom
 userrouter.get("/savedcart",ProductControllers.getcart);
 userrouter.get("/savedcart/ids/:sessionid",ProductControllers.getcartproducts);
 userrouter.get("/savedcart/:sessionid",ProductControllers.fetchcart);
-userrouter.get("/usercart/decrement/:sessionid",userMiddleware,ProductControllers.decrementcartquand);
+userrouter.post("/usercart/decrement",userMiddleware,ProductControllers.decrementcartquand);
 // userrouter.post("/wishlist",userMiddleware,ProductControllers.addTowishlist);
 // userrouter.get("/wish",ProductControllers.getwishlist);
 // userrouter.get("/wish/idw/:sessionid",ProductControllers.getwishproducts);
