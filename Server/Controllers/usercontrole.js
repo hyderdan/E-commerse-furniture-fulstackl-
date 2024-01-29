@@ -147,34 +147,64 @@ const addToCart = async (req, res) => {
     }
   }
  
-  const fetchcart=async (req,res)=>{
-    try{
-      const User = await userdata.findById(req.params.sessionid)
-  const productids=User.cart.map((items)=>items.product);
-      const product=await productdata.find({
-        _id:{$in:productids}
-      });
-      res.json({product});
-       console.log(product);
-    }
-    catch(error)
-    {
-       res.json(error)
-    }
-   }
-   const fetchcartquand=async (req,res)=>{
-    try{
-      const user = await userdata.findById(req.params.sessionid)
-      const quantiy = user.cart.map(item => item.quantity);
+  
+    const fetchcart = async (req, res) => {
+        try {
+          const user = await userdata.findById(req.params.sessionid);
+          if (!user) {
+            return res.status(404).json({ error: "User not found" });
+          }
       
-      res.status(200).json({ quantiy });
-      console.log(quantiy);
-    }
-    catch(error)
-    {
-       res.json(error)
-    }
-   }
+          // Extract product IDs from the user's cart
+          const productIds = user.cart.map(item => item.product);
+      
+          // Query productdata collection with the product IDs
+          const productsWithQuantity = await productdata.find({
+            _id: { $in: productIds }
+          });
+      
+          // Combine product information with quantities from the user's cart
+          const products = user.cart.map(item => {
+            const product = productsWithQuantity.find(p => p._id.equals(item.product));
+            return {
+              ...item.toObject(),
+              product: product,
+              quantity: item.quantity
+            };
+          });
+      
+          // Send response with cart items and quantities
+          res.status(200).json({ products });
+        } catch (error) {
+          console.error("Error fetching cart quantity:", error);
+          res.status(500).json({ error: "Server error", error: error.message });
+        }
+      };
+   
+      const decrementcartquand = async (req, res) => {
+        try {
+          const {value_id,sessionid,index} = req.body
+          const product_id = await productdata.findById(value_id)
+          const user = await userdata.findById(sessionid);
+          if (!user) {
+            return res.status(404).json({ error: "User not found" });
+          }
+          const existingItemIndex = user.cart.find((item) => item.product.toString() === value_id);
+          
+          if (!existingItemIndex) {
+            // If the product already exists in the cart, increment its quantity
+          }
+           existingItemIndex.quantity =quantity;
+           await user.save();
+           res.status(200).json({ message: "Product decreaced again",   cart:user.cart});
+         
+        
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({ error: "server error", error: err.message });
+        }
+      };
+      
   
    
   //  const addTowishlist = async (req, res) => {
@@ -335,7 +365,7 @@ const addToCart = async (req, res) => {
 
   
 module.exports = {
-    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart,fetchcartquand,
+    userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart,decrementcartquand,
     // addTowishlist,getwishlist,getwishproducts,fetchwishlist,
      deletefromcart,recentlyviewd,deletefromrecentlyviewed,
     getviewedproducts,fechrecentlyviewed,fetchview,fetchview2

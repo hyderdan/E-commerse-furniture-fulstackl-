@@ -24,7 +24,6 @@ export default function Cart() {
     
     useEffect(() => {
         fetchcart();
-        fetchCartQuantities();
         }, []);
        
         const fetchcart = async()=>{
@@ -32,26 +31,64 @@ export default function Cart() {
 
             
             const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`,{})
-            setCartproducts(response.data.product)
-            console.log("onlyidincart",response.data.product)
+            setCartproducts(response.data.products)
+            console.log("onlyidincart",response.data.products)
           }
     catch(err){
         console.log(err);
     }
     }  
-    const fetchCartQuantities = async () => {
+    const increment=async(value_id)=>{
         try {
-          const response = await axios.get(`http://localhost:5000/users/savedcart/quantity/${sessionid}`);
-          setquandity(response.data.quantiy);
-          console.log("quandity",response.data.quantiy);
-        //   setLoading(false);
-        //   setError(null);
-        } catch (error) {
-          console.error('Error fetching cart quantities:', error.response.data.error);
-        //   setCartQuantities([]);
-        //   setLoading(false);
-        //   setError(error.response.data.error);
+          if(!sessiontoken){
+            console.log("user not authenticated");
+          }
+          else{ 
+          const response = await axios.post(
+            "http://localhost:5000/users/usercart",{value_id,sessionid},
+            
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `${sessiontoken}`,
+              },
+            }
+          );
+              console.log(response.data.cart);
+              fetchcart();
         }
+        } catch (error) {
+          alert("Error adding to cart")
+        
+          console.error("Error adding to cart:", error);
+        }
+        
+      };
+      const decrement=async(value_id)=>{
+        try {
+          if(!sessiontoken){
+            console.log("user not authenticated");
+          }
+          else{ 
+          const response = await axios.post(
+            "http://localhost:5000/users/usercart/decrement",{value_id,sessionid},
+            
+            {
+              withCredentials: true,
+              headers: {
+                Authorization: `${sessiontoken}`,
+              },
+            }
+          );
+              console.log(response.data.cart);
+              fetchcart();
+        }
+        } catch (error) {
+          alert("Error adding to cart")
+        
+          console.error("Error adding to cart:", error);
+        }
+        
       };
     const deletefromcart=async(delete_id,index)=>{
         try {
@@ -102,21 +139,7 @@ export default function Cart() {
     //    function priceinc(d){
     //     const price=d.price
     //    }
-    const Increment = (_id,) => {
-        const newinc = Cartproducts.map((data) =>
-            data._id ===_id ? { ...data, quandity: data.quandity + 1 } : data);
-        setCartproducts(newinc);
-
-    }
-    const decrement = (id) => {
-        const newdec = Cartproducts.map((data) =>
-            data._id === id && data.quandity > 1 ? { ...data, quandity: data.quandity - 1 } : data);
-        setCartproducts(newdec)
-    }
-
-    const totalamount = () => {
-        return Cartproducts.reduce((a, b) => a + b.price * b.quandity, 0);
-    };
+   
     const buttonclick = () => {
         nav("/payment")
     }
@@ -144,35 +167,34 @@ export default function Cart() {
                     <div className="cartsubdivmini">
                         <div onClick={() => deletefromcart(data._id,index)} className="cartsubdivmini3"><AiOutlineClose /></div>
 
-                        <img className="subdiv4img" src={data.image} alt="" />
-                        <h5>{data.name}</h5>
-                        <h6>{data.description}</h6>
+                        <img className="subdiv4img" src={data.product.image} alt="" />
+                        <h5>{data.product.name}</h5>
+                        <h6>{data.product.description}</h6>
                         <p>You can cancel your order before shipped,<br />
                             and a full refund will be initiated.</p>
                         <div className="quant">
-                            {quandity.map((quan,index)=>(
-                                <>
-                                 <Link className="incdcr"><div onClick={() => Increment(quan._id,)} className="p1" >+</div></Link>
-                            <h5 >{quan.index}</h5>
-                            <Link className="incdcr"><div onClick={() => decrement()} className="p2">-</div></Link>
-                                </>
-                            ))}
+                          
+                               
+                                 <Link className="incdcr"><div onClick={() =>increment(data.product._id)} className="p1" >+</div></Link>
+                            <h5>{data.quantity}</h5>
+                            <Link className="incdcr"><div onClick={() =>decrement(data.product._id)} className="p2">-</div></Link>
+                        
                             {/* <Link className="incdcr"><div onClick={() => Increment(data._id,)} className="p1" >+</div></Link>
                             <h5 >{data.quandity}</h5>
                             <Link className="incdcr"><div onClick={() => decrement(data._id)} className="p2">-</div></Link> */}
                         </div>
 
 
-                        <div className="cartsubdivmini2" >₹{data.price * data.quandity}</div>
+                        <div className="cartsubdivmini2" >₹{data.product.price*data.quantity }</div>
                     </div>
                 )
                 )
                 }
             </div>
             <div className="totalpayment">
-                <h4>₹{totalamount()}</h4>
+                <h4>₹3</h4>
                 <h3>Total Amount</h3>
-                <button onClick={() => buttonclick()}>Buy NOW</button>
+                <button >Buy NOW</button>
             </div>
         </div>
     )
