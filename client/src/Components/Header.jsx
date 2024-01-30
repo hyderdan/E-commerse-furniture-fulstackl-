@@ -35,6 +35,9 @@ export default function Header(){
     const Admin=()=>{
         Nav("/adminlogin")
     }
+    const user=()=>{
+        Nav("/login")
+    }
     return(
         <div>
         <div className="seconddiv">
@@ -44,23 +47,24 @@ export default function Header(){
         <Link className="link2" ><p className="seconddivp4">Bulk Order</p></Link>
         <Link className="link2" ><p className="seconddivp5">UL service</p></Link>
         </div>
-        <div className="thirddiv">
+        <Container fluid className="thirddiv">
      <Link className='headerL'to={'/'}><div className="logo"> <h1>DEFINED DESIGN</h1></div></Link>
      <Container fluid>
  <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/>
  <span  className="searchbarbutton"> <h3><FiSearch/></h3></span>
     </Container>
   
-         
-    <div className="thirddivh3">
+    <Container fluid> 
+    <div onClick={()=>user()} className="thirddivh3">
         {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
         </div>
+        </Container>
      <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>
      <Link to={'/addtocart'} className="link2" ><div className="thirddivh5"><FiShoppingCart/></div></Link>
      <Link to={'/adminlogin'} className="link2" ><div className="thirddivh6" ><MdOutlineAdminPanelSettings/></div></Link>
      <div className='wishcount'>{Count}</div>
         <div className='wishcount1'>{Count1}</div>
-        </div>
+        </Container>
         </div>
         
     )

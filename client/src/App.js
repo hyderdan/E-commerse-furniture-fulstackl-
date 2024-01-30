@@ -23,6 +23,7 @@ import Dealzone from './Components/Dealzone';
 import Rviewd from './Components/Rviewd';
 import axios from 'axios'
 import { useEffect } from "react";
+import Getid from './Components/session';
 
 
 
@@ -50,22 +51,26 @@ function App() {
   const [Cartid,setCartid]=useState([]);
   const [login, setlogin] = useState(true);
   const [Cartproducts, setCartproducts] = useState([]);
-
+  const sessionid=Getid();
 
   useEffect(() => {
     fectdata();
-    // fectuserdata();
+    totalquand();
   }, []);
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
   }
-  // const fectuserdata = async () => {
-  //   const responce = await axios.get('http://localhost:5000/users');
-  //   setUsers(responce.data);
-
-  // }
-
+  const totalquand = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+      Setcount1(response.data.totalquantity);
+      console.log("total", response.data.totalquantity)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
 
   // useEffect(() => {
   //   fectuserdata();

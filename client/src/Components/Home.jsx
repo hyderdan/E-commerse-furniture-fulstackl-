@@ -23,11 +23,14 @@ import mydata from "./Context";
 import axios from 'axios'
 import { useEffect } from "react";
 import Getid from "./session";
+import Gettoken from "./sessiontoken";
+import Container from 'react-bootstrap/Container';
 
  function Home(){
   const{recentsub,homedata,sethomedata,setrecentsub,}=useContext(mydata);
   console.log(homedata)
   const userid=Getid();
+  const usertoken=Gettoken();
   useEffect(()=>{
     fectdata();
     fetchrecent();
@@ -39,18 +42,23 @@ import Getid from "./session";
    
   };
   const fetchrecent = async()=>{
-    try{
+        try {
+            if(!usertoken){
+              console.log("user not authenticated");
+              setrecentsub([]);
+            }
+            else{
     const response = await axios.get(`http://localhost:5000/users/recent/${userid}`);
     const datas =response.data;
-   
     setrecentsub(datas.recentlyv);
-   
     console.log("onlyidincart",recentsub);
-  }
+            }
+        }
 catch(err){
 console.log(err);
 }
-}  
+  }
+   
     return(
         <div className="maindiv">
             <div className="firstdiv">
@@ -79,26 +87,31 @@ console.log(err);
     </Carousel>
      ))}
         </div>
+        <Container fluid> 
         <div className="sixthdiv">
                 <h3 className="rh3">Recently Viewed</h3>
-                <p className="rifp">_______________</p>                
+                <p className="rifp">_______________</p>
+                <Link className="Hlink" to={'/recentlyviewed'}><div className="vround"><VscArrowRight/></div></Link>                
                
         <div className="vhomediv">   
               
-        {recentsub.map((data)=>(
-            <div  className="vhomesub">               
-           <img className="vhomeimg" src={data.image} alt="img" /> 
-           <div className="vhomemini">
-           <h6>{data.name}</h6>
-           <p>{data.description}</p>
-           <p>₹{data.price}</p>
-           </div>
-          
-            </div>
-        ))}
+              {recentsub.map((data)=>(
+                <div  className="vhomesub">               
+               <img className="vhomeimg" src={data.image} alt="img" /> 
+               <div className="vhomemini">
+               <h6>{data.name}</h6>
+               <p>{data.description}</p>
+               <p>₹{data.price}</p>
+               </div>
+              
+                </div>
+            ))}
+              
+        
         </div>      
-        <Link className="Hlink" to={'/recentlyviewed'}><div className="vround"><VscArrowRight/></div></Link>
+       
         </div>
+       </Container>
 
     <div className="fifthdiv">
      
@@ -106,82 +119,68 @@ console.log(err);
             <p className="fifp">______________________</p>
         
 
-       <div className="fifthmain">
-
-        <div className="main1">
+       <nav className="fifthmain">
+                <ul className="fifthmain">
+        <li className="main1">
         <Link className="Hlink" to={"dealzone"}><h3><BiSolidOffer/></h3>
             <p>All Products</p></Link>
-        </div>
+        </li>
               
-       {/* <div className="main2">
-       <Link className="Hlink" to={""}><h3><LiaStoreAltSolid/></h3>
-            <p>Store</p></Link>
-        </div> */}
-        
+              
       
-        <div className="main3">
+        <li className="main3">
         <Link className="Hlink" to={"sofas"}><h3><LuSofa/></h3>
             <p>Sofas</p></Link>
-        </div>
+        </li>
        
       
-        <div className="main4">
+        <li className="main4">
         <Link className="Hlink" to={"bed"}><h3><BiBed/></h3>
             <p>Beds</p></Link>
-         </div>
+         </li>
         
        
-         <div className="main5">
+         <li className="main5">
          <Link className="Hlink" to={"/dining"}><h3><MdOutlineBreakfastDining/></h3>
             <p>Dining</p></Link>
          
-        </div>
+        </li>
        
-        <div className="main6">
+        <li className="main6">
         <Link className="Hlink" to={""}><h3><GiHanger/></h3>
             <p>wardrobe</p></Link>
-        </div>
+        </li>
         
         
-        <div className="main7">
+        <li className="main7">
         <Link className="Hlink" to={""}><h3><LuArmchair/></h3>
             <p>Recliner</p></Link>
-        </div>
+        </li>
 
-        <div className="main8">
+        <li className="main8">
         <Link className="Hlink" to={""}><h3><MdChairAlt/></h3>
             <p>Seat</p></Link>
-        </div>
+        </li>
 
-       <div className="main9">
+       <li className="main9">
        <Link className="Hlink" to={""}><h3><GiTable/></h3>
             <p>Table</p></Link>
-        </div>
+        </li>
 
-        <div className="main10">
+        <li className="main10">
         <Link className="Hlink" to={""}><h3><GiConverseShoe/></h3>
             <p>Shoerack</p></Link>
-        </div>
+        </li>
 
-        <div className="main11">
+        <li className="main11">
         <Link className="Hlink" to={""}><h3><GiBookshelf/></h3>
             <p>BookShelf</p></Link>
-        </div>
-
-        <div className="main12">
-        <Link className="Hlink" to={""}><h3><GiStreetLight/></h3>
-            <p>Lighting</p></Link>
-        </div>
-       
-        <div className="main13">
-        <Link className="Hlink" to={""}><h3><BsFillBookmarkStarFill/></h3>
-            <p>Bestseller</p></Link>
-        </div>
-
-       
-
+        </li>
+        </ul>
+    </nav>  
     </div>  
-    </div>  
+
+
        <div className="sevendiv">
         <Footer/>
        </div>

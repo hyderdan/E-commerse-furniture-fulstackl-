@@ -60,6 +60,7 @@ background: linear-gradient(to right, #FFFFFF, #FFEFBA);
     color: #e85348;
 }
 .thirddiv{
+    width: 100%;
     height: 80px;
     border-bottom: 1px solid #EEE;
 }
