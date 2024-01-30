@@ -218,64 +218,89 @@ const addToCart = async (req, res) => {
       
   
    
-  //  const addTowishlist = async (req, res) => {
-  //   try {
-  //     const {value_id,sessionid,index} = req.body
-  //     const product = await productdata.findById(value_id);
-     
-  //     const user = await userdata.findById(sessionid);
-  //     if (!user) {
-  //       return res.status(404).json({ error: "User not found" });
-  //     }
-
-  //     if (user.wishlist.includes(value_id)) {
-        
-  //       return res.status(200).json({ message: "Product already in cart" });
-  //     }else{
-  //       user.wishlist.push(product);
-  //       await user.save();
-  //       res
-  //   .status(200)
-  //   .json({ message: "Product added to cart successfully",   wishlist:user.wishlist});
-  // }
-  //   } catch (err) {
-  //     console.log(err);
-  //     res.status(500).json({ error: "server error", error: err.message });
-  //   }
-  // };
+   const addTowishlist = async (req, res) => {
+    try {
+      const {value_id,sessionid,index} = req.body
+      const product_id = await productdata.findById(value_id)
+      const user = await userdata.findById(req.body.sessionid);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      const existingItemIndex = user.wishlist.find((item) => item.product.toString() === value_id);
+      
+      if (existingItemIndex) {
+        // If the product already exists in the cart, increment its quantity
+       existingItemIndex.quantity += 1;
+       await user.save();
+       res.status(200).json({ message: "Product added again",   wishlist:user.wishlist});
+      }else{
+        user.cart.push({product:product_id,quantity:1});
+        await user.save();
+        return res.status(200)
+        .json({ message: "Product added to cart successfully",   cart:user.cart});
+     }
+    
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "server error", error: err.message });
+    }
+  };
   
   
-  // const getwishlist= async(req,res)=>{
-  //   try{
-  //     const user= await productdata.find({})
-  //     res.json(user)
-  //   }catch(err){
-  //     console.log(err);
+  
+  
+  const getwishlist= async(req,res)=>{
+    try{
+      const user= await productdata.find({})
+      res.json(user)
+    }catch(err){
+      console.log(err);
 
-  //   }
-  // }
-  // const getwishproducts= async(req,res)=>{
-  //   try{
-  //     const user= await userdata.findById(req.params.sessionid);
-  //     res.json({ wishproducts:user?.wishlist})
-  //   }catch{
+    }
+  }
+  const getwishproducts= async(req,res)=>{
+    try{
+      const user= await userdata.findById(req.params.sessionid);
+      res.json({ wishproducts:user?.wishlist})
+    }catch{
 
-  //   }
-  // }
-  // const fetchwishlist=async (req,res)=>{
-  //   try{
-  //     const user = await userdata.findById(req.params.sessionid)
-  //  const wishedproducts = await productdata.find({
-  //   _id: {$in: user.wishlist}
-  //  })
-  //     res.json({wishedproducts})
-  //     console.log(wishedproducts);
-  //   }
-  //   catch(error)
-  //   {
-  //      res.json(error)
-  //   }
-  //  };
+    }
+  }
+  const fetchwishlist=async (req,res)=>{
+    try {
+      const user = await userdata.findById(req.params.sessionid);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+  
+      // Extract product IDs from the user's cart
+      const productIds = user.cart.map(item => item.product);
+  
+      // Query productdata collection with the product IDs
+      const productsWithQuantity = await productdata.find({
+        _id: { $in: productIds }
+      });
+  
+      // Combine product information with quantities from the user's cart
+      const products = user.wishlist.map(item => {
+        const product = productsWithQuantity.find(p => p._id.equals(item.product));
+        return {
+          ...item.toObject(),
+          product: product,
+          quantity: item.quantity
+        };
+      });
+      const totalquantity=user.wishlist.reduce((total,item)=>{
+        return total+item.quantity
+      },0)
+  
+      // Send response with cart items and quantities
+      res.status(200).json({ products,totalquantity });
+    } catch (error) {
+      console.error("Error fetching cart quantity:", error);
+      res.status(500).json({ error: "Server error", error: error.message });
+    }
+   };
    const recentlyviewd = async (req, res) => {
     try {
       const rec=[];

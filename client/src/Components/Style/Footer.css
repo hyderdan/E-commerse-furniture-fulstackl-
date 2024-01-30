@@ -1,3 +1,6 @@
+.footermain{
+   width: 100%;
+}
 .footersub1{
     border-bottom: 1px solid #EEE;
     height: 120px;
@@ -29,7 +32,8 @@
     background-color: #f76729;
 }
 .footersub2{
-    margin-left: 220px;
+   /* background-color: red; */
+   width: 100%;
     margin-top: 60px;
     height: 200px;
     /* background-color: red; */
@@ -40,7 +44,7 @@
     color: black;
 }
 .footersubp{
-    
+    width: 100%;
    padding-top: 0px;
    margin-left: -160px;
    display: flex;
@@ -52,7 +56,9 @@
    transition: 0.3s;
   
 }
+
 .footersubp li{
+   width: 100%;
     list-style: none;
    text-align: left;
    font-size: 14px;
@@ -62,6 +68,7 @@
 }
 .footersubp2{
     /* background-color: red; */
+    
     margin-top: -172px;
     margin-left: 50px;
     display: flex;
@@ -74,6 +81,7 @@
    
  }
  .footersubp2 li{
+   width: 100%;
      list-style: none;
     text-align: left;
     font-size: 14px;
@@ -82,6 +90,7 @@
  }
  .footersubp3{
     /* background-color: red; */
+    
     margin-top: -190px;
     margin-left: 200px;
     display: flex;
@@ -93,15 +102,24 @@
     transition: 0.3s;
    
  }
+ .footersubp3 ul{
+   width: 100%;
+ }
  .footersubp3 li{
+   width: 100%;
+   /* background-color: red; */
      list-style: none;
     text-align: left;
     font-size: 14px;
     padding-top: 5px;
    
  }
+ .footersubp ul{
+   width: 100%;
+ }
  .footersubp4{
     /* background-color: red; */
+   
     margin-top: -187px;
     margin-left: 320px;
     display: flex;
@@ -114,6 +132,7 @@
    
  }
  .footersubp4 li{
+   width: 100%;
      list-style: none;
     text-align: left;
     font-size: 14px;
@@ -122,6 +141,7 @@
  }
  .footersubp5{
     /* background-color: red; */
+   
     margin-top: -187px;
     margin-left: 500px;
     display: flex;
@@ -134,17 +154,20 @@
    
  }
  .footersubp5 h6{
+   width: ;
     position: absolute;
     margin-top: -33px;
     margin-left: 0px;
  }
  .footersubp5 p{
+   width: 100%;
     text-align: left;
     font-size: 12px;
     padding-top: 10px;
     margin-top: 80px;
  }
  .footersub3{
+   width: 100%;
     /* background-color: red; */
     height: 100px;
  }
@@ -154,6 +177,7 @@
     font-family: "Mr Eaves XL Modern", sans-serif;
  }
  .footersub3li{
+   width: 100%;
     margin-top: -60px;
     margin-left: 200px;
  }
@@ -169,6 +193,7 @@
    
  }
  .footersub4{
+   width: 100%;
     background-color: #2F4858;
     height: 40px;
  }
@@ -179,12 +204,14 @@
     margin-top: 5px;
  }
  .footersubmap{
+   /* width: 100%; */
    display: flex;
    flex-direction: row;
    flex-wrap: wrap; 
  }
  
  .footersubmap img{
+
    width: 20px;
    height: 20px;
    margin-left: 20px;
@@ -193,19 +220,19 @@
  }
  @media screen and (min-width:1100px) {
    .footersubp{
-      margin-left: 10px;
+      margin-left: 350px;
    }
    .footersubp2{
-      margin-left: 200px;
+      margin-left: 500px;
    }
    .footersubp3{
-      margin-left: 357px;
+      margin-left: 630px;
    }
    .footersubp4{
-      margin-left: 550px;
+      margin-left: 750px;
    }
    .footersubp5{
-      margin-left: 800px;
+      margin-left: 900px;
    }
  }
  

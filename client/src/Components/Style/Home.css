@@ -14,17 +14,12 @@
     color: #e85348;
     font-family: "Mr Eaves XL Modern Bold", sans-serif;
 }
-
 .courouselimg{
 height: 550px;
 width: 100%
 }
-.fourthdiv{
-    /* background-color: red; */
-}
 .fifthsub{
     font-family: "Mrs Eaves XL Serif", serif;
-   
 }
 
 .fifthdiv{
@@ -33,17 +28,14 @@ width: 100%
     border-bottom: 1px solid #dcd9d9;  
 }
 .fifp{
-    
     margin-top: -20px;
     z-index: 1;
     color: #e85348;
-  
 }
 .fifthmain{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;   
-    /* background-color: red; */
     width: 100%;
     height: auto;
     margin-top: 30px;
@@ -89,12 +81,6 @@ width: 100%
 .main11 h3:hover{
     color: #e85348;
 }
-
-
-
-
-
-
 .Hlink{
     text-decoration: none;
     color: rgb(59, 58, 58);

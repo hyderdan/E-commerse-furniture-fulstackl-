@@ -54,16 +54,16 @@ export default function Header(){
  <span  className="searchbarbutton"> <h3><FiSearch/></h3></span>
     </Container>
   
-    <Container fluid> 
+    <div fluid className='thirddivsub'> 
     <div onClick={()=>user()} className="thirddivh3">
         {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
         </div>
-        </Container>
      <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>
      <Link to={'/addtocart'} className="link2" ><div className="thirddivh5"><FiShoppingCart/></div></Link>
      <Link to={'/adminlogin'} className="link2" ><div className="thirddivh6" ><MdOutlineAdminPanelSettings/></div></Link>
      <div className='wishcount'>{Count}</div>
         <div className='wishcount1'>{Count1}</div>
+        </div>
         </Container>
         </div>
         
