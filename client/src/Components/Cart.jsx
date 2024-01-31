@@ -32,10 +32,11 @@ export default function Cart() {
 
 
       const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
-      setCartproducts(response.data.products)
+      setCartproducts(response.data.products);
       Setcount1(response.data.totalquantity);
-      console.log("onlyidincart", response.data.products)
-      console.log("total", response.data.totalquantity)
+      console.log("onlyidincart", response.data.products);
+      console.log("total", response.data.totalquantity);
+     
     }
     catch (err) {
       console.log(err);

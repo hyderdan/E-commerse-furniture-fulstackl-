@@ -22,10 +22,41 @@ export default function Wishlist(){
       
 
       useEffect(() => {
-        // fetchwishlist();
+        fetchwishlist();
+        
         }, []);
 
-
+        const totalwishquand = async () => {
+          try {
+              if(!sessiontoken){
+                console.log("user not authenticated");
+                Setcount([]);
+              }
+              else{
+            const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+            Setcount(response.data.totalquantity);
+            console.log("total", response.data.totalquantity);
+          }
+          }catch (err) {
+            console.log(err);
+          }
+        }
+      
+        const fetchwishlist = async () => {
+          try {
+      
+      
+            const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+            setwishproducts(response.data.wishlist)
+            // 
+            console.log("onlyidincart", response.data.wishlist)
+            console.log("total", response.data.totalquantity);
+            console.log("tt", response.data.WishS);
+          }
+          catch (err) {
+            console.log(err);
+          }
+        };
 
         
         const deletefromwishlist = async (delete_id, index) => {
@@ -45,7 +76,8 @@ export default function Wishlist(){
                 }
               );
               console.log(response.data.wishlist);
-              // fetchwishlist();
+              fetchwishlist();
+              totalwishquand();
               //   setSavedcart(response.data.cart);
               //   setcartindex(false);
               //   alert(response.data.message); 

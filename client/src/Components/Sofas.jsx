@@ -13,18 +13,18 @@ import { Link } from "react-router-dom";
 import Gettoken from "./sessiontoken";
 import Getid from "./session";
 import axios from "axios";
+import ValueId from "./valueid";
 
 
 
 export default function Sofas(){
   
-  const[index,setindex,]=useState(-1)
-  const{Sofadata,Productdetail,Setproductdetail,Count,Setcount,islogedin,recently,setrecently,
-    wishproducts
-  }=useContext(mydata);
-  const [rec,setrec]=useState([])
+  
+  const{Sofadata,wishliststatus,setwishliststatus,Setcount,wishproducts,}=useContext(mydata);
+  const [rec,setrec]=useState([]);
   const navigate=useNavigate();
   const userid=Getid();
+  const productid=ValueId();
 
    useEffect(()=>{
     fechwishlist();
@@ -40,7 +40,7 @@ export default function Sofas(){
              
       );
      console.log("cartproducts",response.data.wishlistproducts)
-
+    
     //  console.log("fechcart",response.data) 
     } catch (error) {
       console.error("Error occurs:", error);
@@ -65,8 +65,12 @@ export default function Sofas(){
           },
         }
       );
-          console.log(response.data.wishlist);
+     
+          console.log("wish",response.data.wishlist);
+          sessionStorage.setItem("productid",value_id)
       alert(response.data.message); 
+      totalwishquand(value_id);
+      console.log("red",wishliststatus);
       
     }
     } catch (error) {
@@ -76,6 +80,20 @@ export default function Sofas(){
     }
     
   };
+  const totalwishquand = async (value_id) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, {value_id});
+      Setcount(response.data.totalquantity);
+      const wishlistItems = response.data.isInWishlist;
+      // const productInWishlist = wishlistItems.find(item => item.product._id === );
+      setwishliststatus(wishlistItems);
+      console.log("red",wishlistItems);
+      console.log("total", response.data.totalquantity)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
      
       const recntlyviewed=async(value_id)=>{
           try {
@@ -115,7 +133,7 @@ export default function Sofas(){
   data.item==="sofa"
   );
   
-
+    
     return(
         <div>
       <div><Header/></div>
@@ -152,7 +170,7 @@ export default function Sofas(){
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
             <div onClick={()=>recntlyviewed(data._id,index)} className="sthirdsub">
               <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
-                {wishproducts.includes(data._id)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    
+                {wishliststatus.includes(data._id)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">
            <h6>{data.name}</h6>

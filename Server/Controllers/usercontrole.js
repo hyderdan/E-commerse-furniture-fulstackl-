@@ -294,6 +294,7 @@ const addToCart = async (req, res) => {
   }
   const fetchwishlist=async (req,res)=>{
     try {
+      const {value_id} = req.body
       const user = await userdata.findById(req.params.sessionid);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
@@ -308,6 +309,7 @@ const addToCart = async (req, res) => {
       });
   
       // Combine product information with quantities from the user's cart
+      const isInWishlist = user.wishlist.some(item => item.product.toString() === value_id);
       const wishlist = user.wishlist.map(item => {
         const product = productsWithQuantity.find(p => p._id.equals(item.product));
         return {
@@ -318,10 +320,11 @@ const addToCart = async (req, res) => {
       });
       const totalquantity=user.wishlist.reduce((total,item)=>{
         return total+item.quantity
-      },0)
-  
+      },0);
+      // const wishlistItem = await user.wishlist.findOne({ user, productid});
+      // const isInWishlist = !!wishlistItem; // Convert to boolean
       // Send response with cart items and quantities
-      res.status(200).json({ wishlist,totalquantity });
+      res.status(200).json({ wishlist,totalquantity,isInWishlist});
     } catch (error) {
       console.error("Error fetching cart quantity:", error);
       res.status(500).json({ error: "Server error", error: error.message });

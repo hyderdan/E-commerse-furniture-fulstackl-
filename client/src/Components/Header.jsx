@@ -31,13 +31,39 @@ export default function Header(){
     const sessionid = Getid();
     const Nav = useNavigate();
     const[searchinput,setsearch]=useState('')
-
+    useEffect(() => {
+        
+        totalquand();
+        totalwishquand();
+        
+      }, []);
     const Admin=()=>{
         Nav("/adminlogin")
     }
     const user=()=>{
         Nav("/login")
     }
+    const totalwishquand = async (value_id) => {
+        try {
+          const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {value_id});
+          Setcount(response.data.totalquantity);
+          console.log("total", response.data.totalquantity)
+        }
+        catch (err) {
+          console.log(err);
+        }
+      };
+      const totalquand = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+          Setcount1(response.data.totalquantity);
+          console.log("total", response.data.totalquantity);
+         
+        }
+        catch (err) {
+          console.log(err);
+        }
+      };
     return(
         <div>
         <div className="seconddiv">

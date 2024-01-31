@@ -1,5 +1,5 @@
 const ValueId=()=>{
-    return sessionStorage.getItem(' valueId');
+    return sessionStorage.getItem('productid');
 }
 
 export default ValueId;

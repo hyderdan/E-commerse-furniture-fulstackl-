@@ -52,11 +52,13 @@ function App() {
   const [login, setlogin] = useState(true);
   const [Cartproducts, setCartproducts] = useState([]);
   const [wishproducts, setwishproducts] = useState([]);
+  const[wishliststatus,setwishliststatus]=useState([])
   const sessionid=Getid();
 
   useEffect(() => {
     fectdata();
     totalquand();
+    totalwishquand();
     fetchwishlist();
   }, []);
   const fectdata = async () => {
@@ -67,6 +69,17 @@ function App() {
     try {
       const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
       Setcount1(response.data.totalquantity);
+      console.log("total", response.data.totalquantity);
+     
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+  const totalwishquand = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+      Setcount(response.data.totalquantity);
       console.log("total", response.data.totalquantity)
     }
     catch (err) {
@@ -78,8 +91,7 @@ function App() {
 
 
       const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
-      setwishproducts(response.data.wishlist)
-      Setcount(response.data.totalquantity);
+      setwishproducts(response.data.wishlist);
       console.log("onlyidincart", response.data.wishlist)
       console.log("total", response.data.totalquantity)
     }
@@ -98,6 +110,7 @@ function App() {
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
     , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts,wishproducts, setwishproducts
+    ,wishliststatus,setwishliststatus
   }
   return (
     <div className="App">

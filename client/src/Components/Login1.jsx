@@ -11,7 +11,7 @@ import Gettoken from "./sessiontoken";
 
 
 export default function Login1() {
-  const {  islogedin, setIslogedin, setlogin, login, token, settoken,setuselogin, } = useContext(mydata);
+  const { setlogin,Setcount1, Setcount, settoken,setuselogin, } = useContext(mydata);
   const [email, setemail] = useState("");
   const [password, setpassw] = useState("");
  
@@ -23,17 +23,10 @@ export default function Login1() {
     sessionStorage.clear("userid")
     Nav('/');
     setuselogin([]);
-  }
-  // const fectdata = async ()=>{
-  //   const responce = await axios.get('http://localhost:5000/users');
-  //   setUsers(responce.data);
-
-  // }
-
-
-  // useEffect(()=>{
+    Setcount(0);
+    Setcount1(0);
     
-  // },[]);
+  }
   
   console.log(email,password)
   const Login = async (e) => {
