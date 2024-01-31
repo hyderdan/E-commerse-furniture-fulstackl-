@@ -28,10 +28,15 @@ const userschema=new mongoose.Schema({
     password:String,
     confirmPassword:String,
     wishlist:[{
-        type:mongoose.Schema.Types.ObjectId, 
-        ref:"Data",
-       required:false,
-    qunadity:{type:Number,default:1}
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product', // Reference to the Product model
+        required: true
+      },
+      quantity: {
+        type: Number,
+        default: 1
+      }
     }
     ],
     cart:[{

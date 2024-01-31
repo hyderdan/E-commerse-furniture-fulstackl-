@@ -133,6 +133,7 @@
  }
  .footersubp4 li{
    width: 100%;
+   height: auto;
      list-style: none;
     text-align: left;
     font-size: 14px;
@@ -154,13 +155,13 @@
    
  }
  .footersubp5 h6{
-   width: ;
+  
     position: absolute;
     margin-top: -33px;
     margin-left: 0px;
  }
  .footersubp5 p{
-   width: 100%;
+   /* width: 100%; */
     text-align: left;
     font-size: 12px;
     padding-top: 10px;
@@ -177,7 +178,7 @@
     font-family: "Mr Eaves XL Modern", sans-serif;
  }
  .footersub3li{
-   width: 100%;
+   /* width: 100%; */
     margin-top: -60px;
     margin-left: 200px;
  }
@@ -193,30 +194,37 @@
    
  }
  .footersub4{
+   /* position: absolute; */
    width: 100%;
     background-color: #2F4858;
-    height: 40px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    
  }
- .footersub4 h5{
-    float: left;
-    margin-left: 250px;
+ .footermap li{
+   /* position: absolute; */
+   /* width: 100%; */
+    list-style: none;
+    margin-left: 00px;
     color: white;
     margin-top: 5px;
  }
- .footersubmap{
-   /* width: 100%; */
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap; 
- }
  
- .footersubmap img{
-
+ .footersub4 img{
+   float: left;
    width: 20px;
    height: 20px;
    margin-left: 20px;
    margin-top: 10px;
-  
+ }
+ .footermap{
+   display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    margin-left: 240px;
+    
  }
  @media screen and (min-width:1100px) {
    .footersubp{

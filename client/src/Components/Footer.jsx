@@ -85,14 +85,17 @@ export default function Footer(){
         </div>
 
         <div className="footersub4">
-        <h5>We Accept :</h5>
-        <div className="footersubmap">
+       
+        <ul className="footermap">
+        <li><h3>We Accept :</h3></li>
         {Footersub4.map((data)=>(
-            <>
-            <img src={data.image} alt="img" />
-            </>
+            
+            <li><img src={data.image} alt="img" /></li>  
+        
         ))}
-        </div>
+        </ul>
+        
+        
         </div>
         </div>
     )

@@ -4,6 +4,7 @@ import mydata from "./Context";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Style/Register.css"
+import { useNavigate } from "react-router-dom";
 
 export default function Loginpage(){
     
@@ -14,7 +15,7 @@ export default function Loginpage(){
       const [userpass, setuserpass] = useState("");
       const [useremail, setuseremail] = useState("");
       const [confirmpassword, setconfirmpassword] = useState("");
-      
+      const nav=useNavigate();
     
       // const fectdata = async ()=>{
       //   const responce = await axios.get('http://localhost:5000/users');
@@ -54,7 +55,7 @@ export default function Loginpage(){
           // fectdata();  
           if (responce.status === 202) {
             alert('Registration successful');
-            // nav('/');
+            nav('/');
         } else {
             alert('Registration failed');
         }

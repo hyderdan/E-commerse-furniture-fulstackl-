@@ -20,6 +20,7 @@ export default function Sofas(){
   
   const[index,setindex,]=useState(-1)
   const{Sofadata,Productdetail,Setproductdetail,Count,Setcount,islogedin,recently,setrecently,
+    wishproducts
   }=useContext(mydata);
   const [rec,setrec]=useState([])
   const navigate=useNavigate();
@@ -46,8 +47,14 @@ export default function Sofas(){
     }
   };
   
-  const wishlisted=async(value_id)=>{
+  const wishlisted=async(value_id,index)=>{
     try {
+      if(!sessiontoken){
+        console.log("user not authenticated");
+        // nav("/login")
+      }
+      else{
+       
       const response = await axios.post(
         "http://localhost:5000/users/wishlist",{value_id,userid},
         
@@ -58,13 +65,17 @@ export default function Sofas(){
           },
         }
       );
-          console.log("rec",response.data.wishlist);
-          
-   } catch (error) {
-    alert("Error adding to wishlist")
-    console.error("Error adding to wish:", error);
-  }
-};
+          console.log(response.data.wishlist);
+      alert(response.data.message); 
+      
+    }
+    } catch (error) {
+      alert("Error adding to ")
+    
+      console.error("Error adding to cart:", error);
+    }
+    
+  };
      
       const recntlyviewed=async(value_id)=>{
           try {
@@ -141,7 +152,7 @@ export default function Sofas(){
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
             <div onClick={()=>recntlyviewed(data._id,index)} className="sthirdsub">
               <div onClick={(e)=>{ wishlisted(data._id);e.preventDefault()}} className="sbutton2">
-                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    
+                {wishproducts.includes(data._id)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>    
            <img className="Sthirdimg" src={data.image} alt="img" /> 
            <div className="sthirdmini">
            <h6>{data.name}</h6>

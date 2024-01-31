@@ -10,30 +10,55 @@ import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import Getid from "./session";
+import Gettoken from './sessiontoken';
 
 
 export default function Wishlist(){
        const sessionid=Getid();
+       const sessiontoken = Gettoken();
       const navigate=useNavigate();
-      const{Productdetail,Setproductdetail,Productdetail1,Setproductdetail1,Count,Setcount,}=useContext(mydata)
-      const [wishproducts, setwishproducts] = useState([]);
+      const{Productdetail,Setproductdetail,
+        Setcount,wishproducts, setwishproducts}=useContext(mydata)
+      
 
       useEffect(() => {
-        fetchwishlist();
+        // fetchwishlist();
         }, []);
 
 
 
-      const fetchwishlist = async()=>{
-        try{
-        const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`)
-        setwishproducts(response.data.products)
-        console.log("onlyidincart",response.data.products)
-      }
-catch(err){
-    console.log(err);
-}
-}  
+        
+        const deletefromwishlist = async (delete_id, index) => {
+          try {
+            if (!sessiontoken) {
+              console.log("user not authenticated");
+              // nav("/login")
+            }
+            else {
+              const response = await axios.post(
+                "http://localhost:5000/users/wishlist/delete", { delete_id, index, sessionid },
+                {
+                  withCredentials: true,
+                  headers: {
+                    Authorization: `${sessiontoken}`,
+                  },
+                }
+              );
+              console.log(response.data.wishlist);
+              // fetchwishlist();
+              //   setSavedcart(response.data.cart);
+              //   setcartindex(false);
+              //   alert(response.data.message); 
+      
+            }
+          } catch (error) {
+            alert("Error adding to cart")
+      
+            console.error("Error adding to cart:", error);
+          }
+      
+        };
+        
 
      return(
      <div className="wishmain">
@@ -42,16 +67,16 @@ catch(err){
         <h5>My Wishlist</h5>
         <div className="wthirddiv">
          
-         {wishproducts.map((data)=>(
+         {wishproducts.map((data,index)=>(
              <div  className="wthirdsub">
                 <div  className="wbutton2">
-                {Productdetail.includes(data._id)?<h5 className="wbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>
+               <h5 onClick={()=>deletefromwishlist(data._id,index)} className="wbuttonsub"><AiFillHeart/></h5></div>
                
-            <img className="wthirdimg" src={data.image} alt="img" /> 
+            <img className="wthirdimg" src={data.product.image} alt="img" /> 
             <div className="wthirdmini">
-            <h6>{data.name}</h6>
-            <p>{data.description}</p>
-            <button  className="wbutton1">View Product</button>
+            <h6>{data.product.name}</h6>
+            <p>{data.product.description}</p>
+           
             
             </div>
            

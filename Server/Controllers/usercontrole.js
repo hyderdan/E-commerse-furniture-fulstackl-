@@ -220,9 +220,9 @@ const addToCart = async (req, res) => {
    
    const addTowishlist = async (req, res) => {
     try {
-      const {value_id,sessionid,index} = req.body
+      const {value_id,userid,index} = req.body
       const product_id = await productdata.findById(value_id)
-      const user = await userdata.findById(req.body.sessionid);
+      const user = await userdata.findById(req.body.userid);
       if (!user) {
         return res.status(404).json({ error: "User not found" });
       }
@@ -230,14 +230,14 @@ const addToCart = async (req, res) => {
       
       if (existingItemIndex) {
         // If the product already exists in the cart, increment its quantity
-       existingItemIndex.quantity += 1;
-       await user.save();
-       res.status(200).json({ message: "Product added again",   wishlist:user.wishlist});
+      //  existingItemIndex.quantity += 1;
+      //  await user.save();
+       res.status(200).json({ message: "Product already in wishlist",   wishlist:user.wishlist});
       }else{
-        user.cart.push({product:product_id,quantity:1});
+        user.wishlist.push({product:product_id,quantity:1});
         await user.save();
         return res.status(200)
-        .json({ message: "Product added to cart successfully",   cart:user.cart});
+        .json({ message: "Product added to wishlist successfully",   wishlist:user.wishlist});
      }
     
     } catch (err) {
@@ -245,7 +245,33 @@ const addToCart = async (req, res) => {
       res.status(500).json({ error: "server error", error: err.message });
     }
   };
-  
+  const deletefromwishlist=  async (req, res) => {
+    try {
+      const {value_id,sessionid,index} = req.body
+      const product = await productdata.findById(value_id);
+      const token = req.cookies.token;
+      console.log("recevied token",token);;
+      const user = await userdata.findById(sessionid);
+       if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      if (user) {
+        if (index >= 0 && index < user.wishlist.length) {
+      
+        user.wishlist.splice(index,1);
+        await user.save();
+        res
+        .status(200)
+        .json({ message: "Product removed from wish;ist successfully",   wishlist:user.wishlist});
+      }
+    }else{
+      console.log("error occured");
+    }
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: "server error", error: err.message });
+    }
+  };
   
   
   
@@ -274,7 +300,7 @@ const addToCart = async (req, res) => {
       }
   
       // Extract product IDs from the user's cart
-      const productIds = user.cart.map(item => item.product);
+      const productIds = user.wishlist.map(item => item.product);
   
       // Query productdata collection with the product IDs
       const productsWithQuantity = await productdata.find({
@@ -282,7 +308,7 @@ const addToCart = async (req, res) => {
       });
   
       // Combine product information with quantities from the user's cart
-      const products = user.wishlist.map(item => {
+      const wishlist = user.wishlist.map(item => {
         const product = productsWithQuantity.find(p => p._id.equals(item.product));
         return {
           ...item.toObject(),
@@ -295,7 +321,7 @@ const addToCart = async (req, res) => {
       },0)
   
       // Send response with cart items and quantities
-      res.status(200).json({ products,totalquantity });
+      res.status(200).json({ wishlist,totalquantity });
     } catch (error) {
       console.error("Error fetching cart quantity:", error);
       res.status(500).json({ error: "Server error", error: error.message });
@@ -402,7 +428,7 @@ const addToCart = async (req, res) => {
   
 module.exports = {
     userlogin, Addusers, updateuser,addToCart,getuser,getcart,getcartproducts,fetchcart,decrementcartquand,
-    // addTowishlist,getwishlist,getwishproducts,fetchwishlist,
+    addTowishlist,getwishlist,getwishproducts,fetchwishlist,deletefromwishlist,
      deletefromcart,recentlyviewd,deletefromrecentlyviewed,
     getviewedproducts,fechrecentlyviewed,fetchview,fetchview2
 }

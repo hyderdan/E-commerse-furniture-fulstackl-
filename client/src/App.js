@@ -51,11 +51,13 @@ function App() {
   const [Cartid,setCartid]=useState([]);
   const [login, setlogin] = useState(true);
   const [Cartproducts, setCartproducts] = useState([]);
+  const [wishproducts, setwishproducts] = useState([]);
   const sessionid=Getid();
 
   useEffect(() => {
     fectdata();
     totalquand();
+    fetchwishlist();
   }, []);
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
@@ -71,6 +73,20 @@ function App() {
       console.log(err);
     }
   }
+  const fetchwishlist = async () => {
+    try {
+
+
+      const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+      setwishproducts(response.data.wishlist)
+      Setcount(response.data.totalquantity);
+      console.log("onlyidincart", response.data.wishlist)
+      console.log("total", response.data.totalquantity)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
 
   // useEffect(() => {
   //   fectuserdata();
@@ -81,7 +97,7 @@ function App() {
     Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
-    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts
+    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts,wishproducts, setwishproducts
   }
   return (
     <div className="App">
