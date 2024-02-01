@@ -29,6 +29,7 @@ export default function Sofas(){
    useEffect(()=>{
     fechwishlist();
     fechrecentlyviewed();
+    totalwishquand();
   },[]);
  
   const sessiontoken=Gettoken();
@@ -70,8 +71,6 @@ export default function Sofas(){
           sessionStorage.setItem("productid",value_id)
       alert(response.data.message); 
       totalwishquand(value_id);
-      console.log("red",wishliststatus);
-      
     }
     } catch (error) {
       alert("Error adding to ")
@@ -84,10 +83,10 @@ export default function Sofas(){
     try {
       const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, {value_id});
       Setcount(response.data.totalquantity);
-      const wishlistItems = response.data.isInWishlist;
+    
       // const productInWishlist = wishlistItems.find(item => item.product._id === );
-      setwishliststatus(wishlistItems);
-      console.log("red",wishlistItems);
+      setwishliststatus(response.data.isInWishlist);
+      console.log("red",wishliststatus);
       console.log("total", response.data.totalquantity)
     }
     catch (err) {
@@ -132,7 +131,7 @@ export default function Sofas(){
   const sofas=Sofadata.filter((data)=>
   data.item==="sofa"
   );
-  
+  console.log(wishliststatus);
     
     return(
         <div>

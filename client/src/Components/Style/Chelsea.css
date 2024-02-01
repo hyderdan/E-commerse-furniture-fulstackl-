@@ -1,23 +1,26 @@
 .chelseasub1{
     /* background-color: red; */
     border-bottom: 1px solid  #e6e3e3;
-    margin-left: 200px;
-    width: 1100px;
+   
+    width: 100%;
     height: 200px;
 }
 .chelseasub1 h2{
     position: absolute;
+    margin-left: 100px;
     font-family: "Mrs Eaves XL Serif", serif;
     margin-top: 100px;
 }
 .chelseasub1 h3{
     position: absolute;
     margin-top: 140px;
+    margin-left: 100px;
     font-family: "Mrs Eaves XL Serif", serif;
 }
 .chelseasub1 h4{
     position: absolute;
     margin-top: 168px;
+    margin-left: 100px;
     font-family: "Mrs Eaves XL Serif", serif;
 }
 .chelseabutton{
@@ -40,20 +43,20 @@
     /* background-color: red; */
       border-bottom: 1px solid  #e6e3e3;
       margin-top: 30px;
-      width: 1100px;
+      width: 100%px;
       height: 400px
 }
 .prductdet{
     border-bottom: 1px solid  #e6e3e3;
     /* margin-left: 200px; */
-    width: 1100px;
+    width:100%;
     height: 400px;
     /* background-color: red; */
 }
 .arinacarou{
     margin-top: 60px;
 height: 400px;
-width: 1100px;
+width: 100%;
 /* background-color: rebeccapurple; */
 
 }
@@ -67,17 +70,17 @@ width: auto;
 .chelseasub3{
     border-bottom: 1px solid  #d7d4d4;
     margin-top: 860px;
-    margin-left: 200px;
-    width: 1100px;
+   
+    width: 100%; 
     height: 200px;
    
 }
 .chelseasub3mini{
     position: absolute;
    
-    width: 200px;
+    width: 100%;
     margin-top: 40px;
-    margin-left: 80px;
+    margin-left: -400px;
 }
 
 .chelseasub3mini p{
@@ -87,9 +90,9 @@ width: auto;
 .chelseasub3mini2{
     position: absolute;
    
-    width: 250px;
+    width: 100%;
     margin-top: 40px;
-    margin-left: 430px;
+    margin-left: 350px;
 }
 
 .chelseasub3mini2 p{
@@ -99,9 +102,9 @@ width: auto;
 .chelseasub3mini3{
     position: absolute;
   
-    width: 200px;
+    width: 100%;
     margin-top: 40px;
-    margin-left: 800px;
+    margin-left: -50px;
 }
 
 .chelseasub3mini3 p{

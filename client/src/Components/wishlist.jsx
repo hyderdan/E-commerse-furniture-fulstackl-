@@ -14,7 +14,7 @@ import Gettoken from './sessiontoken';
 
 
 export default function Wishlist(){
-       const sessionid=Getid();
+  const userid=Getid();
        const sessiontoken = Gettoken();
       const navigate=useNavigate();
       const{Productdetail,Setproductdetail,
@@ -26,29 +26,14 @@ export default function Wishlist(){
         
         }, []);
 
-        const totalwishquand = async () => {
-          try {
-              if(!sessiontoken){
-                console.log("user not authenticated");
-                Setcount([]);
-              }
-              else{
-            const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
-            Setcount(response.data.totalquantity);
-            console.log("total", response.data.totalquantity);
-          }
-          }catch (err) {
-            console.log(err);
-          }
-        }
       
         const fetchwishlist = async () => {
           try {
       
       
-            const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+            const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, {})
             setwishproducts(response.data.wishlist)
-            // 
+            Setcount(response.data.totalquantity); 
             console.log("onlyidincart", response.data.wishlist)
             console.log("total", response.data.totalquantity);
             console.log("tt", response.data.WishS);
@@ -67,7 +52,7 @@ export default function Wishlist(){
             }
             else {
               const response = await axios.post(
-                "http://localhost:5000/users/wishlist/delete", { delete_id, index, sessionid },
+                "http://localhost:5000/users/wishlist/delete", { delete_id, index,userid},
                 {
                   withCredentials: true,
                   headers: {
@@ -77,7 +62,6 @@ export default function Wishlist(){
               );
               console.log(response.data.wishlist);
               fetchwishlist();
-              totalwishquand();
               //   setSavedcart(response.data.cart);
               //   setcartindex(false);
               //   alert(response.data.message); 
