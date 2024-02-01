@@ -34,6 +34,7 @@ function App() {
   const [Footersub4, SetFootersub4] = useState(footersub4)
   const [Productdetail, Setproductdetail] = useState([])
   const [token, settoken] = useState("");
+  const [token1, settoken1] = useState("");
   const [Addtokart, Setaddtokart] = useState([])
   const [Count, Setcount] = useState(0)
   const [Count1, Setcount1] = useState(0)
@@ -110,7 +111,7 @@ function App() {
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
     , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts,wishproducts, setwishproducts
-    ,wishliststatus,setwishliststatus
+    ,wishliststatus,setwishliststatus,token1, settoken1
   }
   return (
     <div className="App">
