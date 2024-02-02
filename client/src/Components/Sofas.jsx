@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import Gettoken from "./sessiontoken";
 import Getid from "./session";
 import axios from "axios";
-import ValueId from "./valueid";
 
 
 
@@ -24,7 +23,6 @@ export default function Sofas(){
   const [rec,setrec]=useState([]);
   const navigate=useNavigate();
   const userid=Getid();
-  const productid=ValueId();
 
    useEffect(()=>{
     fechwishlist();
@@ -52,7 +50,7 @@ export default function Sofas(){
     try {
       if(!sessiontoken){
         console.log("user not authenticated");
-        // nav("/login")
+        navigate("/login")
       }
       else{
        
@@ -68,8 +66,7 @@ export default function Sofas(){
       );
      
           console.log("wish",response.data.wishlist);
-          sessionStorage.setItem("productid",value_id)
-      alert(response.data.message); 
+      // alert(response.data.message); 
       totalwishquand(value_id);
     }
     } catch (error) {
@@ -95,7 +92,13 @@ export default function Sofas(){
   }
      
       const recntlyviewed=async(value_id)=>{
-          try {
+          
+            try {
+              if(!sessiontoken){
+                console.log("user not authenticated");
+                // nav("/login")
+              }
+              else{
             const response = await axios.post(
               "http://localhost:5000/users/recentlyviewed",{value_id,userid},
               
@@ -107,7 +110,7 @@ export default function Sofas(){
               }
             );
                 console.log("rec",response.data.recentview);
-                
+              }    
          } catch (error) {
           alert("Error adding to wishlist")
           console.error("Error adding to wish:", error);

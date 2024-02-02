@@ -31,6 +31,7 @@ import axios from "axios";
       if (data.token) {
         // Set the token in the state
         settoken1(data.token);
+        sessionStorage.setItem("admintoken",data.token);
         console.log("token in frontEnd", data.token);
         console.log("Login successful", data.message);
         alert("Welcome Admin");

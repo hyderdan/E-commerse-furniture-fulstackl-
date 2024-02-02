@@ -93,7 +93,7 @@ export default function Dining() {
     try {
       if (!sessiontoken) {
         console.log("user not authenticated");
-        // nav("/login")
+        navigate("/login")
       }
       else {
 
@@ -109,8 +109,6 @@ export default function Dining() {
         );
 
         console.log("wish", response.data.wishlist);
-        sessionStorage.setItem("productid", value_id)
-        alert(response.data.message);
         totalwishquand(value_id);
       }
     } catch (error) {

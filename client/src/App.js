@@ -24,6 +24,8 @@ import Rviewd from './Components/Rviewd';
 import axios from 'axios'
 import { useEffect } from "react";
 import Getid from './Components/session';
+import Admintoken from './Components/admin';
+import Head from './Components/Head';
 
 
 
@@ -48,14 +50,14 @@ function App() {
     username: "admin",
     password: "admin123",
   });
-  const[Userlogin,setuselogin]=useState({});
-  const [Cartid,setCartid]=useState([]);
+  const [Userlogin, setuselogin] = useState({});
+  const [Cartid, setCartid] = useState([]);
   const [login, setlogin] = useState(true);
   const [Cartproducts, setCartproducts] = useState([]);
   const [wishproducts, setwishproducts] = useState([]);
-  const[wishliststatus,setwishliststatus]=useState([])
-  const sessionid=Getid();
-
+  const [wishliststatus, setwishliststatus] = useState([])
+  const sessionid = Getid();
+  const adminid = Admintoken();
   useEffect(() => {
     fectdata();
     totalquand();
@@ -71,7 +73,7 @@ function App() {
       const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
       Setcount1(response.data.totalquantity);
       console.log("total", response.data.totalquantity);
-     
+
     }
     catch (err) {
       console.log(err);
@@ -110,8 +112,8 @@ function App() {
     Footersub4, SetFootersub4, Sofadata, Setsofadata, Productdetail, Setproductdetail,
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
-    , token, settoken,Userlogin,setuselogin,Cartid,setCartid,Cartproducts, setCartproducts,wishproducts, setwishproducts
-    ,wishliststatus,setwishliststatus,token1, settoken1
+    , token, settoken, Userlogin, setuselogin, Cartid, setCartid, Cartproducts, setCartproducts, wishproducts, setwishproducts
+    , wishliststatus, setwishliststatus, token1, settoken1
   }
   return (
     <div className="App">
@@ -119,6 +121,7 @@ function App() {
         <mydata.Provider value={values}>
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/Headd' element={<Head />} />
             <Route path='/footer' element={<Footer />} />
             <Route path='/sofas' element={<Sofas />} />
             <Route path='/bed' element={<Bed />} />
@@ -128,7 +131,7 @@ function App() {
             <Route path='/signup' element={<Loginpage />} />
             <Route path='/login' element={<Login1 />} />
             <Route path='/adminlogin' element={<Adminpanellogin />} />
-            <Route path='/admin' element={<Adminlogin />} />
+            {adminid && <Route path='/admin' element={<Adminlogin />} />}
             <Route path='/payment' element={<Payment />} />
             <Route path='/Aaddproducts' element={<Adminaddproducts />} />
             <Route path='/Aproductsdetail' element={<Admiinproductdet />} />

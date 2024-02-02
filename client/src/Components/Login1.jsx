@@ -11,13 +11,13 @@ import Gettoken from "./sessiontoken";
 
 
 export default function Login1() {
-  const { setlogin,Setcount1, Setcount, settoken,setuselogin, } = useContext(mydata);
+  const { setlogin, Setcount1, Setcount, settoken, setuselogin, } = useContext(mydata);
   const [email, setemail] = useState("");
   const [password, setpassw] = useState("");
- 
+
   // const[_, setCookies]=useCookies(["access_token"])
   const Nav = useNavigate();
-  const sessiontoken=Gettoken();
+  const sessiontoken = Gettoken();
   function logout() {
     sessionStorage.clear("usertoken")
     sessionStorage.clear("userid")
@@ -25,62 +25,62 @@ export default function Login1() {
     setuselogin([]);
     Setcount(0);
     Setcount1(0);
-    
+
   }
-  
-  console.log(email,password)
+
+  console.log(email, password)
   const Login = async (e) => {
     e.preventDefault();
-   
-               
+
+
     try {
-        const response = await axios.post(
-            'http://localhost:5000/users/login',
-            {
-                email,
-                password,
-            },
-            {
-                withCredentials: true,
-            }
-        );
-        // const fechuser=users.filter((d)=>
-        // d.email===email
-        // );
-        // // setuselogin(fechuser); 
-        // setCartid(fechuser[0].cart);     
-        const data = response.data;
-        console.log(response.data);
-        console.log("token in frontEnd", data.token);
-        console.log("Login successful", data.message);
-        settoken(data.token);
-        sessionStorage.setItem('usertoken',data.token);
-        sessionStorage.setItem('userid',data.UserID);
-       
-          
-        alert("Login Success!!!!");
-        Nav("/");
-       
-        setlogin(false);
-       
-        
-       
-       
-        
-       
-        // setCartid(fechuser.cart);
-        // setCartid(email);
-        // console.log("ll",fechuser);
-        // console.log("fech",Cartid)
+      const response = await axios.post(
+        'http://localhost:5000/users/login',
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // const fechuser=users.filter((d)=>
+      // d.email===email
+      // );
+      // // setuselogin(fechuser); 
+      // setCartid(fechuser[0].cart);     
+      const data = response.data;
+      console.log(response.data);
+      console.log("token in frontEnd", data.token);
+      console.log("Login successful", data.message);
+      settoken(data.token);
+      sessionStorage.setItem('usertoken', data.token);
+      sessionStorage.setItem('userid', data.UserID);
+
+
+      alert("Login Success!!!!");
+      Nav("/");
+
+      setlogin(false);
+
+
+
+
+
+
+      // setCartid(fechuser.cart);
+      // setCartid(email);
+      // console.log("ll",fechuser);
+      // console.log("fech",Cartid)
 
     } catch (error) {
-        console.log(error.response.data);
-        alert("Registration failed!!!");
+      console.log(error.response.data);
+      alert("Registration failed!!!");
     }
-   
-};
 
- 
+  };
+
+
 
   return (
 
