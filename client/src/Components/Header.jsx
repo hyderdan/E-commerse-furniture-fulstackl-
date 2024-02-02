@@ -15,9 +15,11 @@ import { useState } from 'react'
 import{MdOutlineAdminPanelSettings} from "react-icons/md"
 import Gettoken from "./sessiontoken";
 import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
 import Getid from "./session";
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 
 
@@ -29,7 +31,7 @@ export default function Header(){
     }=useContext(mydata);
     const sessiontoken=Gettoken();
     const sessionid = Getid();
-    const Nav = useNavigate();
+    const Navigate = useNavigate();
     const[searchinput,setsearch]=useState('')
     useEffect(() => {
         
@@ -38,10 +40,10 @@ export default function Header(){
         
       }, []);
     const Admin=()=>{
-        Nav("/adminlogin")
+      Navigate("/adminlogin")
     }
     const user=()=>{
-        Nav("/login")
+      Navigate("/login")
     }
     const totalwishquand = async (value_id) => {
         try {
@@ -73,24 +75,36 @@ export default function Header(){
         <Link className="link2" ><p className="seconddivp4">Bulk Order</p></Link>
         <Link className="link2" ><p className="seconddivp5">UL service</p></Link>
         </div>
-        <Container fluid className="thirddiv">
-     <Link className='headerL'to={'/'}><div className="logo"> <h1>DEFINED DESIGN</h1></div></Link>
-     <Container fluid>
- <input className="searchbar" value={searchinput} onChange={(e)=>setsearch(e.target.value)} type="text"/>
- <span  className="searchbarbutton"> <h3><FiSearch/></h3></span>
-    </Container>
-  
-    <div fluid className='thirddivsub'> 
-    <div onClick={()=>user()} className="thirddivh3">
-        {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
+        <div fluid className="thirddiv">
+        {/* <div className='wishcount1'>{Count1}</div>
+         */}
+      <Navbar collapseOnSelect expand="lg" className="bg-body-info">
+          <Container >
+            <Navbar.Brand><Link className='headerL'to={'/'}><div className="logo"> <h2>DEFINED DESIGN</h2></div></Link></Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              <Nav className="me-auto ">
+                <Nav.Item className='navitem1'> <input 
+                value={searchinput} className='searchbar'
+                onChange={(e)=>setsearch(e.target.value)} type="text"/>
+           <span  className="searchbarbutton"> <h3><FiSearch/></h3></span></Nav.Item>
+                <Nav.Link className='navlink1'><div onClick={()=>user()} >
+               {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
+               </div></Nav.Link>
+                <Nav.Link className='navlink1'><Link to={'/wishlist'} className="link2" ><div><BsHeart/></div></Link></Nav.Link>
+                <Nav.Item className='navitem2'><div>{Count}</div></Nav.Item>
+                <Nav.Link className='navlink1' > <Link to={'/addtocart'} className="link2" ><div><FiShoppingCart/></div></Link></Nav.Link>
+                <Nav.Item className='navitem3'><div>{Count1}</div></Nav.Item>
+                
+                <Nav.Link className='navlink1'><Link to={'/adminlogin'} className="link2" ><div><MdOutlineAdminPanelSettings/></div></Link></Nav.Link>
+              </Nav>
+
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+
+
         </div>
-     <Link to={'/wishlist'} className="link2" ><div className="thirddivh4"><BsHeart/></div></Link>
-     <Link to={'/addtocart'} className="link2" ><div className="thirddivh5"><FiShoppingCart/></div></Link>
-     <Link to={'/adminlogin'} className="link2" ><div className="thirddivh6" ><MdOutlineAdminPanelSettings/></div></Link>
-     <div className='wishcount'>{Count}</div>
-        <div className='wishcount1'>{Count1}</div>
-        </div>
-        </Container>
         </div>
         
     )

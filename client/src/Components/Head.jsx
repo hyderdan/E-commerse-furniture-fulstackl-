@@ -19,20 +19,24 @@ import { useNavigate } from 'react-router-dom';
 import{BiSolidUpArrow}from "react-icons/bi"
 import { IoMdLogOut } from "react-icons/io";
 import { useState } from 'react'
-import{MdOutlineAdminPanelSettings} from "react-icons/md"
+import{MdOutlineAdminPanelSettings} from "react-icons/md";
+// import Gettoken from "./sessiontoken";
+// import axios from 'axios';
+// import Getid from "./session";
+import { useEffect } from 'react'
 
 export default function Head(){
     const{Count,Count1,islogedin, Setproductdetail, Setaddtokart,setIslogedin,Setcount,Setcount1,login,
         token, settoken
     }=useContext(mydata);
-    const sessiontoken=Gettoken();
-    const sessionid = Getid();
-    const Nav = useNavigate();
+    // const sessiontoken=Gettoken();
+    // const sessionid = Getid();
+    // const Nav = useNavigate();
     const[searchinput,setsearch]=useState('')
     useEffect(() => {
         
-        totalquand();
-        totalwishquand();
+        // totalquand();
+        // totalwishquand();
         
       }, []);
     const Admin=()=>{
@@ -41,27 +45,27 @@ export default function Head(){
     const user=()=>{
         Nav("/login")
     }
-    const totalwishquand = async (value_id) => {
-        try {
-          const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {value_id});
-          Setcount(response.data.totalquantity);
-          console.log("total", response.data.totalquantity)
-        }
-        catch (err) {
-          console.log(err);
-        }
-      };
-      const totalquand = async () => {
-        try {
-          const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
-          Setcount1(response.data.totalquantity);
-          console.log("total", response.data.totalquantity);
+    // const totalwishquand = async (value_id) => {
+    //     try {
+    //       const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {value_id});
+    //       Setcount(response.data.totalquantity);
+    //       console.log("total", response.data.totalquantity)
+    //     }
+    //     catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
+    //   const totalquand = async () => {
+    //     try {
+    //       const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+    //       Setcount1(response.data.totalquantity);
+    //       console.log("total", response.data.totalquantity);
          
-        }
-        catch (err) {
-          console.log(err);
-        }
-      };
+    //     }
+    //     catch (err) {
+    //       console.log(err);
+    //     }
+    //   };
     return(
         <div>
             <div className="seconddiv">
