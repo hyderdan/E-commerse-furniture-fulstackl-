@@ -62,7 +62,7 @@ console.log(err);
     return(
         <div className="maindiv">
             <div className="firstdiv">
-                <p>&nbsp;Full House Sale&nbsp;|&nbsp;Up to 70% off +Extra 10%off&nbsp;|&nbsp;<Link className="link">Click  to Shop!</Link></p>
+       <p>&nbsp;Full House Sale&nbsp;|&nbsp;Up to 70% off +Extra 10%off&nbsp;|&nbsp;<Link className="link">Click  to Shop!</Link></p>
            </div>
 
            <Header/>

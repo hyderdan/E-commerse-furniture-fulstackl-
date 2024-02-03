@@ -11,23 +11,13 @@ import Gettoken from "./sessiontoken";
 
 
 export default function Login1() {
-  const { setlogin, Setcount1, Setcount, settoken, setuselogin, } = useContext(mydata);
+  const { setlogin,settoken} = useContext(mydata);
   const [email, setemail] = useState("");
   const [password, setpassw] = useState("");
 
   // const[_, setCookies]=useCookies(["access_token"])
   const Nav = useNavigate();
   const sessiontoken = Gettoken();
-  function logout() {
-    sessionStorage.clear("usertoken")
-    sessionStorage.clear("userid")
-    Nav('/');
-    setuselogin([]);
-    Setcount(0);
-    Setcount1(0);
-
-  }
-
   console.log(email, password)
   const Login = async (e) => {
     e.preventDefault();
@@ -85,7 +75,6 @@ export default function Login1() {
   return (
 
     <form>
-      {!sessiontoken ?
         <div className='main01'>
           <div className='sub1'>
             <h1 className="subh2" > User Login</h1>
@@ -105,12 +94,6 @@ export default function Login1() {
             </div>
           </div>
         </div>
-        :
-        <div>
-          <h1>you have already logged in</h1>
-          <button onClick={() => logout()}>logout</button>
-        </div>
-      }
     </form>
 
   )

@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 
 export default function Header(){
     const{Count,Count1,islogedin, Setproductdetail, Setaddtokart,setIslogedin,Setcount,Setcount1,login,
-        token, settoken
+      setuselogin
     }=useContext(mydata);
     const sessiontoken=Gettoken();
     const sessionid = Getid();
@@ -39,6 +39,15 @@ export default function Header(){
         totalwishquand();
         
       }, []);
+      const logout=()=>{
+        sessionStorage.clear("usertoken")
+        sessionStorage.clear("userid")
+        Navigate('/');
+        setuselogin([]);
+        Setcount(0);
+        Setcount1(0);
+    
+      };
     const Admin=()=>{
       Navigate("/adminlogin")
     }
@@ -79,30 +88,55 @@ export default function Header(){
         {/* <div className='wishcount1'>{Count1}</div>
          */}
       <Navbar collapseOnSelect expand="lg" className="bg-body-info">
-          <Container >
-            <Navbar.Brand><Link className='headerL'to={'/'}><div className="logo"> <h2>DEFINED DESIGN</h2></div></Link></Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto ">
-                <Nav.Item className='navitem1'> <input 
-                value={searchinput} className='searchbar'
-                onChange={(e)=>setsearch(e.target.value)} type="text"/>
-           <span  className="searchbarbutton"> <h3><FiSearch/></h3></span></Nav.Item>
-                <Nav.Link className='navlink1'><div onClick={()=>user()} >
-               {sessiontoken?<IoMdLogOut/>:<FaRegUser/>}
-               </div></Nav.Link>
-                <Nav.Link className='navlink1'><Link to={'/wishlist'} className="link2" ><div><BsHeart/></div></Link></Nav.Link>
-                <Nav.Item className='navitem2'><div>{Count}</div></Nav.Item>
-                <Nav.Link className='navlink1' > <Link to={'/addtocart'} className="link2" ><div><FiShoppingCart/></div></Link></Nav.Link>
-                <Nav.Item className='navitem3'><div>{Count1}</div></Nav.Item>
-                
-                <Nav.Link className='navlink1'><Link to={'/adminlogin'} className="link2" ><div><MdOutlineAdminPanelSettings/></div></Link></Nav.Link>
-              </Nav>
-
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-
+      <Container>
+        <Navbar.Brand>
+          <Link className='headerL' to='/'>
+            <div className="logo">
+              <h2>DEFINED DESIGN</h2>
+            </div>
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Item className='navitem1'>
+              <input 
+                value={searchinput} 
+                className='searchbar'
+                onChange={(e) => setsearch(e.target.value)} 
+                type="text"
+              />
+              <span className="searchbarbutton">
+                <h3><FiSearch/></h3>
+              </span>
+            </Nav.Item>
+            <Nav.Link className='navlink1'>
+              {sessiontoken ?
+                <div onClick={()=>logout()}><IoMdLogOut/></div> :
+                <div onClick={()=>user()}><FaRegUser/></div>
+              }
+            </Nav.Link>
+            <Nav.Link className='navlink1'>
+              <Link to='/wishlist' className="link2">
+                <div><BsHeart/></div>
+              </Link>
+            </Nav.Link>
+            <Nav.Item className='navitem2'><div>{Count}</div></Nav.Item>
+            <Nav.Link className='navlink1'>
+              <Link to='/addtocart' className="link2">
+                <div><FiShoppingCart/></div>
+              </Link>
+            </Nav.Link>
+            <Nav.Item className='navitem3'><div>{Count1}</div></Nav.Item>
+            <Nav.Link className='navlink1'>
+              <Link to='/adminlogin' className="link2">
+                <div><MdOutlineAdminPanelSettings/></div>
+              </Link>
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
 
         </div>
         </div>
