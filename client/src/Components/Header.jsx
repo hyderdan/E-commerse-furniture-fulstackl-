@@ -52,7 +52,7 @@ export default function Header(){
       Navigate("/adminlogin")
     }
     const user=()=>{
-      Navigate("/login")
+      Navigate("/loginreg")
     }
     const totalwishquand = async (value_id) => {
         try {

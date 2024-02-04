@@ -43,7 +43,7 @@ export default function Head(){
         Nav("/adminlogin")
     }
     const user=()=>{
-        Nav("/login")
+        Nav("/loginr")
     }
     // const totalwishquand = async (value_id) => {
     //     try {

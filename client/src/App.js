@@ -11,8 +11,6 @@ import Chelsea from './Components/Chelsea';
 import Bed from './Components/Bed';
 import Wishlist from './Components/wishlist';
 import Cart from './Components/Cart';
-import Loginpage from './Components/Loginpage';
-import Login1 from './Components/Login1';
 import Adminpanellogin from './Components/Adminpanellogin';
 import Payment from './Components/Payment';
 import Adminlogin from './Components/Adminlogin';
@@ -26,6 +24,7 @@ import { useEffect } from "react";
 import Getid from './Components/session';
 import Admintoken from './Components/admin';
 import Head from './Components/Head';
+import Loginandreg from './Components/Loginandreg';
 
 
 
@@ -128,8 +127,6 @@ function App() {
             <Route path='/wishlist' element={<Wishlist />} />
             <Route path='/productdetails/:id' element={<Chelsea />} />
             <Route path='/addtocart' element={<Cart />} />
-            <Route path='/signup' element={<Loginpage />} />
-            <Route path='/login' element={<Login1 />} />
             <Route path='/adminlogin' element={<Adminpanellogin />} />
             {adminid && <Route path='/admin' element={<Adminlogin />} />}
             <Route path='/payment' element={<Payment />} />
@@ -138,7 +135,7 @@ function App() {
             <Route path='/dining' element={<Dining />} />
             <Route path='/dealzone' element={<Dealzone />} />
             <Route path='/recentlyviewed' element={<Rviewd />} />
-
+            <Route path='/login' element={<Loginandreg/>}/>
 
           </Routes>
         </mydata.Provider>
