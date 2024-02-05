@@ -54,7 +54,7 @@ export default function Dining() {
     try {
       if (!sessiontoken) {
         console.log("user not authenticated");
-        navigate("/login")
+        
       }
       else {
 

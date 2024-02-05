@@ -2,53 +2,132 @@ import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import mydata from "./Context"
 import Header from "./Header"
-import Dropdown from 'react-bootstrap/Dropdown';
 import "./Style/Sofas.css"
 import{AiOutlineHeart}from "react-icons/ai"
 import{AiFillHeart}from "react-icons/ai"
 import Footer from "./Footer";
 import { useState } from "react";
-import "./Style/Allproducts.css"
-
+import "./Style/Allproducts.css";
+import Gettoken from "./sessiontoken";
+import Getid from "./session";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import "./Style/Bed.css"
 
 
 export default function Dealzone(){
   const navigate=useNavigate();
-  const[indexx,setindexx]=useState(-1)
+  const[indexx,setindexx]=useState(-1);
+  const sessiontoken = Gettoken();
+  const userid = Getid();
 
-  function viewproducts(value){
-    if(islogedin===true){
-    if(Productdetail.includes(value)){
-      Setproductdetail(Productdetail.filter((d)=>d!==value))
-    
-      Setcount(Count-1)
-  
-   
-     
-  }
-  else{
-    const products=value;
-    Setproductdetail([...Productdetail,products]);
-    console.log(Productdetail)
-    Setcount(Count+1)
-    
-  } 
-}
-  else{
-    navigate("/login")
-  }
-    
-  }
-  function productsdetails(value){
-    const products=value;
-    Productdetail1.splice(0,1);
-    Setproductdetail1([...Productdetail1,products]); 
-    // console.log(Productdetail)
-    navigate('/productdetails')   
-  }
-  
-  const{Sofadata,Productdetail,Setproductdetail,Productdetail1,Setproductdetail1,Count,Setcount,islogedin}=useContext(mydata);
 
+  const{Sofadata,setwishliststatus, wishliststatus,Setcount,}=useContext(mydata);
+  useEffect(() => {
+    // fechwishlist();
+    fechrecentlyviewed();
+    totalwishquand();
+  }, []);
+
+  const fechrecentlyviewed = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users/recent/idr/${userid}`
+
+      );
+
+      console.log("recentlyvirewd", response.data.recentvieweddata)
+
+      //  console.log("fechcart",response.data) 
+    } catch (error) {
+      console.error("Error occurs:", error);
+    }
+  };
+  const recntlyviewed = async (value_id) => {
+
+    try {
+      if (!sessiontoken) {
+        console.log("user not authenticated");
+      }
+      else {
+
+        const response = await axios.post(
+          "http://localhost:5000/users/recentlyviewed", { value_id, userid },
+
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `${sessiontoken}`,
+            },
+          }
+        );
+        console.log(response.data.recentview);
+      }
+    } catch (error) {
+      alert("Error adding to wishlist")
+      console.error("Error adding to wish:", error);
+    }
+  };
+  const fechwishlist = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/users/wishedproduct/idw/${userid}`,
+
+      );
+      console.log("cartproducts", response.data.wishlistproducts)
+
+      //  console.log("fechcart",response.data) 
+    } catch (error) {
+      console.error("Error occurs:", error);
+    }
+  };
+
+  const wishlisted = async (value_id, index) => {
+    try {
+      if (!sessiontoken) {
+        console.log("user not authenticated");
+       
+        navigate("/login")
+      }
+      else {
+
+        const response = await axios.post(
+          "http://localhost:5000/users/wishlist", { value_id, userid },
+
+          {
+            withCredentials: true,
+            headers: {
+              Authorization: `${sessiontoken}`,
+            },
+          }
+        );
+
+        console.log("wish", response.data.wishlist);
+        // alert(response.data.message);
+        totalwishquand(value_id);
+      }
+    } catch (error) {
+      alert("Error adding to ")
+
+      console.error("Error adding to cart:", error);
+    }
+
+  };
+  const totalwishquand = async (value_id) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, { value_id });
+      Setcount(response.data.totalquantity);
+
+      // const productInWishlist = wishlistItems.find(item => item.product._id === );
+      setwishliststatus(response.data.isInWishlist);
+      console.log("red", wishliststatus);
+      console.log("total", response.data.totalquantity)
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
  
 
     return(
@@ -67,24 +146,23 @@ export default function Dealzone(){
     </div>
 
 
-        <div className="Athirddiv">
+        <div className="bthirddiv">
          
         
           {Sofadata.map((data)=>(
-            <div  className="sthirdsub">
-              <div onClick={()=>viewproducts(data)} className="sbutton2">
-                {Productdetail.includes(data)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>
-               
-           <img className="Sthirdimg" src={data.image} alt="img" /> 
-           <div className="sthirdmini">
-           <h6>{data.name}</h6>
-           <p>{data.description}</p>
-           <button onClick={()=>productsdetails(data)} className="sbutton1">View Product</button>
-           
-           </div>
-          
+            <Link className="Hlink" to={`/productdetails/${data._id}`}>
+            <div onClick={() => recntlyviewed(data._id)} className="bthirdsub">
+            <div onClick={(d)=>{ wishlisted(data._id);d.preventDefault()}} className="sbutton2">
+                {wishliststatus.includes(data._id)?<h5 className="sbuttonsub"><AiFillHeart/></h5>:<h5><AiOutlineHeart/></h5>}</div>
+              <img className="bthirdimg" src={data.image} alt="img" />
+              <div className="bthirdmini">
+                <h6>{data.name}</h6>
+                <p>₹{data.price}</p>
+                <button className="bbutton1">View Product</button>
+              </div>
             </div>
-        ))}
+          </Link>
+          ))}
         
         </div>
         

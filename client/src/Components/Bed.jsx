@@ -49,7 +49,7 @@ export default function Bed() {
     try {
       if (!sessiontoken) {
         console.log("user not authenticated");
-        navigate("/login")
+       
       }
       else {
 
@@ -163,7 +163,7 @@ export default function Bed() {
         {beds.map((data) => (
           <Link className="Hlink" to={`/productdetails/${data._id}`}>
             <div onClick={() => recntlyviewed(data._id)} className="bthirdsub">
-              <div onClick={(e) => { wishlisted(data._id); e.preventDefault() }} className="bbutton2">
+              <div onClick={(e) => { wishlisted(data._id);e.preventDefault()}} className="bbutton2">
                 {wishliststatus.includes(data._id) ? <h5 className="bbuttonsub"><AiFillHeart /></h5> : <h5><AiOutlineHeart /></h5>}</div>
               <img className="bthirdimg" src={data.image} alt="img" />
               <div className="bthirdmini">

@@ -8,7 +8,7 @@ import mydata from "./Context";
 import { useNavigate } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
 import axios from "axios";
-
+import { useEffect } from "react";
 
 export default function Adminlogin() {
   const { users, setUsers, setIslogedin } = useContext(mydata);
@@ -35,10 +35,19 @@ export default function Adminlogin() {
   function handlesubmit4() {
     nav("/Aproductsdetail")
   }
-  const deleteuser = async (data) => {
+   useEffect(()=>{
+    fectuser();
+  },[])
+
+  const fectuser= async()=>{
+    const responce= await axios.get('http://localhost:5000/users');
+    setUsers(responce.data);
+
+  }
+  const deleteuser = async (_id) => {
       try {
-        await axios.delete(`http://localhost:5000/users/${data}`);
-        // fechdata();
+        await axios.delete(`http://localhost:5000/users/${_id}`);
+         fectuser();
       } catch (error) {
         console.error('Error deleting product:', error);
       }

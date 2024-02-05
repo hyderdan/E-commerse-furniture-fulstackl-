@@ -73,9 +73,9 @@ const updateuser = async function (req, res) {
 };
 const deleteuser= async function (req, res) {
 try {
-  const { data } = req.params
-  // const { username, email, password, wishlist, cart,recentview} = req.body
-  const product = await productdata.findByIdAndDelete(data,{ new: true })
+  const { _id } = req.params
+  const { username, email, password, wishlist, cart,recentview} = req.body
+  const product = await userdata.findByIdAndDelete(_id,{ username, email, password, wishlist, cart,recentview},{ new: true })
   res.json(product)
   console.log(product)
 }

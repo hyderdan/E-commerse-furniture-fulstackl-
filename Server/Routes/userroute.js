@@ -11,7 +11,7 @@ userrouter.use(bodyParser.json());
 userrouter.use(bodyParser.urlencoded({extended:true}));
 userrouter.use(cookieParser());
 userrouter.get('/',ProductControllers.getuser);
-userrouter.delete('/:data',ProductControllers.deleteuser);
+userrouter.delete('/:_id',ProductControllers.deleteuser);
 userrouter.post("/login",ProductControllers.userlogin)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/:id",ProductControllers.updateuser);

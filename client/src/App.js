@@ -64,13 +64,8 @@ function App() {
     totalquand();
     totalwishquand();
     fetchwishlist();
-    fectuser();
   }, []);
-  const fectuser= async()=>{
-    const responce= await axios.get('http://localhost:5000/users');
-    setUsers(responce.data);
-
-  }
+  
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
