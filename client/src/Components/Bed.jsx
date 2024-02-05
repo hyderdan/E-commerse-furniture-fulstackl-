@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Gettoken from "./sessiontoken";
 import Getid from "./session";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 
@@ -87,6 +88,7 @@ export default function Bed() {
     try {
       if (!sessiontoken) {
         console.log("user not authenticated");
+       
         navigate("/login")
       }
       else {

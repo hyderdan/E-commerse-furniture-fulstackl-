@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Gettoken from "./sessiontoken";
+import { toast } from "react-toastify";
 
 export default function Loginandreg(){
 
@@ -71,13 +72,13 @@ export default function Loginandreg(){
       settoken(data.token);
       sessionStorage.setItem('usertoken', data.token);
       sessionStorage.setItem('userid', data.UserID);
-
-
-      alert("Login Success!!!!");
+      toast.success("Login Success!!!!",{
+        position: "top-center",
+      });
       Nav("/");
     } catch (error) {
         console.log(error.response.data);
-        alert("Registration failed!!!");
+        toast.error("Registration failed!!!");
       }
     }
 }
@@ -122,7 +123,9 @@ export default function Loginandreg(){
           (req, res) => console.log(req.body));
           // fectdata();  
           if (responce.status === 202) {
-            alert('Registration successful');
+            toast.success('Registration successful',{
+              autoClose: 1000
+            });
         } else {
             alert('Registration failed');
         }

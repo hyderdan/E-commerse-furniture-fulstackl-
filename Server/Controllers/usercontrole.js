@@ -64,13 +64,24 @@ const Addusers = async (req, res) => {
 const updateuser = async function (req, res) {
   try {
     const { id } = req.params
-    const { username, email, password, wishlist, cart } = req.body
-    const user = await productdata.findByIdAndUpdate(id, { username, email, password, wishlist, cart }, { new: true })
+    const { username, email, password, wishlist, cart,recentview} = req.body
+    const user = await productdata.findByIdAndUpdate(id, { username, email, password, wishlist, cart,recentview}, { new: true })
     res.json(user)
     console.log(user)
   }
   catch (err) { console.log(err) }
 };
+const deleteuser= async function (req, res) {
+try {
+  const { data } = req.params
+  // const { username, email, password, wishlist, cart,recentview} = req.body
+  const product = await productdata.findByIdAndDelete(data,{ new: true })
+  res.json(product)
+  console.log(product)
+}
+catch (err) { console.log(err) }
+}
+
 const addToCart = async (req, res) => {
   try {
     const { value_id, sessionid, index } = req.body
@@ -429,7 +440,7 @@ const fetchview2 = async (req, res) => {
 
 
 module.exports = {
-  userlogin, Addusers, updateuser, addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
+  userlogin, Addusers, updateuser,deleteuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
   addTowishlist, getwishlist, getwishproducts, fetchwishlist, deletefromwishlist,
   deletefromcart, recentlyviewd, deletefromrecentlyviewed,
   getviewedproducts, fechrecentlyviewed, fetchview, fetchview2

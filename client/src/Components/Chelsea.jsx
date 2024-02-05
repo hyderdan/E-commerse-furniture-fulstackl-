@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import Getid from "./session";
 import Gettoken from "./sessiontoken";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Chelsea(){
     
@@ -70,6 +71,11 @@ export default function Chelsea(){
     try {
       if(!sessiontoken){
         console.log("user not authenticated");
+        toast.info("user not authenticated",{
+          position:"top-center",
+          autoClose:2500,
+          theme:"dark"
+        })
         // nav("/login")
       }
       else{
@@ -89,7 +95,10 @@ export default function Chelsea(){
           sessionStorage.setItem("valueId",value_id);
           setcartindex(false);
           totalquand();
-      alert(response.data.message); 
+      toast.success(response.data.message,{
+        autoClose:1000,
+        position:"top-center"
+      }); 
       
     }
     } catch (error) {

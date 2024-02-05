@@ -7,6 +7,7 @@ import { useContext } from "react";
 import mydata from "./Context";
 import { useNavigate } from "react-router-dom";
 import { IoMdLogOut } from "react-icons/io";
+import axios from "axios";
 
 
 export default function Adminlogin() {
@@ -34,28 +35,32 @@ export default function Adminlogin() {
   function handlesubmit4() {
     nav("/Aproductsdetail")
   }
-  const deleteuser = (data) => {
-    const dele = users.filter((d) => { return (d !== data) });
-    setUsers(dele);
-    setIslogedin(false)
+  const deleteuser = async (data) => {
+      try {
+        await axios.delete(`http://localhost:5000/users/${data}`);
+        // fechdata();
+      } catch (error) {
+        console.error('Error deleting product:', error);
+      }
+    }
 
-  }
+  
   const handledit = (index) => {
     setchangepass({ ...users[index] });
     setuserindex(index);
   };
-  const handlesave = (index) => {
-    const updatepass = [...users];
-    updatepass[index] = { ...changepass };
-    setUsers(updatepass);
-    setuserindex(-1);
-    setIslogedin(false)
-  }
+  // const handlesave = (index) => {
+  //   const updatepass = [...users];
+  //   updatepass[index] = { ...changepass };
+  //   setUsers(updatepass);
+  //   setuserindex(-1);
+  //   setIslogedin(false)
+  // }
   const adminlogout = () => {
     sessionStorage.clear("admintoken");
     nav("/");
   }
-
+  console.log("hey",users);
   return (
     <div className="panelmain">
       <div className="panelsub2">
@@ -86,7 +91,6 @@ export default function Adminlogin() {
 
                   <th>Username</th>
                   <th>Email</th>
-                  <th>Password</th>
                   <th>Action1</th>
                   <th>Action2</th>
                 </tr>
@@ -97,15 +101,7 @@ export default function Adminlogin() {
                   <tr >
                     <td>{item.username}</td>
                     <td>{item.email}</td>
-                    <td key={index}>{useindex == index ? (
-                      <div>
-                        <input value={changepass.password} onChange={(e) => setchangepass({ ...changepass, password: e.target.value })} type="text" />
-                        <button onClick={() => handlesave(index)}>save</button>
-                      </div>
-                    ) : (
-                      <div>{item.password}</div>
-                    )}</td>
-                    <td> <button onClick={() => deleteuser(item)} className='table-btn' >Delete</button></td>
+                    <td> <button onClick={() => deleteuser(item._id)} className='table-btn' >Delete</button></td>
                     <td> <button onClick={() => handledit(index)} className='table-btn' >Edit</button></td>
 
                   </tr>

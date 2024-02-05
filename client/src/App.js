@@ -25,6 +25,8 @@ import Getid from './Components/session';
 import Admintoken from './Components/admin';
 import Head from './Components/Head';
 import Loginandreg from './Components/Loginandreg';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -62,7 +64,13 @@ function App() {
     totalquand();
     totalwishquand();
     fetchwishlist();
+    fectuser();
   }, []);
+  const fectuser= async()=>{
+    const responce= await axios.get('http://localhost:5000/users');
+    setUsers(responce.data);
+
+  }
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
@@ -135,11 +143,11 @@ function App() {
             <Route path='/dining' element={<Dining />} />
             <Route path='/dealzone' element={<Dealzone />} />
             <Route path='/recentlyviewed' element={<Rviewd />} />
-            <Route path='/login' element={<Loginandreg/>}/>
-
+            <Route path='/login' element={<Loginandreg/>}/>  
           </Routes>
         </mydata.Provider>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }
