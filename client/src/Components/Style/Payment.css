@@ -68,8 +68,20 @@
     /* background-color: red; */
 
 }
+.amountpay2 {
+    position: absolute;
+    /* background-color: red; */
+    display: flex;
+    place-items: center;
+    justify-content: center;
+   
+    flex-direction: column;
+    margin-top: 70px;
+    margin-left: 470px;
+    width: 400px;
+}
 
-.amountpay h5 {
+.amountpay2 h5 {
     margin-left: -210px;
     float: left;
 }
@@ -79,6 +91,7 @@
     /* width: 100%; */
     /* background-color: black; */
     float: left;
+    height: auto;
     margin-left: -180px;
     margin-top: 30px;
     transition: 1s;
@@ -101,6 +114,11 @@
     margin-top: -30px;
     margin-left: 250px;
 }
+.totalmoneyA{
+    margin-top: -35px;
+    margin-left: 350px;  
+    font-size: 25px;
+}
 .amountpay {
     position: absolute;
     /* background-color: red; */
@@ -109,7 +127,20 @@
     justify-content: center;
    
     flex-direction: column;
-    margin-top: 250px;
+    margin-top: 320px;
     margin-left: 470px;
+    height: auto;
     width: 400px;
+}
+.paybutton{
+   margin-left: 300px;
+   border-radius: 3px;
+   border: none;
+   color: white;
+   background-color: rgb(247, 132, 91);
+   transition: 1s;
+  
+}
+.paybutton:active{
+    background-color: orangered;
 }

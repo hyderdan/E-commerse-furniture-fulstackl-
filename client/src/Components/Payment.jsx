@@ -5,11 +5,17 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Getid from "./session";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {loadStripe} from "@stripe/stripe-js"
+
 export default function Payment(){
     const {Cartproducts}=useContext(mydata);
     const[order,setorder]=useState([]);
     const [Totalprice,settotalprice]=useState(0)
+    const[amounttoggle,setAmounttoggle]=useState(true);
     const sessionid = Getid();
+    const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99XWow4vMxMPdW5yxYNe34HQLprc3tJVy8lrG11ZcmFX3e1xdrydF2IJ0kl39D3c7w3R2YuOye4000rFydFn6')
     useEffect(()=>{
         fetchcart();
         
@@ -29,6 +35,11 @@ export default function Payment(){
           console.log(err);
         }
       }
+      function PaymentForm() {
+        const stripe = useStripe();
+        const elements = useElements();
+        const [totalPrice, setTotalPrice] = useState(0);
+      }
       const calculateTotalPrice = () => {
         let totalPrice = 0;
     
@@ -38,6 +49,30 @@ export default function Payment(){
         return totalPrice;
         
       };
+      const amountclick=()=>{
+        if(amounttoggle==true){
+          setAmounttoggle(false);
+        }
+        else{
+          setAmounttoggle(true);
+        }
+      }
+      const handlepayment=async()=>{
+        const stripe=await StripePromise;
+
+        const paymentmethod= await
+        stripe.createPaymentMethod({
+          type:'card',
+          card:'4325464',
+          
+        });
+        const responce=await
+        axios.post('/create-payment-intent',{
+          paymentmethod:paymentmethod.id,
+          amount:calculateTotalPrice()*100,
+        });
+        console.log(responce);
+      }
      
     return(
        <section className="Sectionp">
@@ -47,10 +82,17 @@ export default function Payment(){
         <div className="orders">
         </div>
         <div className="orderdetails">
-          
+        <Elements stripe={StripePromise}>
+          <PaymentForm />
+        </Elements>
+          </div>
+          <div className="amountpay2">
+          <h5>Amount Payable</h5><span className="totalmoney">₹{calculateTotalPrice()}</span>
+        <span onClick={amountclick} className="totalmoneyA"><MdKeyboardArrowDown /></span>
           </div>
           <div className="amountpay">
-        <h5>Amount Payable</h5><span className="totalmoney">₹{calculateTotalPrice()}</span>
+        
+        {amounttoggle==false &&
         <div className="amountsub">
         {order.map((data)=>(
           <div>
@@ -58,8 +100,10 @@ export default function Payment(){
           <p className="price">₹{data.product.price}</p> 
           </div>
         ))}
+        </div>}
+        <button className="paybutton">Pay Now</button>
         </div>
-        </div>
+        
           </div>
        </section>
     )

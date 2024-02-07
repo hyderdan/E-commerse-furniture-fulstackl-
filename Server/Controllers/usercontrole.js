@@ -2,6 +2,7 @@ const { userdata, productdata } = require("../schema");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
+const stripe = require('stripe')(process.env.stipe_secret_key)
 
 const getuser = async function (req, res) {
   const data = await userdata.find({});
