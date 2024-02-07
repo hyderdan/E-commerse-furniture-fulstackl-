@@ -1,39 +1,115 @@
-.Sectionp{
+.Sectionp {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color:rgb(211, 204, 204);
+    background-color: rgb(211, 204, 204);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
+
 }
 
-.Pcontainer{
+.Pcontainer {
+    position: absolute;
     width: 1000px;
     height: 600px;
     background-color: white;
     color: black;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.35);
     display: flex;
-   
+
 }
-.Pcontainer h1{
-    margin-left: 300px;
-    margin-top: -500px;
-}
-.orders{
+
+.Pcontainer h1 {
     position: absolute;
-    background-color: black;
+    margin-left: 470px;
+    margin-top: -450px;
+}
+
+.orders {
+    position: absolute;
+    background-image: url(https://athemes.com/wp-content/uploads/davici-furniture-wordpress-theme.jpg);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: 400px;
+    width: 440px;
     margin-left: -500px;
     height: 500px;
     overflow-y: hidden;
+    overflow-x: hidden;
+    background-size: contain;
+    background-position: left;
+    background-attachment: fixed;
+
+}
+
+.orders img {
+    width: 600px;
+    height: 500px;
+}
+
+.orderdetails {
+    /* position: absolute; */
+    /* float: left; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 470px;
+    margin-top: -150px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    border-radius: 8px;
+    width: 400px;
+    height: 150px;
+    /* background-color: red; */
+
+}
+
+.amountpay h5 {
+    margin-left: -210px;
+    float: left;
+}
+
+.amountsub {
+    
+    /* width: 100%; */
+    /* background-color: black; */
+    float: left;
+    margin-left: -180px;
+    margin-top: 30px;
+    transition: 1s;
+}
+
+.amountsub h6 {
+    font-size: 15px;
+    color: rgb(89, 85, 85);
+    margin-top: 0px;
+    float: left;
+    margin-left: 160px;
+}
+.price{
+    margin-left: 430px;
+    margin-top: -10px;
+    color: rgb(89, 85, 85);
+}
+.totalmoney{
+    /* background-color: blue; */
+    margin-top: -30px;
+    margin-left: 250px;
+}
+.amountpay {
+    position: absolute;
+    /* background-color: red; */
+    display: flex;
+    place-items: center;
+    justify-content: center;
+   
+    flex-direction: column;
+    margin-top: 250px;
+    margin-left: 470px;
+    width: 400px;
 }
