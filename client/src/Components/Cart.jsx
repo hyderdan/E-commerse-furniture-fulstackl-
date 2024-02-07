@@ -138,8 +138,9 @@ export default function Cart() {
 
 
 
-  const buttonclick = () => {
-    nav("/payment")
+  const Ordersummmery = () => {
+    nav("/payment");
+    
   }
 
   return (
@@ -184,7 +185,7 @@ export default function Cart() {
       <div className="totalpayment">
         <h4>₹{calculateTotalPrice()}</h4>
         <h3>Total Amount</h3>
-        <button >Buy NOW</button>
+        <button onClick={()=>Ordersummmery()} >Confirm Order</button>
       </div>
     </div>
   )
