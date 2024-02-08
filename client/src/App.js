@@ -27,12 +27,14 @@ import Head from './Components/Head';
 import Loginandreg from './Components/Loginandreg';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+  import {Elements}from "@stripe/react-stripe-js";
+  import {loadStripe} from "@stripe/stripe-js";
 
 
 
 
 function App() {
-
+  
   const [Sofadata, Setsofadata] = useState([])
   const [Footersub4, SetFootersub4] = useState(footersub4)
   const [Productdetail, Setproductdetail] = useState([])
@@ -56,16 +58,25 @@ function App() {
   const [login, setlogin] = useState(true);
   const [Cartproducts, setCartproducts] = useState([]);
   const [wishproducts, setwishproducts] = useState([]);
-  const [wishliststatus, setwishliststatus] = useState([])
+  const [wishliststatus, setwishliststatus] = useState([]);
+  const [clientSecret, setClientSecret] = useState('');
   const sessionid = Getid();
   const adminid = Admintoken();
+  const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99XWow4vMxMPdW5yxYNe34HQLprc3tJVy8lrG11ZcmFX3e1xdrydF2IJ0kl39D3c7w3R2YuOye4000rFydFn6')
   useEffect(() => {
     fectdata();
     totalquand();
     totalwishquand();
     fetchwishlist();
-  }, []);
+    fetchData();
   
+  }, []);
+  const fetchData = async () => {
+    const response = await fetch('/your-backend-endpoint');
+    const data = await response.json();
+    setClientSecret(data.clientSecret);
+};
+
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
     Setsofadata(responce.data);
@@ -132,7 +143,10 @@ function App() {
             <Route path='/addtocart' element={<Cart />} />
             <Route path='/adminlogin' element={<Adminpanellogin />} />
             {adminid && <Route path='/admin' element={<Adminlogin />} />}
-            <Route path='/payment' element={<Payment />} />
+            <Route path='/payment' element={<Elements 
+              stripe={StripePromise} 
+              
+              ><Payment /></Elements>} />
             <Route path='/Aaddproducts' element={<Adminaddproducts />} />
             <Route path='/Aproductsdetail' element={<Admiinproductdet />} />
             <Route path='/dining' element={<Dining />} />

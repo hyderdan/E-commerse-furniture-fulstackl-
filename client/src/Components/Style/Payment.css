@@ -144,3 +144,9 @@
 .paybutton:active{
     background-color: orangered;
 }
+.Checkout{
+    position: absolute;
+    background-color: red;
+    width: 400px;
+    height: 500px;
+}

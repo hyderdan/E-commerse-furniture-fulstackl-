@@ -6,15 +6,37 @@ import axios from "axios";
 import { useEffect } from "react";
 import Getid from "./session";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import {loadStripe} from "@stripe/stripe-js"
-
+import {PaymentElement,CardElement,useStripe,useElements}from "@stripe/react-stripe-js"
+import {Elements}from "@stripe/react-stripe-js";
 export default function Payment(){
     const {Cartproducts}=useContext(mydata);
     const[order,setorder]=useState([]);
     const [Totalprice,settotalprice]=useState(0)
     const[amounttoggle,setAmounttoggle]=useState(true);
+    const[checkindex,Setcheckindex]=useState(true);
+    const [email, setEmail] = useState('');
+    const [clientSecret, setClientSecret] = useState('');
     const sessionid = Getid();
+    const stripe=useStripe();
+    const elements=useElements();
+    const PaymentElementOption = {
+      // Customize the style of the Payment Element
+      style: {
+          base: {
+              fontSize: '16px',
+              color: '#32325d',
+              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+              '::placeholder': {
+                  color: '#aab7c4',
+              },
+          },
+          invalid: {
+              color: '#fa755a',
+          },
+      },
+      // Add other options as needed
+  };
     const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99XWow4vMxMPdW5yxYNe34HQLprc3tJVy8lrG11ZcmFX3e1xdrydF2IJ0kl39D3c7w3R2YuOye4000rFydFn6')
     useEffect(()=>{
         fetchcart();
@@ -35,11 +57,7 @@ export default function Payment(){
           console.log(err);
         }
       }
-      function PaymentForm() {
-        const stripe = useStripe();
-        const elements = useElements();
-        const [totalPrice, setTotalPrice] = useState(0);
-      }
+      
       const calculateTotalPrice = () => {
         let totalPrice = 0;
     
@@ -57,34 +75,60 @@ export default function Payment(){
           setAmounttoggle(true);
         }
       }
-      const handlepayment=async()=>{
-        const stripe=await StripePromise;
-
-        const paymentmethod= await
-        stripe.createPaymentMethod({
-          type:'card',
-          card:'4325464',
-          
-        });
-        const responce=await
-        axios.post('/create-payment-intent',{
-          paymentmethod:paymentmethod.id,
-          amount:calculateTotalPrice()*100,
-        });
-        console.log(responce);
+      const checkout=async()=>{
+        if (!stripe || !elements) {
+          console.error('Stripe.js has not loaded yet.');
+          return;
       }
+      try {
+          const response = await axios.post('http://localhost:5000/payment/create-payment-intent', { amount: calculateTotalPrice() });
+          setClientSecret(response.data.clientSecret);
+          Setcheckindex(false);
+      } catch (error) {
+          console.error('Error during checkout:', error);
+      }
+  };
+ 
+const handlePayment = async (clientSecret) => {
+  try {
+      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+              card: elements.getElement(CardElement),
+              billing_details:{
+                address:"pallathukadavil house,kanjoor"
+              }
+          }
+      });
+      if (paymentIntent.status === 'succeeded') {
+          // Payment successful
+          console.log('Payment successful!');
+      }
+  } catch (error) {
+      console.error('Error processing payment:', error);
+  }
+};
+    const handleSubmit = async (event) => {
+     event.preventDefault();
+     if (!stripe || !elements) {
+      console.error('Stripe.js has not loaded yet.');
+      return;
+      }
+          await handlePayment(clientSecret);
+    };
+    const checkoutopen=()=>{
+      Setcheckindex(true);
+    }
+
      
     return(
        <section className="Sectionp">
+       
         <div className="Pcontainer">
         <h1>Payment Details</h1>
         
         <div className="orders">
         </div>
         <div className="orderdetails">
-        <Elements stripe={StripePromise}>
-          <PaymentForm />
-        </Elements>
           </div>
           <div className="amountpay2">
           <h5>Amount Payable</h5><span className="totalmoney">₹{calculateTotalPrice()}</span>
@@ -101,10 +145,21 @@ export default function Payment(){
           </div>
         ))}
         </div>}
-        <button className="paybutton">Pay Now</button>
+        <button onClick={()=>checkout()} className="paybutton">check out</button>
         </div>
-        
           </div>
+          {checkindex==false &&<div className="Checkout">
+          <h1>Check out</h1><button onClick={()=>checkoutopen()}>close</button>
+          <Elements 
+          stripe={StripePromise}>
+          <form id="payment-form" onSubmit={handleSubmit}>
+            <PaymentElement id="payment-element" options={PaymentElementOption} />
+            <button disabled={!stripe || !elements} id="submit">Pay Now</button>
+           
+          </form>
+          </Elements>
+          </div>}
+          
        </section>
     )
 }

@@ -3,7 +3,7 @@ const userrouter=express.Router();
 const ProductControllers=require("../Controllers/usercontrole");
 const cookieParser= require("cookie-parser");
 const bodyParser= require("body-parser");
-const userMiddleware=require("../middleware/usermiddleware")
+const userMiddleware=require("../middleware/usermiddleware");
 
 
 
@@ -32,6 +32,7 @@ userrouter.get("/recent/idr/:userid", ProductControllers.fechrecentlyviewed);
 userrouter.get("/recent/:userid", ProductControllers.fetchview);
 userrouter.get("/recent/2/:userid", ProductControllers.fetchview2);
 userrouter.post("/recentviewed/delete",userMiddleware, ProductControllers.deletefromrecentlyviewed);
+
 
 module.exports={
     userrouter
