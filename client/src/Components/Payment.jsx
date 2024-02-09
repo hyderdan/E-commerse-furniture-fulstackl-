@@ -37,7 +37,7 @@ export default function Payment(){
       },
       // Add other options as needed
   };
-    const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99XWow4vMxMPdW5yxYNe34HQLprc3tJVy8lrG11ZcmFX3e1xdrydF2IJ0kl39D3c7w3R2YuOye4000rFydFn6')
+    const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99Xwjou5maCSgOXnbhFGnkOJT701xGP31tO5okoZp2xonY3Dox0RYydasZNEA1wJqPP9bvvTqoj00b4hrV0Vw')
     useEffect(()=>{
         fetchcart();
         
@@ -94,9 +94,7 @@ const handlePayment = async (clientSecret) => {
       const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
               card: elements.getElement(CardElement),
-              billing_details:{
-                address:"pallathukadavil house,kanjoor"
-              }
+             
           }
       });
       if (paymentIntent.status === 'succeeded') {
@@ -151,7 +149,8 @@ const handlePayment = async (clientSecret) => {
           {checkindex==false &&<div className="Checkout">
           <h1>Check out</h1><button onClick={()=>checkoutopen()}>close</button>
           <Elements 
-          stripe={StripePromise}>
+          stripe={StripePromise}
+          options={{clientSecret:clientSecret}}>
           <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" options={PaymentElementOption} />
             <button disabled={!stripe || !elements} id="submit">Pay Now</button>

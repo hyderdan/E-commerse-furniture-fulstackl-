@@ -62,7 +62,7 @@ function App() {
   const [clientSecret, setClientSecret] = useState('');
   const sessionid = Getid();
   const adminid = Admintoken();
-  const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99XWow4vMxMPdW5yxYNe34HQLprc3tJVy8lrG11ZcmFX3e1xdrydF2IJ0kl39D3c7w3R2YuOye4000rFydFn6')
+  const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99Xwjou5maCSgOXnbhFGnkOJT701xGP31tO5okoZp2xonY3Dox0RYydasZNEA1wJqPP9bvvTqoj00b4hrV0Vw')
   useEffect(() => {
     fectdata();
     totalquand();
@@ -146,7 +146,7 @@ function App() {
             <Route path='/payment' element={<Elements 
               stripe={StripePromise} 
               
-              ><Payment /></Elements>} />
+              ><Payment/></Elements>} />
             <Route path='/Aaddproducts' element={<Adminaddproducts />} />
             <Route path='/Aproductsdetail' element={<Admiinproductdet />} />
             <Route path='/dining' element={<Dining />} />
