@@ -146,7 +146,7 @@ function App() {
             <Route path='/payment' element={<Elements 
               stripe={StripePromise} 
               
-              ><Payment/></Elements>} />
+              ><Payment/></Elements>}/>
             <Route path='/Aaddproducts' element={<Adminaddproducts />} />
             <Route path='/Aproductsdetail' element={<Admiinproductdet />} />
             <Route path='/dining' element={<Dining />} />
