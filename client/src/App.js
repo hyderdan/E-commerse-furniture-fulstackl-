@@ -59,6 +59,8 @@ function App() {
   const [Cartproducts, setCartproducts] = useState([]);
   const [wishproducts, setwishproducts] = useState([]);
   const [wishliststatus, setwishliststatus] = useState([]);
+  const[profile,setProfile]=useState([]);
+  const[userprofile,setuserProfile]=useState(true);
   const [clientSecret, setClientSecret] = useState('');
   const sessionid = Getid();
   const adminid = Admintoken();
@@ -126,7 +128,7 @@ function App() {
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
     , token, settoken, Userlogin, setuselogin, Cartid, setCartid, Cartproducts, setCartproducts, wishproducts, setwishproducts
-    , wishliststatus, setwishliststatus, token1, settoken1
+    , wishliststatus, setwishliststatus, token1, settoken1,profile,setProfile,userprofile,setuserProfile
   }
   return (
     <div className="App">

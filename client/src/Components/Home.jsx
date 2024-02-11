@@ -19,28 +19,70 @@ import Footer from "./Footer";
 import Sofas from "./Sofas";
 import { VscArrowRight } from "react-icons/vsc";
 import { useContext } from "react";
+import { useState } from "react";
 import mydata from "./Context";
 import axios from 'axios'
 import { useEffect } from "react";
 import Getid from "./session";
 import Gettoken from "./sessiontoken";
 import Container from 'react-bootstrap/Container';
+import { AiOutlineClose } from "react-icons/ai"
+import { useNavigate } from 'react-router-dom';
+
 
  function Home(){
-  const{recentsub,homedata,sethomedata,setrecentsub,}=useContext(mydata);
+  const{recentsub,homedata,sethomedata,setrecentsub,
+    Setcount,Setcount1,
+    setuselogin, userprofile ,profile,setProfile,setuserProfile}=useContext(mydata);
+    const [selectedFile, setSelectedFile] = useState(null);
+  
   console.log(homedata)
   const userid=Getid();
   const usertoken=Gettoken();
+  const Navigate = useNavigate();
   useEffect(()=>{
     fectdata();
     fetchrecent();
+    fectuser();
   },[]);
-  
+  const logout=()=>{
+    sessionStorage.clear("usertoken")
+    sessionStorage.clear("userid")
+    Navigate('/');
+    setuselogin([]);
+    Setcount(0);
+    Setcount1(0);
+    closeprofile();
+
+  };
   const fectdata = async ()=>{
     const responce = await axios.get('http://localhost:5000/homeimage');
     sethomedata(responce.data);
    
   };
+  const closeprofile=()=>{
+    setuserProfile(true);
+  }
+  const fectuser= async()=>{
+    if (!usertoken) {
+      console.log("user not authenticated");
+      // nav("/login")
+    }
+    try{
+        const responce= await axios.get('http://localhost:5000/users');
+        const profiledata=responce.data;
+        if(Array.isArray(profiledata)){
+            const userprofile= profiledata.filter((data)=>{
+                return data._id === userid;   
+        });
+        setProfile(userprofile);
+    }
+    
+  }catch(err){
+    console.log(err);
+  }
+    }
+
   const fetchrecent = async()=>{
         try {
             if(!usertoken){
@@ -58,6 +100,29 @@ catch(err){
 console.log(err);
 }
   }
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
+
+      await axios.post('http://localhost:5000/users', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      console.log('Image uploaded successfully!');
+      fectdata();
+      setSelectedFile(null)
+    } catch (error) {
+      console.error('Image upload failed!', error);
+    }
+    console.log(selectedFile)
+  };
+
    
     return(
         <div className="maindiv">
@@ -112,7 +177,21 @@ console.log(err);
        
         </div>
        </Container>
-
+            { userprofile ==false && <div className="profile">
+              <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
+                    <div className="profilephoto">
+                    
+                    </div>
+                    <input className="upload" onChange={handleFileChange} type="file" />
+                    <button onClick={handleUpload} className="uploadbutton">upload</button>
+                {profile&& profile.map((data)=>(
+                    <>
+                    <h1>{data.username}</h1>
+                    <h5>{data.email}</h5>
+                    </>
+                ))}
+              <button className="logout" onClick={()=>logout()}>Logout</button>
+                </div>}
     <div className="fifthdiv">
      
         <h3 className="fifthsub">Explore Our Furniture Range</h3>

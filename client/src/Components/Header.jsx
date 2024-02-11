@@ -26,8 +26,8 @@ import { useEffect } from 'react';
 
 
 export default function Header(){
-    const{Count,Count1,islogedin, Setproductdetail, Setaddtokart,setIslogedin,Setcount,Setcount1,login,
-      setuselogin
+    const{Count,Count1,Setcount,Setcount1,
+      setuserProfile
     }=useContext(mydata);
     const sessiontoken=Gettoken();
     const sessionid = Getid();
@@ -39,21 +39,15 @@ export default function Header(){
         totalwishquand();
         
       }, []);
-      const logout=()=>{
-        sessionStorage.clear("usertoken")
-        sessionStorage.clear("userid")
-        Navigate('/');
-        setuselogin([]);
-        Setcount(0);
-        Setcount1(0);
-    
-      };
+     
     const Admin=()=>{
       Navigate("/adminlogin")
     }
     const user=()=>{
-      Navigate("/login")
+      Navigate("/login");
+      
     }
+   
     const totalwishquand = async (value_id) => {
         try {
           const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {value_id});
@@ -75,6 +69,9 @@ export default function Header(){
           console.log(err);
         }
       };
+      const clickprofile=()=>{
+        setuserProfile(false);
+      }
     return(
         <div>
         <div className="seconddiv">
@@ -112,8 +109,8 @@ export default function Header(){
             </Nav.Item>
             <Nav.Link className='navlink1'>
               {sessiontoken ?
-                <div onClick={()=>logout()}><IoMdLogOut/></div> :
-                <div onClick={()=>user()}><FaRegUser/></div>
+                <div className='userP'onClick={()=>clickprofile()} ></div> :
+                <div  onClick={()=>user()}><FaRegUser/></div>
               }
             </Nav.Link>
             <Nav.Link className='navlink1'>

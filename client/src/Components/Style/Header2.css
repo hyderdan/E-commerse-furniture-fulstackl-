@@ -65,7 +65,12 @@ background: linear-gradient(to right, #FFFFFF, #FFEFBA);
     padding-left: 100px;
     border-bottom: 1px solid #EEE;
 }
-
+.userP{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: red;
+}
 .thiddivsub2{
    background-color: red;
     transition: 0.3s;

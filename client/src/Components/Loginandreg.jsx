@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Gettoken from "./sessiontoken";
+import Getid from "./session";
 import { toast } from "react-toastify";
 
 export default function Loginandreg(){
 
-    const { setlogin,settoken,users, setUsers} = useContext(mydata);
+    const {settoken,} = useContext(mydata);
 
     const emailcheck=/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const[isSignup,setIssignUp]=useState(false);
@@ -30,6 +31,7 @@ export default function Loginandreg(){
       const [formSubmitted2, setFormSubmitted2] = useState(false);
     const Nav = useNavigate();
   const sessiontoken = Gettoken();
+  const sessionid = Getid();
   console.log(email, password)
   
   
@@ -82,6 +84,7 @@ export default function Loginandreg(){
       }
     }
 }
+
   
 
 
@@ -160,10 +163,10 @@ export default function Loginandreg(){
 
                 </div>
                 <span>or use your email for registeration</span>
-                <input className={`${!formSubmitted?'':'userplace'}`} value={userid} onChange={(e)=>{setuserid(e.target.value)}} type="text" placeholder={`${!formSubmitted?'Name':'This filed required'}`} />
-                <input className={`${!formSubmitted?'':'userplace'}`} value={useremail} onChange={(e)=>{setuseremail(e.target.value)}} type="email"placeholder={`${!formSubmitted?'Email':'This filed required'}`}/>    
-                <input className={`${!formSubmitted?'':'userplace'}`} value={userpass} onChange={(e)=>{setuserpass(e.target.value)}} type="password"placeholder={`${!formSubmitted?'Password':'This filed required'}`}/>
-                <input className={`${!formSubmitted?'':'userplace'}`} value={confirmpassword} onChange={(e)=>{setconfirmpassword(e.target.value)}} type="password" placeholder={`${!formSubmitted?'confirmPassword':'This filed required'}`} />
+                <input className={`${!formSubmitted?'':'userplace'}`} value={userid} onChange={(e)=>{setuserid(e.target.value)}} type="text" placeholder={`${!formSubmitted?'Name':'This filed required(Name)'}`} />
+                <input className={`${!formSubmitted?'':'userplace'}`} value={useremail} onChange={(e)=>{setuseremail(e.target.value)}} type="email"placeholder={`${!formSubmitted?'Email':'This filed required(Email)'}`}/>    
+                <input className={`${!formSubmitted?'':'userplace'}`} value={userpass} onChange={(e)=>{setuserpass(e.target.value)}} type="password"placeholder={`${!formSubmitted?'Password':'This filed required(Password)'}`}/>
+                <input className={`${!formSubmitted?'':'userplace'}`} value={confirmpassword} onChange={(e)=>{setconfirmpassword(e.target.value)}} type="password" placeholder={`${!formSubmitted?'confirmPassword':'This filed required(confirmPassword)'}`} />
                 <button  onClick={handleSubmit}>Sign Up</button>
             </form>
         </div>
