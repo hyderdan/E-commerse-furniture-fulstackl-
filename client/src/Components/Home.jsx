@@ -35,6 +35,7 @@ import { useNavigate } from 'react-router-dom';
     Setcount,Setcount1,
     setuselogin, userprofile ,profile,setProfile,setuserProfile}=useContext(mydata);
     const [selectedFile, setSelectedFile] = useState(null);
+    const[profilepic,setprofilepic]=useState([]);
   
   console.log(homedata)
   const userid=Getid();
@@ -69,14 +70,10 @@ import { useNavigate } from 'react-router-dom';
       // nav("/login")
     }
     try{
-        const responce= await axios.get('http://localhost:5000/users');
-        const profiledata=responce.data;
-        if(Array.isArray(profiledata)){
-            const userprofile= profiledata.filter((data)=>{
-                return data._id === userid;   
-        });
-        setProfile(userprofile);
-    }
+        const responce= await axios.get(`http://localhost:5000/users/singleusers/${userid}`);
+        const profiledata=responce.data.userdata;
+        
+        setprofilepic(profiledata)
     
   }catch(err){
     console.log(err);
@@ -108,21 +105,24 @@ console.log(err);
       const formData = new FormData();
       formData.append('image', selectedFile);
 
-      await axios.post('http://localhost:5000/users', formData, {
+      await axios.post(`http://localhost:5000/users/upload/${userid}`,formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
+          
         },
       });
 
       console.log('Image uploaded successfully!');
-      fectdata();
+      fectuser();
       setSelectedFile(null)
     } catch (error) {
       console.error('Image upload failed!', error);
     }
-    console.log(selectedFile)
+   
   };
-
+  console.log("profileu",profile)
+  console.log("pro",profilepic)
+  const bURL="http://localhost:5000/upload/:userid"
    
     return(
         <div className="maindiv">
@@ -180,16 +180,19 @@ console.log(err);
             { userprofile ==false && <div className="profile">
               <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
                     <div className="profilephoto">
-                    
+                {profilepic.map((data,index)=>(
+                  <img key={index} src={`${bURL}/${data.profile[0]}`} alt={`Image${index}`} />
+                ))}
+                  
                     </div>
                     <input className="upload" onChange={handleFileChange} type="file" />
                     <button onClick={handleUpload} className="uploadbutton">upload</button>
-                {profile&& profile.map((data)=>(
+                    {/* {profilepic && profilepic.map((data)=>(
                     <>
                     <h1>{data.username}</h1>
                     <h5>{data.email}</h5>
                     </>
-                ))}
+                ))} */}
               <button className="logout" onClick={()=>logout()}>Logout</button>
                 </div>}
     <div className="fifthdiv">

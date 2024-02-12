@@ -2,11 +2,22 @@ const { userdata, productdata } = require("../schema");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
-const stripe = require('stripe')(process.env.stipe_secret_key)
+const stripe = require('stripe')(process.env.stipe_secret_key);
+const fs=require("fs")
 
 const getuser = async function (req, res) {
   const data = await userdata.find({});
   res.status(200).send(data)
+}
+const singleuser= async(req,res)=>{
+  const {userid}=req.params;
+  
+  const users=await userdata.findById(userid);
+  if(!users){
+    return res.json(404).json({error:"usernot found"});
+  }
+  console.log(users);
+  res.status(200).json({userdata:users});
 }
 
 const userlogin = async function (req, res) {
@@ -64,9 +75,9 @@ const Addusers = async (req, res) => {
 
 const updateuser = async function (req, res) {
   try {
-    const { id } = req.params
-    const { username, email, password, wishlist, cart,recentview} = req.body
-    const user = await productdata.findByIdAndUpdate(id, { username, email, password, wishlist, cart,recentview}, { new: true })
+    const { userid } = req.params
+    const {profile} = req.body
+    const user = await productdata.findByIdAndUpdate(userid, {profile,username, email, password, wishlist, cart,recentview}, { new: true })
     res.json(user)
     console.log(user)
   }
@@ -81,6 +92,24 @@ try {
   console.log(product)
 }
 catch (err) { console.log(err) }
+}
+const addprofile=async(req,res)=>{
+  try{
+    const{userid}=req.params;
+    const user=await userdata.findById(userid);
+    console.log("pr",req.file);
+    if(!user){
+      return res.json(404).json({error:"usernot found"});
+    }
+    
+     
+      user.profile.push(req.file.filename);
+       await user.save();
+      res.status(200).json({message:"product added to profile"});
+    
+  }catch(err){
+    console.log(err)
+  }
 }
 
 const addToCart = async (req, res) => {
@@ -441,8 +470,8 @@ const fetchview2 = async (req, res) => {
 
 
 module.exports = {
-  userlogin, Addusers, updateuser,deleteuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
+  userlogin,singleuser, Addusers, updateuser,deleteuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
   addTowishlist, getwishlist, getwishproducts, fetchwishlist, deletefromwishlist,
   deletefromcart, recentlyviewd, deletefromrecentlyviewed,
-  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2
+  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile
 }

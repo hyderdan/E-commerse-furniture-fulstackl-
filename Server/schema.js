@@ -23,7 +23,9 @@ const productsschema=new mongoose.Schema({
 });
 
 const userschema=new mongoose.Schema({
-    profile:String,
+    profile:[
+      
+    ],
     username:String,
     email:String,
     password:String,
