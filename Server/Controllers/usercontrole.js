@@ -17,7 +17,7 @@ const singleuser= async(req,res)=>{
     return res.json(404).json({error:"usernot found"});
   }
   console.log(users);
-  res.status(200).json({userdata:users});
+  res.status(200).json({users});
 }
 
 const userlogin = async function (req, res) {

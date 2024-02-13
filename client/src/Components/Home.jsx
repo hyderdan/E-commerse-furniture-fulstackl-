@@ -33,10 +33,8 @@ import { useNavigate } from 'react-router-dom';
  function Home(){
   const{recentsub,homedata,sethomedata,setrecentsub,
     Setcount,Setcount1,
-    setuselogin, userprofile ,profile,setProfile,setuserProfile}=useContext(mydata);
+    setuselogin, userprofile ,profile,setProfile,setuserProfile,profilepic,setprofilepic}=useContext(mydata);
     const [selectedFile, setSelectedFile] = useState(null);
-    const[profilepic,setprofilepic]=useState([]);
-  
   console.log(homedata)
   const userid=Getid();
   const usertoken=Gettoken();
@@ -71,7 +69,7 @@ import { useNavigate } from 'react-router-dom';
     }
     try{
         const responce= await axios.get(`http://localhost:5000/users/singleusers/${userid}`);
-        const profiledata=responce.data.userdata;
+        const profiledata=responce.data;
         
         setprofilepic(profiledata)
     
@@ -120,9 +118,9 @@ console.log(err);
     }
    
   };
-  console.log("profileu",profile)
+  // console.log("profileu",profilepic.users.profile)
   console.log("pro",profilepic)
-  const bURL="http://localhost:5000/upload/:userid"
+  const bURL="http://localhost:5000/upload"
    
     return(
         <div className="maindiv">
@@ -180,19 +178,19 @@ console.log(err);
             { userprofile ==false && <div className="profile">
               <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
                     <div className="profilephoto">
-                {profilepic.map((data,index)=>(
-                  <img key={index} src={`${bURL}/${data.profile[0]}`} alt={`Image${index}`} />
-                ))}
+                
+                  <img className="profilepic"src={`${bURL}/${profilepic.users.profile[1]}`} alt="img" />
+               
                   
                     </div>
                     <input className="upload" onChange={handleFileChange} type="file" />
                     <button onClick={handleUpload} className="uploadbutton">upload</button>
-                    {/* {profilepic && profilepic.map((data)=>(
+                     {profilepic && 
                     <>
-                    <h1>{data.username}</h1>
-                    <h5>{data.email}</h5>
+                    <h1>{profilepic.users.username}</h1>
+                    <h5>{profilepic.users.email}</h5>
                     </>
-                ))} */}
+                } 
               <button className="logout" onClick={()=>logout()}>Logout</button>
                 </div>}
     <div className="fifthdiv">

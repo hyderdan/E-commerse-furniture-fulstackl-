@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 
 export default function Header(){
     const{Count,Count1,Setcount,Setcount1,
-      setuserProfile
+      setuserProfile,profilepic
     }=useContext(mydata);
     const sessiontoken=Gettoken();
     const sessionid = Getid();
@@ -72,6 +72,7 @@ export default function Header(){
       const clickprofile=()=>{
         setuserProfile(false);
       }
+      const bURL="http://localhost:5000/upload"
     return(
         <div>
         <div className="seconddiv">
@@ -109,7 +110,9 @@ export default function Header(){
             </Nav.Item>
             <Nav.Link className='navlink1'>
               {sessiontoken ?
-                <div className='userP'onClick={()=>clickprofile()} ></div> :
+                <div className='userP'onClick={()=>clickprofile()} >
+                   <img className='userPic'src={`${bURL}/${profilepic.users.profile[1]}`} alt="img" />
+                </div> :
                 <div  onClick={()=>user()}><FaRegUser/></div>
               }
             </Nav.Link>

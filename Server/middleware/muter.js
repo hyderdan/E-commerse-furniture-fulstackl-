@@ -7,7 +7,7 @@ const MIME_TYPE={
     "image/gif":"gif",
     "image/pdf":"pdf",
 };
-const dir="profile"
+const dir="profile/upload"
 const fs=require("fs").promises;
 const storage=multer.diskStorage({
     destination:async(req,file,CB)=>{

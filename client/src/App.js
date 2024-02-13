@@ -62,6 +62,7 @@ function App() {
   const[profile,setProfile]=useState([]);
   const[userprofile,setuserProfile]=useState(true);
   const [clientSecret, setClientSecret] = useState('');
+  const[profilepic,setprofilepic]=useState([]);
   const sessionid = Getid();
   const adminid = Admintoken();
   const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99Xwjou5maCSgOXnbhFGnkOJT701xGP31tO5okoZp2xonY3Dox0RYydasZNEA1wJqPP9bvvTqoj00b4hrV0Vw')
@@ -128,7 +129,7 @@ function App() {
     Addtokart, Setaddtokart, Count, Setcount, Count1, Setcount1, users, setUsers, islogedin, setIslogedin,
     price, setprice, admin, setadmin, recently, setrecently, recentsub, setrecentsub, homedata, sethomedata, login, setlogin
     , token, settoken, Userlogin, setuselogin, Cartid, setCartid, Cartproducts, setCartproducts, wishproducts, setwishproducts
-    , wishliststatus, setwishliststatus, token1, settoken1,profile,setProfile,userprofile,setuserProfile
+    , wishliststatus, setwishliststatus, token1, settoken1,profile,setProfile,userprofile,setuserProfile,profilepic,setprofilepic
   }
   return (
     <div className="App">
