@@ -179,7 +179,7 @@ console.log(err);
               <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
                     <div className="profilephoto">
                 
-                  <img className="profilepic"src={`${bURL}/${profilepic.users.profile[1]}`} alt="img" />
+                    <img className="profilepic"src={`${bURL}/${profilepic.users.profile[0]}`} alt="img" />
                
                   
                     </div>

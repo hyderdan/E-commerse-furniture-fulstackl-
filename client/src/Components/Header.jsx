@@ -72,7 +72,8 @@ export default function Header(){
       const clickprofile=()=>{
         setuserProfile(false);
       }
-      const bURL="http://localhost:5000/upload"
+      const bURL="http://localhost:5000/upload";
+      console.log(profilepic,"fred")
     return(
         <div>
         <div className="seconddiv">
@@ -111,7 +112,10 @@ export default function Header(){
             <Nav.Link className='navlink1'>
               {sessiontoken ?
                 <div className='userP'onClick={()=>clickprofile()} >
-                   <img className='userPic'src={`${bURL}/${profilepic.users.profile[1]}`} alt="img" />
+              
+             
+                 <img className='userPic'src={`${bURL}/${profilepic.users.profile[0]}`} alt="img" />  
+                  
                 </div> :
                 <div  onClick={()=>user()}><FaRegUser/></div>
               }

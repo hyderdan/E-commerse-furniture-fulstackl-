@@ -19,7 +19,7 @@ app.use(cors(
     credentials:true,
     }
 ))
-app.use(express.static("profile/upload"));
+app.use(express.static("profile"));
 
 app.use("/product",router)
 app.use("/homeimage",router2)

@@ -12,7 +12,7 @@ const getuser = async function (req, res) {
 const singleuser= async(req,res)=>{
   const {userid}=req.params;
   
-  const users=await userdata.findById(userid);
+  const users=await userdata.findById({_id:userid});
   if(!users){
     return res.json(404).json({error:"usernot found"});
   }
