@@ -112,9 +112,8 @@ export default function Header(){
             <Nav.Link className='navlink1'>
               {sessiontoken ?
                 <div className='userP'onClick={()=>clickprofile()} >
-              
-             
-                 <img className='userPic'src={`${bURL}/${profilepic.users.profile[0]}`} alt="img" />  
+                  
+               {/* <img className='userPic'src={`${bURL}/${profilepic.users.profile[0]}`} alt="img" />   */}
                   
                 </div> :
                 <div  onClick={()=>user()}><FaRegUser/></div>

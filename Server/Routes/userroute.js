@@ -19,6 +19,7 @@ userrouter.post("/login",ProductControllers.userlogin)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/register/:id",ProductControllers.updateuser);
 userrouter.post("/upload/:userid",multermiddleware,ProductControllers.addprofile);
+userrouter.post("/upload/delete",ProductControllers.deleteprofile);
 userrouter.post("/usercart",userMiddleware, ProductControllers.addToCart);
 userrouter.post("/usercart/delete",userMiddleware, ProductControllers.deletefromcart);
 userrouter.get("/savedcart",ProductControllers.getcart);

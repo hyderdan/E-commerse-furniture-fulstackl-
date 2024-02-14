@@ -28,6 +28,11 @@ import Gettoken from "./sessiontoken";
 import Container from 'react-bootstrap/Container';
 import { AiOutlineClose } from "react-icons/ai"
 import { useNavigate } from 'react-router-dom';
+import { FaCirclePlus } from "react-icons/fa6";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { toast } from "react-toastify";
+
+
 
 
  function Home(){
@@ -35,6 +40,8 @@ import { useNavigate } from 'react-router-dom';
     Setcount,Setcount1,
     setuselogin, userprofile ,profile,setProfile,setuserProfile,profilepic,setprofilepic}=useContext(mydata);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [addsign,Setaddsign]=useState(true);
+    const[indexprofile,setindexprofile]=useState([]);
   console.log(homedata)
   const userid=Getid();
   const usertoken=Gettoken();
@@ -70,7 +77,7 @@ import { useNavigate } from 'react-router-dom';
     try{
         const responce= await axios.get(`http://localhost:5000/users/singleusers/${userid}`);
         const profiledata=responce.data;
-        
+        setindexprofile(profiledata.users.profile);
         setprofilepic(profiledata)
     
   }catch(err){
@@ -118,7 +125,29 @@ console.log(err);
     }
    
   };
-  // console.log("profileu",profilepic.users.profile)
+  const addprofile=()=>{
+    Setaddsign(false);
+  }
+  const closeupload=()=>{
+    Setaddsign(true);
+  }
+  const deleteprofile=async(filename)=>{
+    try{
+      if (!usertoken) {
+        console.log("user not authenticated");
+        // nav("/login")
+      }
+      else{
+      const responce= await axios.post("http://localhost:5000/users/upload/delete",{filename,userid});
+       console.log(responce);
+      }
+    }catch(err){
+      alert("erro occurs")
+        console.log(err);
+    }
+
+  }
+  console.log("hey",indexprofile);
   console.log("pro",profilepic)
   const bURL="http://localhost:5000/upload"
    
@@ -178,13 +207,18 @@ console.log(err);
             { userprofile ==false && <div className="profile">
               <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
                     <div className="profilephoto">
-                
-                    <img className="profilepic"src={`${bURL}/${profilepic.users.profile[0]}`} alt="img" />
-               
-                  
+                    <img className="profilepic"src={`${bURL}/${profilepic.users.profile}`} alt="img" />
                     </div>
+                  {indexprofile.includes(profilepic.users.profile[0])? 
+                  <button onClick={()=>deleteprofile(profilepic.users.profile[0])} className="addprofilesign"><MdOutlineDeleteForever /></button>
+                  :<div onClick={()=>addprofile()} className="addprofilesign"> < FaCirclePlus /></div>  }                  
+
+                    {addsign==false&& <div className="uploadarea">
+                      <div onClick={()=>closeupload()} className="closeupload"><AiOutlineClose/></div>
                     <input className="upload" onChange={handleFileChange} type="file" />
                     <button onClick={handleUpload} className="uploadbutton">upload</button>
+                    </div>}
+                   
                      {profilepic && 
                     <>
                     <h1>{profilepic.users.username}</h1>

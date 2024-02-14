@@ -10,14 +10,19 @@ const getuser = async function (req, res) {
   res.status(200).send(data)
 }
 const singleuser= async(req,res)=>{
-  const {userid}=req.params;
+  try{
+    const {userid}=req.params;
   
-  const users=await userdata.findById({_id:userid});
-  if(!users){
-    return res.json(404).json({error:"usernot found"});
+    const users=await userdata.findById(req.params.userid);
+    if(!users){
+      return res.json(404).json({error:"usernot found"});
+    }
+    console.log(users);
+    res.status(200).json({users});
+  }catch(err){
+      console.log(err)
   }
-  console.log(users);
-  res.status(200).json({users});
+ 
 }
 
 const userlogin = async function (req, res) {
@@ -107,6 +112,33 @@ const addprofile=async(req,res)=>{
        await user.save();
       res.status(200).json({message:"product added to profile"});
     
+  }catch(err){
+    console.log(err)
+  }
+}
+const deleteprofile=async(req,res)=>{
+
+  const{filename,userid}=req.body
+ 
+  console.log("filename",filename);
+  fs.unlink(`profile/uploads/${filename}`,(err)=>{
+    if(err){
+        console.log("error occured")
+    }else{
+        console.log("file has deleted")
+    }
+})
+  try{
+    const user=await userdata.findById(userid);
+    if(!user){
+      return res.status(404).json({error:"usernot found"});
+    
+    }
+    
+      user.profile.splice(filename,1);
+      await user.save();
+      res.status(200).json({ message: "Profile deleted", profile:user.profile });
+
   }catch(err){
     console.log(err)
   }
@@ -473,5 +505,5 @@ module.exports = {
   userlogin,singleuser, Addusers, updateuser,deleteuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
   addTowishlist, getwishlist, getwishproducts, fetchwishlist, deletefromwishlist,
   deletefromcart, recentlyviewd, deletefromrecentlyviewed,
-  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile
+  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile,deleteprofile
 }
