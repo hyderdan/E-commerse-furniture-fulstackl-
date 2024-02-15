@@ -14,12 +14,12 @@ userrouter.use(bodyParser.urlencoded({extended:true}));
 userrouter.use(cookieParser());
 userrouter.get('/',ProductControllers.getuser);
 userrouter.get('/singleusers/:userid',ProductControllers.singleuser);
-userrouter.delete('/:_id',ProductControllers.deleteuser);
+userrouter.put('/:_id',ProductControllers.banuser);
 userrouter.post("/login",ProductControllers.userlogin)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/register/:id",ProductControllers.updateuser);
 userrouter.post("/upload/:userid",multermiddleware,ProductControllers.addprofile);
-userrouter.post("/upload/delete",ProductControllers.deleteprofile);
+userrouter.post("/upload/del/:userid",ProductControllers.deleteprofile);
 userrouter.post("/usercart",userMiddleware, ProductControllers.addToCart);
 userrouter.post("/usercart/delete",userMiddleware, ProductControllers.deletefromcart);
 userrouter.get("/savedcart",ProductControllers.getcart);

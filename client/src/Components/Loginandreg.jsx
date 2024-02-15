@@ -69,17 +69,24 @@ export default function Loginandreg(){
       );
       const data = response.data;
       console.log(response.data);
+      if(response.status==200){
+        if(data.message==="this acoount is Banned"){
+          toast.error(data.message);
+        }
+      else{
       console.log("token in frontEnd", data.token);
       console.log("Login successful", data.message);
       settoken(data.token);
       sessionStorage.setItem('usertoken', data.token);
       sessionStorage.setItem('userid', data.UserID);
-      toast.success("Login Success!!!!",{
+      toast.success(data.message,{
         position: "top-center",
       });
       Nav("/");
+    }
+    }
     } catch (error) {
-        console.log(error.response.data);
+       
         toast.error("Registration failed!!!");
       }
     }

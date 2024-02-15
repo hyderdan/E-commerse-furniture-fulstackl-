@@ -30,6 +30,7 @@ const userschema=new mongoose.Schema({
     email:String,
     password:String,
     confirmPassword:String,
+    status:String,
     wishlist:[{
       product: {
         type: mongoose.Schema.Types.ObjectId,

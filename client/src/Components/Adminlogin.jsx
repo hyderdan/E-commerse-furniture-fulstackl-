@@ -13,13 +13,15 @@ import { useEffect } from "react";
 export default function Adminlogin() {
   const { users, setUsers, setIslogedin } = useContext(mydata);
   const [Userdetails, setUserdetails] = useState(false);
+  const[BAN,SetBAN]=useState("ban")
   const [useindex, setuserindex] = useState(-1);
   const [changepass, setchangepass] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
+  const [status,Setstatus]=useState("")
   const nav = useNavigate();
 
   function handlesubmit() {
@@ -42,11 +44,12 @@ export default function Adminlogin() {
   const fectuser= async()=>{
     const responce= await axios.get('http://localhost:5000/users');
     setUsers(responce.data);
+    Setstatus(responce.data.status);
 
   }
-  const deleteuser = async (_id) => {
+  const deleteuser = async (_id,banuser) => {
       try {
-        await axios.delete(`http://localhost:5000/users/${_id}`);
+        await axios.put(`http://localhost:5000/users/${_id}`,{banuser});
          fectuser();
       } catch (error) {
         console.error('Error deleting product:', error);
@@ -70,6 +73,7 @@ export default function Adminlogin() {
     nav("/");
   }
   console.log("hey",users);
+  console.log("s",status);
   return (
     <div className="panelmain">
       <div className="panelsub2">
@@ -110,7 +114,7 @@ export default function Adminlogin() {
                   <tr >
                     <td>{item.username}</td>
                     <td>{item.email}</td>
-                    <td> <button onClick={() => deleteuser(item._id)} className='table-btn' >Delete</button></td>
+                    <td>{item.status=="ban"?<button>Unban</button>:<button onClick={() => deleteuser(item._id,BAN)} className='table-btn' >BAN</button>}</td>
                     <td> <button onClick={() => handledit(index)} className='table-btn' >Edit</button></td>
 
                   </tr>

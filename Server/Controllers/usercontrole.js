@@ -30,8 +30,11 @@ const userlogin = async function (req, res) {
     const { email, password } = req.body;
     console.log(`value ${req.body}`);
     const user = await userdata.findOne({ email });
-    console.log(user)
-    if (user && (await bcrypt.compare(password, user.password))) {
+    console.log(user);
+    if(user.status=="ban"){
+         return res.status(200).json({message:"this acoount is Banned"});
+    }
+     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
         expiresIn: "1hr"
       });
@@ -88,11 +91,11 @@ const updateuser = async function (req, res) {
   }
   catch (err) { console.log(err) }
 };
-const deleteuser= async function (req, res) {
+const banuser= async function (req, res) {
 try {
   const { _id } = req.params
-  const { username, email, password, wishlist, cart,recentview} = req.body
-  const product = await userdata.findByIdAndDelete(_id,{ username, email, password, wishlist, cart,recentview},{ new: true })
+  const {banuser} = req.body
+  const product = await userdata.findByIdAndUpdate(_id,{ status:banuser},{ new: true })
   res.json(product)
   console.log(product)
 }
@@ -118,10 +121,10 @@ const addprofile=async(req,res)=>{
 }
 const deleteprofile=async(req,res)=>{
 
-  const{filename,userid}=req.body
- 
+  const{filename}=req.body
+  const{userid}=req.params
   console.log("filename",filename);
-  fs.unlink(`profile/uploads/${filename}`,(err)=>{
+  fs.unlink(`profile/upload/${filename}`,(err)=>{
     if(err){
         console.log("error occured")
     }else{
@@ -502,7 +505,7 @@ const fetchview2 = async (req, res) => {
 
 
 module.exports = {
-  userlogin,singleuser, Addusers, updateuser,deleteuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
+  userlogin,singleuser, Addusers, updateuser,banuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
   addTowishlist, getwishlist, getwishproducts, fetchwishlist, deletefromwishlist,
   deletefromcart, recentlyviewd, deletefromrecentlyviewed,
   getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile,deleteprofile

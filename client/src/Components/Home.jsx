@@ -21,7 +21,7 @@ import { VscArrowRight } from "react-icons/vsc";
 import { useContext } from "react";
 import { useState } from "react";
 import mydata from "./Context";
-import axios from 'axios'
+import axios from "axios";
 import { useEffect } from "react";
 import Getid from "./session";
 import Gettoken from "./sessiontoken";
@@ -138,8 +138,9 @@ console.log(err);
         // nav("/login")
       }
       else{
-      const responce= await axios.post("http://localhost:5000/users/upload/delete",{filename,userid});
+      const responce= await axios.post(`http://localhost:5000/users/upload/del/${userid}`,{filename});
        console.log(responce);
+       fectuser();
       }
     }catch(err){
       alert("erro occurs")
@@ -153,6 +154,31 @@ console.log(err);
    
     return(
         <div className="maindiv">
+           { userprofile ==false && <div className="profile">
+              <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
+                   {indexprofile.includes(profilepic.users.profile[0])?<div className="profilephoto">
+                      <img className="profilepic"src={`${bURL}/${profilepic.users.profile}`} alt="img" />
+                    </div>: <div className="profilephoto" ></div>}
+                  {indexprofile.includes(profilepic.users.profile[0])? 
+                  <div onClick={()=>deleteprofile(profilepic.users.profile)} className="addprofilesign"><MdOutlineDeleteForever /></div>
+                  :<div onClick={()=>addprofile()} className="addprofilesign"> < FaCirclePlus /></div>  }                  
+
+                    {addsign==false&& <div className="uploadarea">
+                      <div onClick={()=>closeupload()} className="closeupload"><AiOutlineClose/></div>
+                    <input className="upload" onChange={handleFileChange} type="file" />
+                    <button onClick={handleUpload} className="uploadbutton">upload</button>
+                    </div>}
+                   
+                     {profilepic && 
+                    <>
+                    <h1>{profilepic.users.username}</h1>
+                    <h5>{profilepic.users.email}</h5>
+                    </>
+                } 
+              <button className="logout" onClick={()=>logout()}>Logout</button>
+                </div>}
+          <div className={`${ userprofile==false?"maindivS":"maindivsub"}`}>
+
             <div className="firstdiv">
        <p>&nbsp;Full House Sale&nbsp;|&nbsp;Up to 70% off +Extra 10%off&nbsp;|&nbsp;<Link className="link">Click  to Shop!</Link></p>
            </div>
@@ -204,29 +230,7 @@ console.log(err);
        
         </div>
        </Container>
-            { userprofile ==false && <div className="profile">
-              <div className="closebutton"><h6 onClick={()=>closeprofile()}>close<AiOutlineClose/></h6></div>  
-                    <div className="profilephoto">
-                    <img className="profilepic"src={`${bURL}/${profilepic.users.profile}`} alt="img" />
-                    </div>
-                  {indexprofile.includes(profilepic.users.profile[0])? 
-                  <button onClick={()=>deleteprofile(profilepic.users.profile[0])} className="addprofilesign"><MdOutlineDeleteForever /></button>
-                  :<div onClick={()=>addprofile()} className="addprofilesign"> < FaCirclePlus /></div>  }                  
-
-                    {addsign==false&& <div className="uploadarea">
-                      <div onClick={()=>closeupload()} className="closeupload"><AiOutlineClose/></div>
-                    <input className="upload" onChange={handleFileChange} type="file" />
-                    <button onClick={handleUpload} className="uploadbutton">upload</button>
-                    </div>}
-                   
-                     {profilepic && 
-                    <>
-                    <h1>{profilepic.users.username}</h1>
-                    <h5>{profilepic.users.email}</h5>
-                    </>
-                } 
-              <button className="logout" onClick={()=>logout()}>Logout</button>
-                </div>}
+           
     <div className="fifthdiv">
      
         <h3 className="fifthsub">Explore Our Furniture Range</h3>
@@ -297,6 +301,7 @@ console.log(err);
 
        <div className="sevendiv">
         <Footer/>
+       </div>
        </div>
         </div>
 
