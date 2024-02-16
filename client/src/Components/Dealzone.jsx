@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import mydata from "./Context"
-import Header from "./Header"
 import "./Style/Sofas.css"
 import{AiOutlineHeart}from "react-icons/ai"
 import{AiFillHeart}from "react-icons/ai"
@@ -14,6 +13,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import "./Style/Bed.css"
+import Header2 from "./Header2";
 
 
 export default function Dealzone(){
@@ -132,7 +132,7 @@ export default function Dealzone(){
 
     return(
         <div>
-      <div><Header/></div>
+      <div><Header2/></div>
       <div className="sfirstdiv">
         <h1>All PRODUCTS</h1>
           </div>

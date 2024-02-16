@@ -2,7 +2,6 @@ import { useContext } from "react"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import mydata from "./Context"
-import Header from "./Header"
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Style/Sofas.css"
 import{AiOutlineHeart}from "react-icons/ai"
@@ -13,6 +12,7 @@ import { Link } from "react-router-dom";
 import Gettoken from "./sessiontoken";
 import Getid from "./session";
 import axios from "axios";
+import Header2 from "./Header2";
 
 
 
@@ -138,7 +138,7 @@ export default function Sofas(){
     
     return(
         <div>
-      <div><Header/></div>
+      <div><Header2/></div>
       <div className="sfirstdiv">
         <h1>Sofas</h1>
         <p>Discover the perfect blend of comfort and affordability with Urban Ladder's exceptional range of affordable sofa set. Elevate your living space without breaking the  <br/>

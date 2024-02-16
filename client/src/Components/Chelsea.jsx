@@ -1,5 +1,4 @@
-import "./Style/Chelsea.css"
-import Header from "./Header"
+import "./Style/Chelsea.css";
 import Carousel from 'react-bootstrap/Carousel';
 import Footer from "./Footer";
 import{TbTruckDelivery}from "react-icons/tb"
@@ -16,6 +15,7 @@ import Getid from "./session";
 import Gettoken from "./sessiontoken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Header2 from "./Header2";
 
 export default function Chelsea(){
     
@@ -143,7 +143,7 @@ export default function Chelsea(){
  
     return(
         <div className="chelsea-adjust">
-            <div><Header/></div>
+            <div><Header2/></div>
             {
                 products.map((data,index)=>(
                     <div className="chelseasub1">

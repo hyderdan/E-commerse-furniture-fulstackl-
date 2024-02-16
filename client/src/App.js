@@ -23,12 +23,9 @@ import axios from 'axios'
 import { useEffect } from "react";
 import Getid from './Components/session';
 import Admintoken from './Components/admin';
-import Head from './Components/Head';
 import Loginandreg from './Components/Loginandreg';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-  import {Elements}from "@stripe/react-stripe-js";
-  import {loadStripe} from "@stripe/stripe-js";
 import Header2 from './Components/Header2';
 
 
@@ -66,20 +63,16 @@ function App() {
   const[profilepic,setprofilepic]=useState([]);
   const sessionid = Getid();
   const adminid = Admintoken();
-  const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99Xwjou5maCSgOXnbhFGnkOJT701xGP31tO5okoZp2xonY3Dox0RYydasZNEA1wJqPP9bvvTqoj00b4hrV0Vw')
+  
   useEffect(() => {
     fectdata();
     totalquand();
     totalwishquand();
     fetchwishlist();
-    fetchData();
+   
   
   }, []);
-  const fetchData = async () => {
-    const response = await fetch('/your-backend-endpoint');
-    const data = await response.json();
-    setClientSecret(data.clientSecret);
-};
+  
 
   const fectdata = async () => {
     const responce = await axios.get('http://localhost:5000/product');
@@ -138,7 +131,6 @@ function App() {
         <mydata.Provider value={values}>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/Headd' element={<Head />} />
             <Route path='/Header' element={<Header2/>} />
             <Route path='/footer' element={<Footer />} />
             <Route path='/sofas' element={<Sofas />} />
@@ -148,10 +140,7 @@ function App() {
             <Route path='/addtocart' element={<Cart />} />
             <Route path='/adminlogin' element={<Adminpanellogin />} />
             {adminid && <Route path='/admin' element={<Adminlogin />} />}
-            <Route path='/payment' element={<Elements 
-              stripe={StripePromise} 
-              
-              ><Payment/></Elements>}/>
+            <Route path='/payment' element={<Payment/>}/>
            {adminid && <Route path='/Aaddproducts' element={<Adminaddproducts />} />}
            {adminid && <Route path='/Aproductsdetail' element={<Admiinproductdet />} />}
             <Route path='/dining' element={<Dining />} />

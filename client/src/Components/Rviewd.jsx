@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import mydata from "./Context"
 import './Style/Rviewed.css'
-import Header from "./Header"
 import { useEffect } from "react"
 import Getid from "./session"
 import axios from "axios"
+import Header2 from "./Header2"
 
 export default function Rviewd(){
    const {recently,setrecently}=useContext(mydata);
@@ -29,7 +29,7 @@ console.log(err);
 
     return(
         <div>
-           <Header/>
+           <Header2/>
            <h1 className="vfirstdiv">Recently Viewed</h1>
            <p className="fifv">________________________</p>
         <div className="vthirddiv">         

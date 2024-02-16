@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import mydata from "./Context"
-import Header from "./Header"
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Style/Sofas.css"
 import { AiOutlineHeart } from "react-icons/ai"
@@ -13,6 +12,7 @@ import Getid from "./session";
 import Gettoken from "./sessiontoken";
 import axios from "axios";
 import { useEffect } from "react";
+import Header2 from "./Header2";
 
 export default function Dining() {
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ export default function Dining() {
 
   return (
     <div>
-      <div><Header /></div>
+      <div><Header2/></div>
       <div className="sfirstdiv">
         <h1>Dining Tables & Chairs</h1>
         <p>The dining table is where the family comes together to share a simple meal at the end of the day, it is also the place to share important news, to celebrate, ...

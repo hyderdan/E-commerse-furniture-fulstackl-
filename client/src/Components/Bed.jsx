@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import mydata from "./Context"
-import Header from "./Header"
+import Header2 from "./Header2";
 import Dropdown from 'react-bootstrap/Dropdown';
 import "./Style/Bed.css"
 import { AiOutlineHeart } from "react-icons/ai"
@@ -133,7 +133,7 @@ export default function Bed() {
 
   return (
     <div>
-      <div><Header /></div>
+      <div><Header2/> </div>
       <div className="bfirstdiv">
         <h1>Bed</h1>
         <p>Often a good night's sleep is credited to the type of mattress you invest in, but a quality bed frame plays an equally important role as well . </p>

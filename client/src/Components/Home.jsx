@@ -75,6 +75,7 @@ import Header2 from "./Header2";
         const responce= await axios.get(`http://localhost:5000/users/singleusers/${userid}`);
         const profiledata=responce.data;
         setindexprofile(profiledata.users.profile);
+        sessionStorage.setItem("profilepic",profiledata.users.profile)
         setprofilepic(profiledata)
     
   }catch(err){

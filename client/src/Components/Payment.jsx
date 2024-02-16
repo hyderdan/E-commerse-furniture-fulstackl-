@@ -6,9 +6,6 @@ import axios from "axios";
 import { useEffect } from "react";
 import Getid from "./session";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import {loadStripe} from "@stripe/stripe-js"
-import {PaymentElement,CardElement,useStripe,useElements}from "@stripe/react-stripe-js"
-import {Elements}from "@stripe/react-stripe-js";
 export default function Payment(){
     const {Cartproducts}=useContext(mydata);
     const[order,setorder]=useState([]);
@@ -18,26 +15,7 @@ export default function Payment(){
     const [email, setEmail] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const sessionid = Getid();
-    const stripe=useStripe();
-    const elements=useElements();
-    const PaymentElementOption = {
-      // Customize the style of the Payment Element
-      style: {
-          base: {
-              fontSize: '16px',
-              color: '#32325d',
-              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-              '::placeholder': {
-                  color: '#aab7c4',
-              },
-          },
-          invalid: {
-              color: '#fa755a',
-          },
-      },
-      // Add other options as needed
-  };
-    const StripePromise=loadStripe('pk_test_51Oh2pcSBHW6gy99Xwjou5maCSgOXnbhFGnkOJT701xGP31tO5okoZp2xonY3Dox0RYydasZNEA1wJqPP9bvvTqoj00b4hrV0Vw')
+   
     useEffect(()=>{
         fetchcart();
         
@@ -75,47 +53,47 @@ export default function Payment(){
           setAmounttoggle(true);
         }
       }
-      const checkout=async()=>{
-        if (!stripe || !elements) {
-          console.error('Stripe.js has not loaded yet.');
-          return;
-      }
-      try {
-          const response = await axios.post('http://localhost:5000/payment/create-payment-intent', { amount: calculateTotalPrice() });
-          setClientSecret(response.data.clientSecret);
-          Setcheckindex(false);
-      } catch (error) {
-          console.error('Error during checkout:', error);
-      }
-  };
+//       const checkout=async()=>{
+//         if (!stripe || !elements) {
+//           console.error('Stripe.js has not loaded yet.');
+//           return;
+//       }
+//       try {
+//           const response = await axios.post('http://localhost:5000/payment/create-payment-intent', { amount: calculateTotalPrice() });
+//           setClientSecret(response.data.clientSecret);
+//           Setcheckindex(false);
+//       } catch (error) {
+//           console.error('Error during checkout:', error);
+//       }
+//   };
  
-const handlePayment = async (clientSecret) => {
-  try {
-      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: {
-              card: elements.getElement(CardElement),
+// const handlePayment = async (clientSecret) => {
+//   try {
+//       const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+//           payment_method: {
+//               card: elements.getElement(CardElement),
              
-          }
-      });
-      if (paymentIntent.status === 'succeeded') {
-          // Payment successful
-          console.log('Payment successful!');
-      }
-  } catch (error) {
-      console.error('Error processing payment:', error);
-  }
-};
-    const handleSubmit = async (event) => {
-     event.preventDefault();
-     if (!stripe || !elements) {
-      console.error('Stripe.js has not loaded yet.');
-      return;
-      }
-          await handlePayment(clientSecret);
-    };
-    const checkoutopen=()=>{
-      Setcheckindex(true);
-    }
+//           }
+//       });
+//       if (paymentIntent.status === 'succeeded') {
+//           // Payment successful
+//           console.log('Payment successful!');
+//       }
+//   } catch (error) {
+//       console.error('Error processing payment:', error);
+//   }
+// };
+//     const handleSubmit = async (event) => {
+//      event.preventDefault();
+//      if (!stripe || !elements) {
+//       console.error('Stripe.js has not loaded yet.');
+//       return;
+//       }
+//           await handlePayment(clientSecret);
+//     };
+//     const checkoutopen=()=>{
+//       Setcheckindex(true);
+//     }
 
      
     return(
@@ -143,10 +121,10 @@ const handlePayment = async (clientSecret) => {
           </div>
         ))}
         </div>}
-        <button onClick={()=>checkout()} className="paybutton">check out</button>
+        <button className="paybutton">check out</button>
         </div>
           </div>
-          {checkindex==false &&<div className="Checkout">
+          {/* {checkindex==false &&<div className="Checkout">
           <h1>Check out</h1><button onClick={()=>checkoutopen()}>close</button>
           <Elements 
           stripe={StripePromise}
@@ -157,7 +135,7 @@ const handlePayment = async (clientSecret) => {
            
           </form>
           </Elements>
-          </div>}
+          </div>} */}
           
        </section>
     )

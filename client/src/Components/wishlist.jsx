@@ -7,10 +7,10 @@ import mydata from "./Context";
 import{AiOutlineHeart}from "react-icons/ai"
 import{AiFillHeart}from "react-icons/ai"
 import { useNavigate } from "react-router-dom";
-import Header from './Header';
 import Footer from './Footer';
 import Getid from "./session";
 import Gettoken from './sessiontoken';
+import Header2 from './Header2';
 
 
 export default function Wishlist(){
@@ -78,7 +78,7 @@ export default function Wishlist(){
 
      return(
      <div className="wishmain">
-        <div><Header/></div>
+        <div><Header2/></div>
         <div className="wishsub1">
         <h5>My Wishlist</h5>
         <div className="wthirddiv">

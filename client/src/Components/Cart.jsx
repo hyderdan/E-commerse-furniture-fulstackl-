@@ -1,4 +1,3 @@
-import Header from "./Header";
 import "./Style/CArt.css"
 import { BiSolidOffer } from "react-icons/bi"
 import { useContext } from "react";
@@ -10,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Getid from "./session";
 import Gettoken from "./sessiontoken";
+import Header2 from "./Header2";
 
 
 
@@ -146,7 +146,7 @@ export default function Cart() {
   return (
 
     <div className="cartmaindiv">
-      <Header />
+      <Header2/>
       <div className="cartsubdiv1">
         <h1>ADD TO CART</h1>
       </div>
