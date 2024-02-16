@@ -109,6 +109,7 @@ export default function Header(){
                 <h3><FiSearch/></h3>
               </span>
             </Nav.Item>
+            
             <Nav.Link className='navlink1'>
               {sessiontoken ?
                 <div className='userP'onClick={()=>clickprofile()} >
@@ -118,6 +119,7 @@ export default function Header(){
                 </div> :
                 <div  onClick={()=>user()}><FaRegUser/></div>
               }
+              
             </Nav.Link>
             <Nav.Link className='navlink1'>
               <Link to='/wishlist' className="link2">
@@ -130,12 +132,7 @@ export default function Header(){
                 <div><FiShoppingCart/></div>
               </Link>
             </Nav.Link>
-            <Nav.Item className='navitem3'><div>{Count1}</div></Nav.Item>
-            <Nav.Link className='navlink1'>
-              <Link to='/adminlogin' className="link2">
-                <div><MdOutlineAdminPanelSettings/></div>
-              </Link>
-            </Nav.Link>
+            <Nav.Item className='navitem3'></Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>

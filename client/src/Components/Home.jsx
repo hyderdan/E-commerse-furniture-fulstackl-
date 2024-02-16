@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
  import  "./Style/Home.css"
  import Carousel from 'react-bootstrap/Carousel';
-import Header from "./Header";
 import {BiSolidOffer} from "react-icons/bi"
-import {LiaStoreAltSolid} from "react-icons/lia"
 import {LuSofa} from "react-icons/lu"
 import {BiBed} from "react-icons/bi"
 import {MdOutlineBreakfastDining} from "react-icons/md"
@@ -13,8 +11,6 @@ import {MdChairAlt} from "react-icons/md"
 import {GiTable} from "react-icons/gi"
 import {GiConverseShoe} from "react-icons/gi"
 import {GiBookshelf} from "react-icons/gi"
-import {GiStreetLight} from "react-icons/gi"
-import {BsFillBookmarkStarFill} from "react-icons/bs"
 import Footer from "./Footer";
 import Sofas from "./Sofas";
 import { VscArrowRight } from "react-icons/vsc";
@@ -31,6 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaCirclePlus } from "react-icons/fa6";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { toast } from "react-toastify";
+import Header2 from "./Header2";
 
 
 
@@ -183,7 +180,7 @@ console.log(err);
        <p>&nbsp;Full House Sale&nbsp;|&nbsp;Up to 70% off +Extra 10%off&nbsp;|&nbsp;<Link className="link">Click  to Shop!</Link></p>
            </div>
 
-           <Header/>
+           <Header2/>
 
         <div className="fourthdiv">
             {homedata.map((data)=>(

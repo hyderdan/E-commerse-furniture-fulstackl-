@@ -14,6 +14,7 @@ export default function Adminlogin() {
   const { users, setUsers, setIslogedin } = useContext(mydata);
   const [Userdetails, setUserdetails] = useState(false);
   const[BAN,SetBAN]=useState("ban")
+  const[unBAN,SetunBAN]=useState(null)
   const [useindex, setuserindex] = useState(-1);
   const [changepass, setchangepass] = useState({
     username: "",
@@ -56,24 +57,22 @@ export default function Adminlogin() {
       }
     }
 
+  const  unbanuser =async(_id,unban)=>{
+    try{
+      await axios.put(`http://localhost:5000/users/unban/${_id}`,{unban});
+      fectuser();
+    }catch(err){
+      console.log(err);
+    }
+  }
   
-  const handledit = (index) => {
-    setchangepass({ ...users[index] });
-    setuserindex(index);
-  };
-  // const handlesave = (index) => {
-  //   const updatepass = [...users];
-  //   updatepass[index] = { ...changepass };
-  //   setUsers(updatepass);
-  //   setuserindex(-1);
-  //   setIslogedin(false)
-  // }
   const adminlogout = () => {
     sessionStorage.clear("admintoken");
     nav("/");
   }
   console.log("hey",users);
   console.log("s",status);
+  const bURL="http://localhost:5000/upload"
   return (
     <div className="panelmain">
       <div className="panelsub2">
@@ -104,8 +103,8 @@ export default function Adminlogin() {
 
                   <th>Username</th>
                   <th>Email</th>
-                  <th>Action1</th>
-                  <th>Action2</th>
+                  <th>Profile Picture</th>
+                  <th>BAN Account</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,8 +113,8 @@ export default function Adminlogin() {
                   <tr >
                     <td>{item.username}</td>
                     <td>{item.email}</td>
-                    <td>{item.status=="ban"?<button>Unban</button>:<button onClick={() => deleteuser(item._id,BAN)} className='table-btn' >BAN</button>}</td>
-                    <td> <button onClick={() => handledit(index)} className='table-btn' >Edit</button></td>
+                    <td><img className="adminuserimg" src={`${bURL}/${item.profile}`} alt="img" /></td>
+                    <td> {item.status=="ban"?<button onClick={() => unbanuser(item._id,unBAN)}>Unban</button>:<button onClick={() => deleteuser(item._id,BAN)} className='table-btn' >BAN</button>}</td>
 
                   </tr>
                 ))}

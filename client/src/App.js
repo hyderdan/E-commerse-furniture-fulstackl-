@@ -29,6 +29,7 @@ import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
   import {Elements}from "@stripe/react-stripe-js";
   import {loadStripe} from "@stripe/stripe-js";
+import Header2 from './Components/Header2';
 
 
 
@@ -138,6 +139,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/Headd' element={<Head />} />
+            <Route path='/Header' element={<Header2/>} />
             <Route path='/footer' element={<Footer />} />
             <Route path='/sofas' element={<Sofas />} />
             <Route path='/bed' element={<Bed />} />
@@ -150,8 +152,8 @@ function App() {
               stripe={StripePromise} 
               
               ><Payment/></Elements>}/>
-            <Route path='/Aaddproducts' element={<Adminaddproducts />} />
-            <Route path='/Aproductsdetail' element={<Admiinproductdet />} />
+           {adminid && <Route path='/Aaddproducts' element={<Adminaddproducts />} />}
+           {adminid && <Route path='/Aproductsdetail' element={<Admiinproductdet />} />}
             <Route path='/dining' element={<Dining />} />
             <Route path='/dealzone' element={<Dealzone />} />
             <Route path='/recentlyviewed' element={<Rviewd />} />

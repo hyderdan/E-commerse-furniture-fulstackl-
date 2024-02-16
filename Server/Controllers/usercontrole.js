@@ -101,6 +101,16 @@ try {
 }
 catch (err) { console.log(err) }
 }
+const unbanuser= async(req,res)=>{
+  try{
+    const {_id}=req.params;
+    const {unban}=req.body
+    const users=await userdata.findByIdAndUpdate(_id,{status:unban},{new: true});
+    res.json(users);
+  }catch(err){
+    console.log(err)
+  }
+}
 const addprofile=async(req,res)=>{
   try{
     const{userid}=req.params;
@@ -508,5 +518,5 @@ module.exports = {
   userlogin,singleuser, Addusers, updateuser,banuser,addToCart, getuser, getcart, getcartproducts, fetchcart, decrementcartquand,
   addTowishlist, getwishlist, getwishproducts, fetchwishlist, deletefromwishlist,
   deletefromcart, recentlyviewd, deletefromrecentlyviewed,
-  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile,deleteprofile
+  getviewedproducts, fechrecentlyviewed, fetchview, fetchview2,addprofile,deleteprofile, unbanuser
 }

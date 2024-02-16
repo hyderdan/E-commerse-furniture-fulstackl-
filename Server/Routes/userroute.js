@@ -15,6 +15,7 @@ userrouter.use(cookieParser());
 userrouter.get('/',ProductControllers.getuser);
 userrouter.get('/singleusers/:userid',ProductControllers.singleuser);
 userrouter.put('/:_id',ProductControllers.banuser);
+userrouter.put('/unban/:_id',ProductControllers.unbanuser);
 userrouter.post("/login",ProductControllers.userlogin)
 userrouter.post("/register",ProductControllers.Addusers)
 userrouter.put("/register/:id",ProductControllers.updateuser);
