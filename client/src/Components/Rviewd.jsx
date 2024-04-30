@@ -15,7 +15,7 @@ export default function Rviewd(){
 
    const fetchrecent = async()=>{
     try{
-    const response = await axios.get(`http://localhost:5000/users/recent/2/${userid}`);
+    const response = await axios.get(`http://localhost:3000/users/recent/2/${userid}`);
     const datas =response.data;
    
     setrecently(datas.recentview);

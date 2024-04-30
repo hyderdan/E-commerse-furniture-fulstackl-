@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useEffect } from "react";
 
 
-export default function Admiinproductdet(){
+export default function   Admiinproductdet(){
    const {Sofadata, Setsofadata}=useContext(mydata);
    const[editIndex,seteditIndex]=useState(null);
    const [editpass,seteditpass]=useState('')
@@ -27,7 +27,7 @@ export default function Admiinproductdet(){
     }, []);
 console.log(Sofadata);
 const fechdata = async ()=>{
-  const responce = await axios.get('http://localhost:5000/product');
+  const responce = await axios.get('http://localhost:3000/product');
   Setsofadata(responce.data);
 
 }
@@ -40,7 +40,7 @@ const handleChange = (data) => {
 
   const handleSaveEdit = async(id,e) => {
     try {
-      await axios.put(`http://localhost:5000/product/${id}`,{ price:e });
+      await axios.put(`http://localhost:3000/product/${id}`,{ price:e });
       fechdata();
       canceledit();
   } catch (error) {
@@ -65,7 +65,7 @@ const handleChange = (data) => {
 
   const deleteProduct=async(id)=>{
     try {
-      await axios.delete(`http://localhost:5000/product/${id}`);
+      await axios.delete(`http://localhost:3000/product/${id}`);
       fechdata();
     } catch (error) {
       console.error('Error deleting product:', error);

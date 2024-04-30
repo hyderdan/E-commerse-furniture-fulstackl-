@@ -33,7 +33,7 @@ export default function Dealzone(){
   const fechrecentlyviewed = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/recent/idr/${userid}`
+        `http://localhost:3000/users/recent/idr/${userid}`
 
       );
 
@@ -53,7 +53,7 @@ export default function Dealzone(){
       else {
 
         const response = await axios.post(
-          "http://localhost:5000/users/recentlyviewed", { value_id, userid },
+          "http://localhost:3000/users/recentlyviewed", { value_id, userid },
 
           {
             withCredentials: true,
@@ -72,7 +72,7 @@ export default function Dealzone(){
   const fechwishlist = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/wishedproduct/idw/${userid}`,
+        `http://localhost:3000/users/wishedproduct/idw/${userid}`,
 
       );
       console.log("cartproducts", response.data.wishlistproducts)
@@ -93,7 +93,7 @@ export default function Dealzone(){
       else {
 
         const response = await axios.post(
-          "http://localhost:5000/users/wishlist", { value_id, userid },
+          "http://localhost:3000/users/wishlist", { value_id, userid },
 
           {
             withCredentials: true,
@@ -116,7 +116,7 @@ export default function Dealzone(){
   };
   const totalwishquand = async (value_id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, { value_id });
+      const response = await axios.get(`http://localhost:3000/users/wish/${userid}`, { value_id });
       Setcount(response.data.totalquantity);
 
       // const productInWishlist = wishlistItems.find(item => item.product._id === );

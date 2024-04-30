@@ -36,7 +36,7 @@ export default function Chelsea(){
    
   },[]);
   const fectdata = async ()=>{
-    const responce = await axios.get('http://localhost:5000/product');
+    const responce = await axios.get('http://localhost:3000/product');
     Setproductdetail1(responce.data);
   }
   const products=Productdetail1.filter((data)=>
@@ -45,7 +45,7 @@ export default function Chelsea(){
   const fechAddtocart=async()=>{
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/savedcart/ids/${sessionid}`,
+        `http://localhost:3000/users/savedcart/ids/${sessionid}`,
              
       );
      
@@ -58,7 +58,7 @@ export default function Chelsea(){
   };
   const totalquand = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+      const response = await axios.get(`http://localhost:3000/users/savedcart/${sessionid}`, {})
       Setcount1(response.data.totalquantity);
       console.log("total", response.data.totalquantity)
     }
@@ -81,7 +81,7 @@ export default function Chelsea(){
       else{
        
       const response = await axios.post(
-        "http://localhost:5000/users/usercart",{value_id,sessionid},
+        "http://localhost:3000/users/usercart",{value_id,sessionid},
         
         {
           withCredentials: true,
@@ -116,7 +116,7 @@ export default function Chelsea(){
       }
       else{
       const response = await axios.post(
-        "http://localhost:5000/users/usercart/delete",{delete_id,index,sessionid}, 
+        "http://localhost:3000/users/usercart/delete",{delete_id,index,sessionid}, 
         {
           withCredentials: true,
           headers: {

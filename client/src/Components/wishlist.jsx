@@ -31,7 +31,7 @@ export default function Wishlist(){
           try {
       
       
-            const response = await axios.get(`http://localhost:5000/users/wish/${userid}`, {})
+            const response = await axios.get(`http://localhost:3000/users/wish/${userid}`, {})
             setwishproducts(response.data.wishlist)
             Setcount(response.data.totalquantity); 
             console.log("onlyidincart", response.data.wishlist)
@@ -52,7 +52,7 @@ export default function Wishlist(){
             }
             else {
               const response = await axios.post(
-                "http://localhost:5000/users/wishlist/delete", { delete_id, index,userid},
+                "http://localhost:3000/users/wishlist/delete", { delete_id, index,userid},
                 {
                   withCredentials: true,
                   headers: {

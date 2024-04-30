@@ -8,13 +8,13 @@ const{adminrouter}=require("./Routes/adminRoute");
 const{paymentrouter}=require("./Routes/paymentroute")
 const {Connect}=require("./config/config")
 const app= express();
-const PORT=5000
+const PORT=3000
 Connect()
 require("dotenv").config();
 app.use(bodyparser.json())
 app.use(cors(
     {
-        origin:"http://localhost:3000",
+        origin:"http://localhost:3001",
     methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials:true,
     }

@@ -85,7 +85,7 @@ export default function Adminaddproducts() {
   const postData = async () => {
 
     try {
-      await axios.post('http://localhost:5000/product', {
+      await axios.post('http://localhost:3000/product', {
         image: imagearray, name: namE, description: descriptioN,
         price: pricE, quandity: quanditY, item: iteM
       },

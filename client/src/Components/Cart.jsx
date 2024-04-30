@@ -31,7 +31,7 @@ export default function Cart() {
     try {
 
 
-      const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+      const response = await axios.get(`http://localhost:3000/users/savedcart/${sessionid}`, {})
       setCartproducts(response.data.products);
       Setcount1(response.data.totalquantity);
       console.log("onlyidincart", response.data.products);
@@ -49,7 +49,7 @@ export default function Cart() {
       }
       else {
         const response = await axios.post(
-          "http://localhost:5000/users/usercart", { value_id, sessionid },
+          "http://localhost:3000/users/usercart", { value_id, sessionid },
 
           {
             withCredentials: true,
@@ -75,7 +75,7 @@ export default function Cart() {
       }
       else {
         const response = await axios.post(
-          "http://localhost:5000/users/usercart/decrement", { value_id, sessionid },
+          "http://localhost:3000/users/usercart/decrement", { value_id, sessionid },
 
           {
             withCredentials: true,
@@ -102,7 +102,7 @@ export default function Cart() {
       }
       else {
         const response = await axios.post(
-          "http://localhost:5000/users/usercart/delete", { delete_id, index, sessionid },
+          "http://localhost:3000/users/usercart/delete", { delete_id, index, sessionid },
           {
             withCredentials: true,
             headers: {

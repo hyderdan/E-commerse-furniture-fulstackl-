@@ -59,7 +59,7 @@ import Header2 from "./Header2";
 
   };
   const fectdata = async ()=>{
-    const responce = await axios.get('http://localhost:5000/homeimage');
+    const responce = await axios.get('http://localhost:3000/homeimage');
     sethomedata(responce.data);
    
   };
@@ -72,7 +72,7 @@ import Header2 from "./Header2";
       // nav("/login")
     }
     try{
-        const responce= await axios.get(`http://localhost:5000/users/singleusers/${userid}`);
+        const responce= await axios.get(`http://localhost:3000/users/singleusers/${userid}`);
         const profiledata=responce.data;
         setindexprofile(profiledata.users.profile);
         sessionStorage.setItem("profilepic",profiledata.users.profile)

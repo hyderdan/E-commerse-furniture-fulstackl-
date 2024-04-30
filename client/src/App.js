@@ -75,12 +75,12 @@ function App() {
   
 
   const fectdata = async () => {
-    const responce = await axios.get('http://localhost:5000/product');
+    const responce = await axios.get('http://localhost:3000/product');
     Setsofadata(responce.data);
   }
   const totalquand = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {})
+      const response = await axios.get(`http://localhost:3000/users/savedcart/${sessionid}`, {})
       Setcount1(response.data.totalquantity);
       console.log("total", response.data.totalquantity);
 
@@ -91,7 +91,7 @@ function App() {
   }
   const totalwishquand = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+      const response = await axios.get(`http://localhost:3000/users/wish/${sessionid}`, {})
       Setcount(response.data.totalquantity);
       console.log("total", response.data.totalquantity)
     }
@@ -103,7 +103,7 @@ function App() {
     try {
 
 
-      const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, {})
+      const response = await axios.get(`http://localhost:3000/users/wish/${sessionid}`, {})
       setwishproducts(response.data.wishlist);
       console.log("onlyidincart", response.data.wishlist)
       console.log("total", response.data.totalquantity)

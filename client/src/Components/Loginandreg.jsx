@@ -58,7 +58,7 @@ export default function Loginandreg(){
       if(Object.keys(handleerror).length===0){  
     try {
       const response = await axios.post(
-        'http://localhost:5000/users/login',
+        'http://localhost:3000/users/login',
         {
           email,
           password,
@@ -128,7 +128,7 @@ export default function Loginandreg(){
         if(Object.keys(handleerror).length===0){    
         // If the user data is valid, add the user to the users array 
         try{
-         const responce= await axios.post('http://localhost:5000/users/register',{username:userid,email:useremail,password:userpass
+         const responce= await axios.post('http://localhost:3000/users/register',{username:userid,email:useremail,password:userpass
         ,confirmPassword:confirmpassword},
           (req, res) => console.log(req.body));
           // fectdata();  

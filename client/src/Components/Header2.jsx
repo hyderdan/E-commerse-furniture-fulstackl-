@@ -58,7 +58,7 @@ const Header2 = () => {
 
     const totalwishquand = async (value_id) => {
         try {
-            const response = await axios.get(`http://localhost:5000/users/wish/${sessionid}`, { value_id });
+            const response = await axios.get(`http://localhost:3000/users/wish/${sessionid}`, { value_id });
             Setcount(response.data.totalquantity);
             console.log("total", response.data.totalquantity)
         } catch (err) {
@@ -68,7 +68,7 @@ const Header2 = () => {
 
     const totalquand = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/users/savedcart/${sessionid}`, {});
+            const response = await axios.get(`http://localhost:3000/users/savedcart/${sessionid}`, {});
             Setcount1(response.data.totalquantity);
             console.log("total", response.data.totalquantity);
 
@@ -80,7 +80,7 @@ const Header2 = () => {
     const clickprofile = () => {
         setuserProfile(false);
     }
-    const bURL="http://localhost:5000/upload"
+    const bURL="http://localhost:3000/upload"
    
     return (
         <div>

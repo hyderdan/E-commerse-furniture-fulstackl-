@@ -43,14 +43,14 @@ export default function Adminlogin() {
   },[])
 
   const fectuser= async()=>{
-    const responce= await axios.get('http://localhost:5000/users');
+    const responce= await axios.get('http://localhost:3000/users');
     setUsers(responce.data);
     Setstatus(responce.data.status);
 
   }
   const deleteuser = async (_id,banuser) => {
       try {
-        await axios.put(`http://localhost:5000/users/${_id}`,{banuser});
+        await axios.put(`http://localhost:3000/users/${_id}`,{banuser});
          fectuser();
       } catch (error) {
         console.error('Error deleting product:', error);
@@ -59,7 +59,7 @@ export default function Adminlogin() {
 
   const  unbanuser =async(_id,unban)=>{
     try{
-      await axios.put(`http://localhost:5000/users/unban/${_id}`,{unban});
+      await axios.put(`http://localhost:3000/users/unban/${_id}`,{unban});
       fectuser();
     }catch(err){
       console.log(err);
@@ -72,7 +72,7 @@ export default function Adminlogin() {
   }
   console.log("hey",users);
   console.log("s",status);
-  const bURL="http://localhost:5000/upload"
+  const bURL="http://localhost:3000/upload"
   return (
     <div className="panelmain">
       <div className="panelsub2">

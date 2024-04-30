@@ -100,7 +100,7 @@ export default function Sofas(){
               }
               else{
             const response = await axios.post(
-              "http://localhost:5000/users/recentlyviewed",{value_id,userid},
+              "http://localhost:3000/users/recentlyviewed",{value_id,userid},
               
               {
                 withCredentials: true,
@@ -119,7 +119,7 @@ export default function Sofas(){
        const fechrecentlyviewed=async()=>{
       try {
         const response = await axios.get(
-          `http://localhost:5000/users/recent/idr/${userid}`
+          `http://localhost:3000/users/recent/idr/${userid}`
                
         );
        console.log("recentlyvirewd",);
