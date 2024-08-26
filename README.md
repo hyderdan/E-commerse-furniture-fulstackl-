@@ -6,7 +6,7 @@ Welcome to Define Design, where style meets comfort. Discover a curated selectio
 From modern to classic designs, we offer pieces that fit every taste and budget.
 
 ## Demo
-![Click here to watch Demo](/src/Assets/Untitled video - Made with Clipchamp (1).gif)
+![Click here to watch Demo](https://github.com/hyderdan/E-commerse-furniture-fulstackl-/blob/main/client/src/Assets/demo/Untitled%20video%20-%20Made%20with%20Clipchamp%20(1).gif)
 ## Features
 
 - [x] User Authentication & Authorization
