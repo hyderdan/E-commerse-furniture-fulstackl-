@@ -6,7 +6,7 @@ Welcome to Define Design, where style meets comfort. Discover a curated selectio
 From modern to classic designs, we offer pieces that fit every taste and budget.
 
 ## Demo
-![Click here to watch Demo](/src/Assets/Untitled video - Made with Clipchamp (1).gif)
+![Click here to watch Demo](client/src/Assets)
 ## Features
 
 - [x] User Authentication & Authorization
